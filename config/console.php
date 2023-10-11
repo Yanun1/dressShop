@@ -25,7 +25,18 @@ $config = [
                 ],
             ],
         ],
-        'db' => $db,
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+            'defaultRoles' => ['user']
+        ],
+        'db'=>array(
+            'connectionString' => 'mysql:host=localhost;dbname=dress_Shop',
+            //'class' => 'yii\db\Connection',
+            'emulatePrepare' => true,
+            'username' => 'root',
+            'password' => '',
+            'charset' => 'utf8',
+        ),
     ],
     'params' => $params,
     /*

@@ -3,6 +3,7 @@
 namespace app\models;
 
 use yii\db\ActiveRecord;
+use Yii;
 
 class User extends ActiveRecord implements \yii\web\IdentityInterface
 {
@@ -14,8 +15,7 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
 
     public static function findIdentity($id)
     {
-        return isset(self::$users[$id]) ? new static(self::$users[$id]) : null;
-        // self::findOne($id);
+        return static::findOne($id);
     }
 
     public static function findIdentityByAccessToken($token, $type = null)
@@ -29,7 +29,7 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
         return null;
     }
 
-    public static function findBylogin($login)
+    public static function findByUsername($login)
     {
         $user = self::find()->where("login='$login'")->one();
         if (strcasecmp($user['login'], $login) === 0) {
@@ -45,9 +45,14 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
         return $this->id;
     }
 
+    public function generateAuthKey()
+    {
+        $this->auth_key = Yii::$app->security->generateRandomString();
+    }
+
     public function getAuthKey()
     {
-        //return $this->authKey;
+        return $this->authKey;
     }
 
     public function validateAuthKey($authKey)
