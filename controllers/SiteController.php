@@ -84,6 +84,18 @@ class SiteController extends Controller
      */
     public function actionOrders(){
         $model = new OrdersForm();
+
+        if(Yii::$app->request->post()){
+            $model->load(Yii::$app->request->post());
+            echo '<pre>';
+            var_dump(Yii::$app->request->post());
+            echo '</pre>';
+        }
+//        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
+//            Yii::$app->session->setFlash('contactFormSubmitted');
+//
+//            return $this->refresh();
+//        }
         return $this->render('orders',compact('model'));
     }
 

@@ -8,7 +8,6 @@ class OrdersForm extends Model{
     public $client;
     public $price;
     public $count;
-    public $sum;
 
     public function attributLabels(){
         return [
@@ -16,14 +15,13 @@ class OrdersForm extends Model{
             'client' => 'Client',
             'price' => 'Price',
             'count' => 'Count',
-            'sum' => 'Sum',
         ];
     
     }
 
     public function rules(){
         return [
-            [['products','client','price','count','sum'],'required','message' =>'Required'],
+            [['products','client','price','count'],'required','message' =>'Required'],
         ];
     }
     
