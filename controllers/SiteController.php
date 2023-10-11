@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\User;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -10,23 +11,26 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\OrdersForm;
+use app\commands\RolesController;
 
 class SiteController extends Controller
 {
-    /**
-     * {@inheritdoc}
-     */
     public function behaviors()
     {
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['logout'],
+                'only' => ['logout', 'index'],
                 'rules' => [
+                    [
+                        'actions' => ['index', 'logout'],
+                        'allow' => true,
+                        'roles' => ['admin'],
+                    ],
                     [
                         'actions' => ['logout'],
                         'allow' => true,
-                        'roles' => ['@'],
+                        'roles' => ['employee'],
                     ],
                 ],
             ],
@@ -39,9 +43,6 @@ class SiteController extends Controller
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function actions()
     {
         return [
@@ -55,13 +56,11 @@ class SiteController extends Controller
         ];
     }
 
-    /**
-     * Displays homepage.
-     *
-     * @return string
-     */
     public function actionIndex()
     {
+        if(Yii::$app->authManager->getRole('admin') == null) {
+            RolesController::defaultRoles();
+        }
         return $this->render('index');
     }
 
@@ -87,4 +86,31 @@ class SiteController extends Controller
         $model = new OrdersForm();
         return $this->render('orders',compact('model'));
     }
+
+    public function actionLogin()
+    {
+        if (!Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+        $model = new LoginForm();
+        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            return $this->goHome();
+        }
+
+        $model->password = '';
+        return $this->render('login', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionLogout()
+    {
+        Yii::$app->user->logout();
+
+        return  $this->goHome();
+    }
 }
+
+// registraciayi jamanak petqa authKey generacnenq ev tanq assign-ov roly userin
+// $userRole = Yii::$app->authManager->getRole('admin');
+// Yii::$app->authManager->assign($userRole, $model->getUser()->getId());

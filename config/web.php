@@ -52,8 +52,8 @@ $config = [
             ],
         ],
         'authManager' => [
-            'class' => 'yii\rbac\PhpManager',
-            'authFile' => '@app/config/rbac.php'
+            'class' => 'yii\rbac\DbManager',
+            'defaultRoles' => ['user']
         ],
     ],
     'params' => $params,
