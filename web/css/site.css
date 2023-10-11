@@ -95,15 +95,7 @@ a.desc:after {
 .form-group {
     margin-bottom: 1rem;
 }
-form{
-    display:flex;
-}
+
 .form-control{
     width: 98%;
-}
-.btn{
-    width: 45px;
-    height: 36px;
-    margin-top: 25px;
-    margin-left:5px;
 }
