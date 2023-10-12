@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\User;
 use Yii;
 use yii\filters\AccessControl;
+use yii\helpers\Console;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
@@ -93,22 +94,22 @@ class SiteController extends Controller
        if(Yii::$app->request->isPost) {
 
            $postValues = Yii::$app->request->post()['Orders'];
-           foreach ($postValues as $requestRow) {
-               $model['id_product'] = $requestRow[0];
-               $model['count'] = $requestRow[1];
-
-               echo '<pre>';
-               var_dump($model);
-               echo '</pre>';
+           for($i = 0; $i < count($postValues['id_product']); $i++){
+               $model = new Orders();
+               $model['count'] = $postValues['count'][$i];
+               $model['id_product'] = $postValues['id_product'][$i];
+               $model['id_user'] = Yii::$app->user->getId();
+               if($model->validate())
+                   $model->save();
+               else {
+                   Yii::$app->session->setFlash('errorOrder', 'Something gone wrong in'."$i row!");
+                   return $this->refresh();
+               }
            }
-           die;
+           Yii::$app->session->setFlash('successOrder', 'Ordered');
+           return $this->refresh();
        }
 
-//        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-//            Yii::$app->session->setFlash('contactFormSubmitted');
-//
-//            return $this->refresh();
-//        }
         return $this->render('orders',compact('model'));
     }
 

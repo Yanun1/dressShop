@@ -109,4 +109,15 @@ $(document).ready(function() {
     $('#orders-id_product').on('input', selectChange);
     $('#orders-count').on('input', changePriceEvent);
 
+    // $('html').on('mousemove',function () {
+    //     console.log($(this));
+    //     if($(this).text() == '') {
+    //         $(this).find('#orders-id_product').css('border-color', '#ced4da');
+    //     }
+    //     else {
+    //         $(this).
+    //         find('#orders-id_product').css('border-color', 'red');
+    //     }
+    // });
+
 })

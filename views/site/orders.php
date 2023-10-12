@@ -7,6 +7,21 @@
 <h1>Orders</h1>
 <div class="newForm">
     <?php $form = ActiveForm::begin(['options' =>['class' =>'ordersMain']]) ?>
+    <?php if (Yii::$app->session->hasFlash('successOrder')): ?>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong><?= Yii::$app->session->getFlash('successOrder'); ?>! </strong>
+            You can check your orders in "My Order" section
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <?php endif; ?>
+
+    <?php if (Yii::$app->session->hasFlash('errorOrder')): ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong></strong><?= Yii::$app->session->getFlash('errorOrder'); ?>! </strong>
+            all orders after this line were not ordered
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        }<?php endif; ?>
         <div class="ordersMain_container">
             <div class="OrdersForm">
                 <?= $form->field($model,'id_product[]')->label('Products')->dropDownList([], ['prompt' => 'Not Selected'])?>
@@ -39,11 +54,16 @@
 </div>
 
 <style>
+    .newForm {
+        margin-top: 50px;
+    }
+
     .OrdersForm {
         display: flex;
         gap: 5px;
         align-items: end;
         margin: 0 auto;
+        margin-bottom: 20px;
     }
 
     .noneInput > input {
