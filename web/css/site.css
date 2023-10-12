@@ -1,5 +1,5 @@
-main > .container {
-    padding: 70px 15px 20px;
+main > .container-view {
+    padding: 70px 30px 20px;
 }
 
 .footer {
@@ -8,7 +8,7 @@ main > .container {
     height: 60px;
 }
 
-.footer > .container {
+.footer > .container-view {
     padding-right: 15px;
     padding-left: 15px;
 }
@@ -73,7 +73,7 @@ a.desc:after {
     }
 }
 @media(min-width:768px) {
-    .navbar > .container {
+    .navbar > .container-view {
         max-width: 100% !important;
     }
 
@@ -94,8 +94,4 @@ a.desc:after {
 
 .form-group {
     margin-bottom: 1rem;
-}
-
-.form-control{
-    width: 98%;
 }

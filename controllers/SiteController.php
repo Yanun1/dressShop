@@ -10,8 +10,9 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
-use app\models\OrdersForm;
+use app\models\Orders;
 use app\commands\RolesController;
+use app\models\Products;
 
 class SiteController extends Controller
 {
@@ -20,17 +21,21 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['logout', 'index'],
+                'only' => ['logout', 'index', 'orders'],
                 'rules' => [
                     [
-                        'actions' => ['index', 'logout'],
+                        'actions' => ['index', 'logout', 'orders'],
                         'allow' => true,
                         'roles' => ['admin'],
+                    ],                    [
+                        'actions' => ['index', 'logout'],
+                        'allow' => true,
+                        'roles' => ['employee'],
                     ],
                     [
                         'actions' => ['logout'],
                         'allow' => true,
-                        'roles' => ['employee'],
+                        'roles' => ['*'],
                     ],
                 ],
             ],
@@ -77,20 +82,28 @@ class SiteController extends Controller
         ]);
     }
 
-    /**
-     * Displays about page.
-     *
-     * @return string
-     */
     public function actionOrders(){
-        $model = new OrdersForm();
+        $model = new Orders();
 
-        if(Yii::$app->request->post()){
-            $model->load(Yii::$app->request->post());
-            echo '<pre>';
-            var_dump(Yii::$app->request->post());
-            echo '</pre>';
+        if(Yii::$app->request->isAjax) {
+            $arrayProduct = Products::find()->with('user')->asArray()->all();
+            return json_encode($arrayProduct);
         }
+
+       if(Yii::$app->request->isPost) {
+
+           $postValues = Yii::$app->request->post()['Orders'];
+           foreach ($postValues as $requestRow) {
+               $model['id_product'] = $requestRow[0];
+               $model['count'] = $requestRow[1];
+
+               echo '<pre>';
+               var_dump($model);
+               echo '</pre>';
+           }
+           die;
+       }
+
 //        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
 //            Yii::$app->session->setFlash('contactFormSubmitted');
 //
