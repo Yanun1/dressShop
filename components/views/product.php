@@ -43,7 +43,9 @@ $menuHtml= getMenuHtml($tree);
     <div class="black-background"></div>
     <div class="select-window">
         <div class="window-content">
-            <?=$menuHtml ?>
+            <ul class="catalog">
+                <?= $menuHtml ?>
+            </ul>
         </div>
     </div>
 </div>

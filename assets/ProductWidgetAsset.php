@@ -10,6 +10,8 @@ class ProductWidgetAsset extends AssetBundle
         'css/productWidget.css',
     ];
     public $js = [
+        'js/jquery.accordion.js',
+        'js/jquery.cookie.js',
         'js/productWidget.js'
     ];
     public $depends = [

@@ -9,7 +9,5 @@ $(document).ready(function() {
         }
     });
 
-    $('.select-window').click(function () {
-        console.log('mejna sxmvac');
-    });
+    $('.catalog').dcAccordion();
 });
