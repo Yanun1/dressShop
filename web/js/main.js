@@ -1,6 +1,4 @@
 $(document).ready(function() {
-    var $formCounter = 1;
-
     var productList;
     $.ajax({
         url: 'orders',
@@ -55,8 +53,6 @@ $(document).ready(function() {
         newDiv.find('.btn-danger').click(removeForm);
         newDiv.find('#orders-id_product').change(selectChange);
         newDiv.find('#orders-count').on('input', changePriceEvent);
-        // newDiv.find("[name='OrdersForm[products]']").attr('name', `OrdersForm[products${$formCounter}]`);
-        // newDiv.find("[name='OrdersForm[count]']").attr('name', `OrdersForm[count${$formCounter}]`);
 
         // empting cloned inputs
         newDiv.find("input[type='Number']").val(0);
@@ -65,7 +61,6 @@ $(document).ready(function() {
 
         $(".ordersMain_container").append(newDiv);
         $(".ordersMain_container").append($('.ordersMain_container > button'));
-        $formCounter++;
     }
 
     // poxum enq selectov yntrac produkti tvyalnery

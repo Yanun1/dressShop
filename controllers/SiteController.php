@@ -83,15 +83,19 @@ class SiteController extends Controller
         ]);
     }
 
+//    public function actionProductTree() {
+//        if(Yii::$app->request->isAjax) {
+//            $arrayProduct = Products::find()->with('user')->asArray()->all();
+//            return json_encode($arrayProduct);
+//        }
+//    }
     public function actionOrders(){
         $model = new Orders();
 
-        if(Yii::$app->request->isAjax) {
-            $arrayProduct = Products::find()->with('user')->asArray()->all();
-            return json_encode($arrayProduct);
-        }
-
        if(Yii::$app->request->isPost) {
+           echo '<pre>';
+           var_dump(Yii::$app->request->post());
+           echo '</pre>';die;
 
            $postValues = Yii::$app->request->post()['Orders'];
            for($i = 0; $i < count($postValues['id_product']); $i++){

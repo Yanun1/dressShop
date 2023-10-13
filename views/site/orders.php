@@ -1,12 +1,13 @@
 <?php
   use yii\widgets\ActiveForm;
   use yii\helpers\Html;
+  use app\components\ProductWidget;
 
   $this->registerJsFile('@web/js/main.js', ['position'=>\yii\web\View::POS_END, 'depends' => [\yii\web\JqueryAsset::class, \yii\web\YiiAsset::class, \yii\bootstrap5\BootstrapAsset::class]]);
 ?>
 <h1>Orders</h1>
 <div class="newForm">
-    <?php $form = ActiveForm::begin(['options' =>['class' =>'ordersMain']]) ?>
+    <?php $form = ActiveForm::begin(['options' =>['class' =>'ordersMain', 'enctype' => 'multipart/form-data']]) ?>
     <?php if (Yii::$app->session->hasFlash('successOrder')): ?>
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <strong><?= Yii::$app->session->getFlash('successOrder'); ?>! </strong>
@@ -21,7 +22,7 @@
             all orders after this line were not ordered
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-        }<?php endif; ?>
+        <?php endif; ?>
         <div class="ordersMain_container">
             <div class="OrdersForm">
                 <?= $form->field($model,'id_product[]')->label('Products')->dropDownList([], ['prompt' => 'Not Selected'])?>
@@ -39,6 +40,7 @@
                     <?= Html::label('Total', 'costLabel') ?>
                     <?= Html::input('Number','sumName', 0, ['class' => 'form-control field-ordersform-count costInput', 'readOnly' => true])?>
                 </div>
+<!--                --><?php //= //Html::input('file', 'fileName', 'input file') ?>
                 <?= Html::button('+', ['class' =>'btn btn-success']) ?>
                 <?= Html::button('-', ['class' =>'btn btn-danger']) ?>
             </div>
@@ -52,6 +54,8 @@
         </div>
     <?php ActiveForm::end() ?>
 </div>
+
+<?= ProductWidget::widget() ?>
 
 <style>
     .newForm {
