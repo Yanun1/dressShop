@@ -83,12 +83,6 @@ class SiteController extends Controller
         ]);
     }
 
-//    public function actionProductTree() {
-//        if(Yii::$app->request->isAjax) {
-//            $arrayProduct = Products::find()->with('user')->asArray()->all();
-//            return json_encode($arrayProduct);
-//        }
-//    }
     public function actionOrders(){
         $model = new Orders();
 

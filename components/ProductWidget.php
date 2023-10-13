@@ -15,3 +15,4 @@ class ProductWidget extends Widget
         return $this->render('product');
     }
 }
+

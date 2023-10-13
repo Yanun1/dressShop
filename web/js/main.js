@@ -1,14 +1,14 @@
 $(document).ready(function() {
     var productList;
     $.ajax({
-        url: 'orders',
+        url: '/ajax/base',
         type: 'POST',
         dataType: 'json',
         success: function (res) {
             productList = res;
-            res.forEach(function (temp) {
-                $('#orders-id_product').append(`<option value="${temp['id']}"> ${temp['product']}</option>`);
-            });
+            // res.forEach(function (temp) {
+            //     $('#orders-id_product').append(`<option value="${temp['id']}"> ${temp['product']}</option>`);
+            // });
         },
         error: function () {
             alert('Error!');

@@ -25,7 +25,7 @@
         <?php endif; ?>
         <div class="ordersMain_container">
             <div class="OrdersForm">
-                <?= $form->field($model,'id_product[]')->label('Products')->dropDownList([], ['prompt' => 'Not Selected'])?>
+                <?= $form->field($model,'id_product[]')->label('Products')->input('text', ['placeholder' => "Select product", 'readOnly' => true])?>
 
                 <div class="form-group field-orders-id_product noneInput">
                     <?= Html::label('Saler', 'SalerLabel') ?>
@@ -55,7 +55,7 @@
     <?php ActiveForm::end() ?>
 </div>
 
-<?= ProductWidget::widget() ?>
+<?= ProductWidget::widget()  ;?>
 
 <style>
     .newForm {
