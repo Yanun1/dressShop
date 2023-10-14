@@ -8,10 +8,23 @@ use Yii;
 
 class AjaxController extends Controller
 {
-    public function actionBase() {
-        if(Yii::$app->request->isAjax) {
-            $arrayProduct = json_encode(Products::find()->with('user')->asArray()->all());
-            return $arrayProduct;
+    private static $base;
+    public function actionBase()
+    {
+        if (isset(self::$base))
+            return json_encode(self::$base, );
+        else {
+            self::$base = Products::find()->with('user')->indexBy('id')->asArray()->all();
+            return json_encode(self::$base);
+        }
+    }
+
+    public static function productGet()
+    {
+        if(isset(self::$base))
+            return self::$base;
+        else {
+            return self::$base = Products::find()->with('user')->indexBy('id')->asArray()->all();
         }
     }
 }

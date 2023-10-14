@@ -1,13 +1,15 @@
 <?php
 use app\assets\ProductWidgetAsset;
 use app\models\Products;
+use app\controllers\AjaxController;
 
-$data = Products::find()->with('user')->indexBy('id')->asArray()->all();
-
+$data =  AjaxController::productGet();
 ProductWidgetAsset::register($this);
 
 
- $menuHtml;
+
+
+$menuHtml;
 $tree = [];
 
 foreach ($data as $id => &$node) {
@@ -16,7 +18,6 @@ foreach ($data as $id => &$node) {
     else
         $data[$node['id_product']]['childs'][$node['id']] = &$node;
 }
-
 
 function getMenuHtml ($tree) {
     $str = '';
@@ -35,17 +36,38 @@ function getMenuHtml ($tree) {
 // var_dump($tree);
 // echo '</pre>'; die;
 $menuHtml= getMenuHtml($tree);
-
-
 ?>
 
 <div class="select-product-widget">
     <div class="black-background"></div>
     <div class="select-window">
         <div class="window-content">
-            <ul class="catalog">
-                <?= $menuHtml ?>
-            </ul>
+            <div class="window-title">
+                <h2>Products List</h2>
+                <hr>
+            </div>
+            <div class="window-product">
+                <ul class="catalog">
+                    <?= $menuHtml ?>
+                </ul>
+                <div class="product-info">
+                    <div class="product-info-view">
+                        <img src="http://dress-shop/images/window_product_default.jpg" alt="product">
+                    </div>
+                </div>
+            </div>
+            <div class="window-bottom">
+                <hr>
+                <div class="window-buttons">
+                    <button class="btn btn-secondary">Choose</button>
+                    <button class="btn btn-danger">Cancel</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
+<script>
+    //var temp = '<?php //echo json_encode($data, true) ?>//';
+    //console.log( JSON.parse(temp));
+</script>

@@ -1,12 +1,28 @@
 $(document).ready(function() {
-    $('#orders-id_product').click(function () {
+    var productId;
+    var productInput;
+
+    $('.productInput').click(function () {
         $('.select-product-widget').css('display', 'flex');
+        productInput = $(this);
     });
 
     $('.black-background').click(function () {
-        if(confirm('do you really want to exit?')) {
             $('.select-product-widget').css('display', 'none');
-        }
+    });
+
+    $('.btn-danger').click(function () {
+        $('.select-product-widget').css('display', 'none');
+    });
+
+    $('.btn-secondary').click(function () {
+        productInput.val(productId).trigger("change");
+        $('.select-product-widget').css('display', 'none');
+    });
+
+    $('.catalog a').click(function () {
+        productId = $(this).parent().val() + ' ' + $(this).parent().attr('src');
+        $('.product-info img').attr('src', "http://dress-shop/images/" + $(this).parent().attr('src'));
     });
 
     $('.catalog').dcAccordion();

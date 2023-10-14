@@ -87,10 +87,6 @@ class SiteController extends Controller
         $model = new Orders();
 
        if(Yii::$app->request->isPost) {
-           echo '<pre>';
-           var_dump(Yii::$app->request->post());
-           echo '</pre>';die;
-
            $postValues = Yii::$app->request->post()['Orders'];
            for($i = 0; $i < count($postValues['id_product']); $i++){
                $model = new Orders();

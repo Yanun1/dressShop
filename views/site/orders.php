@@ -25,7 +25,7 @@
         <?php endif; ?>
         <div class="ordersMain_container">
             <div class="OrdersForm">
-                <?= $form->field($model,'id_product[]')->label('Products')->input('text', ['placeholder' => "Select product", 'readOnly' => true])?>
+                <?= $form->field($model,'id_product[]',)->label('Products')->input('text', ['placeholder' => "Select product", 'class' => 'productInput form-control', 'readOnly' => true])?>
 
                 <div class="form-group field-orders-id_product noneInput">
                     <?= Html::label('Saler', 'SalerLabel') ?>
@@ -40,7 +40,9 @@
                     <?= Html::label('Total', 'costLabel') ?>
                     <?= Html::input('Number','sumName', 0, ['class' => 'form-control field-ordersform-count costInput', 'readOnly' => true])?>
                 </div>
-<!--                --><?php //= //Html::input('file', 'fileName', 'input file') ?>
+                <div class="micro-image">
+                    <img src="http://dress-shop/images/window_product_default.jpg" alt="photo">
+                </div>
                 <?= Html::button('+', ['class' =>'btn btn-success']) ?>
                 <?= Html::button('-', ['class' =>'btn btn-danger']) ?>
             </div>
@@ -101,5 +103,21 @@
         display: flex;
         gap: 20px;
         align-items: center;
+    }
+
+    .micro-image {
+        position: relative;
+        display: flex;
+        width: 38px;
+        height: 38px;
+        margin-bottom: 24px;
+    }
+
+    .productInput {
+        cursor: pointer;
+    }
+
+    .micro-image img {
+        width: 100%;
     }
 </style>

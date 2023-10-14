@@ -23,15 +23,49 @@
 .select-window {
     border-radius: 7px;
     border: 1px solid rgba(0,0,0,.9);
-    min-height: 400px;
     background-color: #ffffff;
     min-width: 600px;
     z-index: 1060;
 }
+
 .window-content {
     margin: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
+.window-buttons {
+    float: right;
+}
+
+.window-product {
+    display: flex;
+    gap: 10px;
+}
+
+.product-info {
+    width: 50%;
+    overflow: hidden;
+}
+
+.product-info-view {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.product-info img{
+    width: 100%;
+    position: absolute;
+}
+
+.catalog {
+    min-height: 180px;
+    width: 50%;
+}
 
 .category-products .panel {
     background-color: #FFFFFF;

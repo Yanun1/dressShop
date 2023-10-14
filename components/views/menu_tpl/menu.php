@@ -1,4 +1,4 @@
-<li>
+<li value="<?= $category['id']?>" src="<?= $category['image']?>">
     <a href="#"> <?= $category['product'] ?></a>
    <?php if(isset($category['childs'])):?>
     <span class = "badge pull-right"><i class="fa  fa-plus"></i></span>
@@ -7,7 +7,7 @@
     <ul>
         <a href="#"><?= getMenuHtml($category['childs'])?> </a>
     </ul>
-    <?php endif;?>
+    <?php endif ?>
 </li>
 
  

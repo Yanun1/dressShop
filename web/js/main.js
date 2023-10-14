@@ -5,7 +5,7 @@ $(document).ready(function() {
         type: 'POST',
         dataType: 'json',
         success: function (res) {
-            productList = res;
+            productList =  res;
             // res.forEach(function (temp) {
             //     $('#orders-id_product').append(`<option value="${temp['id']}"> ${temp['product']}</option>`);
             // });
@@ -14,13 +14,15 @@ $(document).ready(function() {
             alert('Error!');
         }
     });
-
     // lracnum enq ordersi meji input dashtery stacac tablicayi toxeric
     function selectChange() {
-        for (let i = 0; i < productList.length; i++) {
-            if (productList[i]['id'] == $(this).val()) {
+        let valuesArr = $(this).val().split(' ');
+        for (let i = 1; i <= Object.keys(productList).length; i++) {
+            if (productList[i]['id'] == valuesArr[0]) {
+                $(this).val(productList[i]['product']);
                 $(this).parent().parent().find("input[name='price']").val(productList[i]['price']);
                 $(this).parent().parent().find("input[name='saler']").val(productList[i]['user']['login']);
+                $(this).parent().parent().find(".micro-image > img").attr('src', "http://dress-shop/images/" + valuesArr[1]);
             }
         }
         changePrice($(this));
@@ -46,6 +48,7 @@ $(document).ready(function() {
 
     // + kochaky
     function duplicateForm() {
+        console.log(productList);
         let newDiv = $(".OrdersForm:first-child").clone();
 
         // adding events again for new buttons
@@ -53,11 +56,16 @@ $(document).ready(function() {
         newDiv.find('.btn-danger').click(removeForm);
         newDiv.find('#orders-id_product').change(selectChange);
         newDiv.find('#orders-count').on('input', changePriceEvent);
+        newDiv.find('.productInput ').click(function () {
+            $('.select-product-widget').css('display', 'flex');
+        });
 
         // empting cloned inputs
         newDiv.find("input[type='Number']").val(0);
         newDiv.find("#orders-count").val(1);
         newDiv.find("input[name='saler']").val('None');
+        newDiv.find(".productInput ").val('Select product');
+        newDiv.find("img").attr('src', 'http://dress-shop/images/window_product_default.jpg');
 
         $(".ordersMain_container").append(newDiv);
         $(".ordersMain_container").append($('.ordersMain_container > button'));
@@ -101,8 +109,10 @@ $(document).ready(function() {
 
     $(".btn-success").click(duplicateForm);
     $(".btn-danger").click(removeForm);
-    $('#orders-id_product').on('input', selectChange);
+    $('.productInput').on('change', selectChange);
     $('#orders-count').on('input', changePriceEvent);
+
+
 
     // $('html').on('mousemove',function () {
     //     console.log($(this));
