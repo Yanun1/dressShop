@@ -1,11 +1,16 @@
 <?php
-  use yii\widgets\ActiveForm;
-  use yii\helpers\Html;
-  use app\components\ProductWidget;
+
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+use app\components\ProductWidget;
+
 
 $this->registerJsFile('@web/js/xlsx.full.min.js', ['position'=>\yii\web\View::POS_END, 'depends' => [\yii\web\JqueryAsset::class, \yii\web\YiiAsset::class, \yii\bootstrap5\BootstrapAsset::class]]);
 $this->registerJsFile('@web/js/main.js', ['position'=>\yii\web\View::POS_END, 'depends' => [\yii\web\JqueryAsset::class, \yii\web\YiiAsset::class, \yii\bootstrap5\BootstrapAsset::class]]);
 
+$this->title = 'Create Orders';
+$this->params['breadcrumbs'][] = ['label' => 'Orders', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
   ?>
 <h1>Orders</h1>
 <div class="newForm">
