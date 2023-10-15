@@ -3,10 +3,15 @@
   use yii\helpers\Html;
   use app\components\ProductWidget;
 
-  $this->registerJsFile('@web/js/main.js', ['position'=>\yii\web\View::POS_END, 'depends' => [\yii\web\JqueryAsset::class, \yii\web\YiiAsset::class, \yii\bootstrap5\BootstrapAsset::class]]);
-?>
+$this->registerJsFile('@web/js/xlsx.full.min.js', ['position'=>\yii\web\View::POS_END, 'depends' => [\yii\web\JqueryAsset::class, \yii\web\YiiAsset::class, \yii\bootstrap5\BootstrapAsset::class]]);
+$this->registerJsFile('@web/js/main.js', ['position'=>\yii\web\View::POS_END, 'depends' => [\yii\web\JqueryAsset::class, \yii\web\YiiAsset::class, \yii\bootstrap5\BootstrapAsset::class]]);
+
+  ?>
 <h1>Orders</h1>
 <div class="newForm">
+    <div class="to-excel-div">
+        <button type="button" class="btn btn-success to-excel">Excel</button>
+    </div>
     <?php $form = ActiveForm::begin(['options' =>['class' =>'ordersMain', 'enctype' => 'multipart/form-data']]) ?>
     <?php if (Yii::$app->session->hasFlash('successOrder')): ?>
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -43,8 +48,8 @@
                 <div class="micro-image">
                     <img src="http://dress-shop/images/window_product_default.jpg" alt="photo">
                 </div>
-                <?= Html::button('+', ['class' =>'btn btn-success']) ?>
-                <?= Html::button('-', ['class' =>'btn btn-danger']) ?>
+                <?= Html::button('+', ['class' =>'btn btn-success add-row']) ?>
+                <?= Html::button('-', ['class' =>'btn btn-danger remove-row']) ?>
             </div>
         </div>
         <div class="buyCost">
@@ -111,6 +116,8 @@
         width: 38px;
         height: 38px;
         margin-bottom: 24px;
+        border-radius: 0.375rem;
+        overflow: hidden;
     }
 
     .productInput {
@@ -119,5 +126,14 @@
 
     .micro-image img {
         width: 100%;
+    }
+
+    .to-excel-div {
+        display: flex;
+        justify-content: end;
+    }
+
+    .to-excel-div button {
+        padding: 5px 25px;
     }
 </style>

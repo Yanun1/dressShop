@@ -82,17 +82,18 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
-
     public function actionOrders(){
         $model = new Orders();
 
        if(Yii::$app->request->isPost) {
            $postValues = Yii::$app->request->post()['Orders'];
+
            for($i = 0; $i < count($postValues['id_product']); $i++){
                $model = new Orders();
                $model['count'] = $postValues['count'][$i];
                $model['id_product'] = $postValues['id_product'][$i];
                $model['id_user'] = Yii::$app->user->getId();
+               $model['status'] = 'waiting';
                if($model->validate())
                    $model->save();
                else {

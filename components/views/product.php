@@ -59,8 +59,8 @@ $menuHtml= getMenuHtml($tree);
             <div class="window-bottom">
                 <hr>
                 <div class="window-buttons">
-                    <button class="btn btn-secondary">Choose</button>
-                    <button class="btn btn-danger">Cancel</button>
+                    <button class="btn btn-secondary choose-window">Choose</button>
+                    <button class="btn btn-danger cancel-window">Cancel</button>
                 </div>
             </div>
         </div>

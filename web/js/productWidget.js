@@ -2,6 +2,7 @@ $(document).ready(function() {
     var productId;
     var productInput;
 
+
     $('.productInput').click(function () {
         $('.select-product-widget').css('display', 'flex');
         productInput = $(this);
@@ -11,11 +12,11 @@ $(document).ready(function() {
             $('.select-product-widget').css('display', 'none');
     });
 
-    $('.btn-danger').click(function () {
+    $('.cancel-window').click(function () {
         $('.select-product-widget').css('display', 'none');
     });
 
-    $('.btn-secondary').click(function () {
+    $('.choose-window').click(function () {
         productInput.val(productId).trigger("change");
         $('.select-product-widget').css('display', 'none');
     });

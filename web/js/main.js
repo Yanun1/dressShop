@@ -20,6 +20,7 @@ $(document).ready(function() {
         for (let i = 1; i <= Object.keys(productList).length; i++) {
             if (productList[i]['id'] == valuesArr[0]) {
                 $(this).val(productList[i]['product']);
+                $(this).attr('value',productList[i]['id']);
                 $(this).parent().parent().find("input[name='price']").val(productList[i]['price']);
                 $(this).parent().parent().find("input[name='saler']").val(productList[i]['user']['login']);
                 $(this).parent().parent().find(".micro-image > img").attr('src', "http://dress-shop/images/" + valuesArr[1]);
@@ -48,17 +49,7 @@ $(document).ready(function() {
 
     // + kochaky
     function duplicateForm() {
-        console.log(productList);
-        let newDiv = $(".OrdersForm:first-child").clone();
-
-        // adding events again for new buttons
-        newDiv.find('.btn-success').click(duplicateForm);
-        newDiv.find('.btn-danger').click(removeForm);
-        newDiv.find('#orders-id_product').change(selectChange);
-        newDiv.find('#orders-count').on('input', changePriceEvent);
-        newDiv.find('.productInput ').click(function () {
-            $('.select-product-widget').css('display', 'flex');
-        });
+        let newDiv = $(".OrdersForm:first-child").clone(true,true);
 
         // empting cloned inputs
         newDiv.find("input[type='Number']").val(0);
@@ -89,6 +80,8 @@ $(document).ready(function() {
 
         changeTotalCost();
     }
+
+    // mi apranqi yndhanur patveri gumari hashvarkum
     function changePriceEvent() {
         let price = Number($(this).parent().parent().find("input[name='price']").val());
         let count = Number($(this).parent().parent().find("input[name*='Orders[count']").val());
@@ -107,8 +100,39 @@ $(document).ready(function() {
         changeTotalCost();
     }
 
-    $(".btn-success").click(duplicateForm);
-    $(".btn-danger").click(removeForm);
+    $('.buyCost > button').click(function () {
+        console.log('change js');
+        $('.productInput ').each(function () {
+            $(this).val($(this).attr('value'));
+            console.log('change values');
+        });
+        $(this).trigger('submit');
+    });
+
+    $('.to-excel').click(function () {
+        let ordersList = [];
+        let i = 0;
+        $('.ordersMain_container .OrdersForm').each(function () {
+            ordersList[i] = [];
+            ordersList[i]['Product'] = $(this).find('.productInput ').val();
+            ordersList[i]['Saler'] = $(this).find("input[name='saler']").val();
+            ordersList[i]['Price'] = $(this).find("input[name='price']").val();
+            ordersList[i]['Count'] = $(this).find('#orders-count').val();
+            ordersList[i]['Total'] = $(this).find("input[name='sumName']").val();
+            i++;
+        });
+        ordersList[i] = [];
+        ordersList[i]['Total'] = $(".ordersMain input[name='totalCost']").val();
+        console.log(ordersList);
+        let workbook = XLSX.utils.book_new();
+        let worksheet = XLSX.utils.json_to_sheet(ordersList);
+        XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet 1');
+        XLSX.writeFile(workbook, 'orders.xlsx');
+    });
+
+
+    $(".add-row").click(duplicateForm);
+    $(".remove-row").click(removeForm);
     $('.productInput').on('change', selectChange);
     $('#orders-count').on('input', changePriceEvent);
 
