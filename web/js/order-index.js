@@ -15,4 +15,22 @@ $(document).ready(function() {
                 break;
         }
     });
+
+    $("button[type='reset']").click(function () {
+        $('.search-inputs input').each(function () {
+            $(this).attr('value', '');
+        });
+        $('.form-group').trigger('submit');
+    });
+
+    $('.image-column').click(function () {
+        $('.select-product-widget .select-window img').attr('src', $(this).find('img').attr('src'));
+        $('.select-product-widget').css('display', 'flex');
+    });
+
+    $(".close-block img").click(function () {
+        $('.select-product-widget').css('display', 'none');
+    });
+
+
 });

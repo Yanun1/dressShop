@@ -119,7 +119,7 @@ a.desc:after {
 }
 
 
-.pagination li a, span {
+.pagination li a, .pagination li span {
     text-decoration: none;
     color: white;
     font-weight: bold;

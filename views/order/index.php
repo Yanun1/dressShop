@@ -31,8 +31,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="create-order">
         <?= Html::a('Create Orders', ['create'], ['class' => 'btn btn-success']) ?>
     </div>
+    <div class="create-order filet-button">
+        <button type="button" class="btn btn-secondary search-button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Search<img src="http://dress-shop/images/filter_icon.png" alt="Y"></button>
+    </div>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php echo $this->render('_search', ['model' => $searchModel]); ?>
     <?php
 
     if (Yii::$app->session->hasFlash('failed')) {
@@ -55,6 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
     ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             [
@@ -106,7 +110,75 @@ $this->params['breadcrumbs'][] = $this->title;
     ]); ?>
 </div>
 
+<div class="select-product-widget">
+    <div class="black-background"></div>
+    <div class="close-block">
+        <img src="http://dress-shop/images/close-button.png" alt="X">
+    </div>
+    <div class="select-window">
+        <div class="window-content">
+            <img src="" alt="photo">
+        </div>
+    </div>
+</div>
+
+
 <style>
+
+    .close-block {
+        position: absolute;
+        right: 30px;
+        top: 30px;
+        z-index: 1070;
+    }
+
+    .close-block img {
+        cursor: pointer;
+        width: 40px;
+    }
+
+    .select-product-widget {
+        position: fixed;
+        z-index: 1040;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        display: none;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .black-background {
+        position: absolute;
+        z-index: 1050;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background-color: rgba(0,0,0,.6);
+    }
+
+    .select-window {
+        border-radius: 7px;
+        border: 1px solid rgba(0,0,0,.9);
+        background-color: #ffffff;
+        width: 60%;
+        z-index: 1060;
+        max-height: 80%;
+        overflow: hidden;
+    }
+
+    .window-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .window-content img {
+        height: 100%;
+    }
+
     .create-order {
         margin: 12px 0;
         display: flex;
@@ -127,10 +199,20 @@ $this->params['breadcrumbs'][] = $this->title;
         position: relative;
         padding: 0 !important;
         overflow: hidden;
+        cursor: pointer;
     }
 
     .image-header {
         width: 25px;
+    }
+
+    #w1-filters {
+        display: none;
+    }
+
+    .filet-button img {
+        height: 18px;
+        margin-left: 10px;
     }
 
 </style>

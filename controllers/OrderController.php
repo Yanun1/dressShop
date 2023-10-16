@@ -50,14 +50,13 @@ class OrderController extends Controller
 
     public function actionIndex()
     {
-        $userId = Yii::$app->user->id;
-        $dataProvider = new ArrayDataProvider(['allModels' => Orders::find()->where("id_user=$userId")->with('user')->with('product')->all()]);
-//        echo '<pre>';
-//        var_dump(Orders::find()->with('user')->with('product')->asArray()->all());
-//        echo '</pre>';
+        //$userId = Yii::$app->user->id;
+        //$dataProvider = new ArrayDataProvider(['allModels' => Orders::find()->where("id_user=$userId")->with('user')->with('product')->all()]);
 
+        $searchModel = new OrdersSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         return $this->render('index', [
-//            'searchModel' => $searchModel,
+            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }

@@ -1,5 +1,5 @@
 .select-product-widget {
-    position: absolute;
+    position: fixed;
     z-index: 1040;
     left: 0;
     right: 0;
@@ -47,6 +47,7 @@
 .product-info {
     width: 50%;
     overflow: hidden;
+    border-radius: 6px;
 }
 
 .product-info-view {
