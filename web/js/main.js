@@ -101,10 +101,8 @@ $(document).ready(function() {
     }
 
     $('.buyCost > button').click(function () {
-        console.log('change js');
         $('.productInput ').each(function () {
             $(this).val($(this).attr('value'));
-            console.log('change values');
         });
         $(this).trigger('submit');
     });
@@ -122,8 +120,9 @@ $(document).ready(function() {
             i++;
         });
         ordersList[i] = [];
+
         ordersList[i]['Total'] = $(".ordersMain input[name='totalCost']").val();
-        console.log(ordersList);
+
         let workbook = XLSX.utils.book_new();
         let worksheet = XLSX.utils.json_to_sheet(ordersList);
         XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet 1');

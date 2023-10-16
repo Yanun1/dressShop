@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\models\Orders;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Orders;
@@ -40,7 +41,8 @@ class OrdersSearch extends Orders
      */
     public function search($params)
     {
-        $query = Orders::find();
+        $userId = \Yii::$app->user->id;
+        $query = Orders::find()->where("id_user=$userId")->with('user')->with('product')->all();
 
         // add conditions that should always apply here
 

@@ -37,12 +37,21 @@ class OrderController extends Controller
                     ],
                 ],
             ],
-            // Другие поведения...
         ];
     }
+
+    public function init()
+    {
+        parent::init();
+        if(Yii::$app->user->isGuest) {
+            $this->redirect('/site/login');
+        }
+    }
+
     public function actionIndex()
     {
-        $dataProvider = new ArrayDataProvider(['allModels' => Orders::find()->with('user')->with('product')->all()]);
+        $userId = Yii::$app->user->id;
+        $dataProvider = new ArrayDataProvider(['allModels' => Orders::find()->where("id_user=$userId")->with('user')->with('product')->all()]);
 //        echo '<pre>';
 //        var_dump(Orders::find()->with('user')->with('product')->asArray()->all());
 //        echo '</pre>';
