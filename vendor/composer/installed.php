@@ -1,8 +1,8 @@
 <?php return array(
     'root' => array(
         'name' => 'yiisoft/yii2-app-basic',
-        'pretty_version' => '2.0.49',
-        'version' => '2.0.49.0',
+        'pretty_version' => '1.0.0+no-version-set',
+        'version' => '1.0.0.0',
         'reference' => NULL,
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
@@ -25,6 +25,15 @@
             'reference' => 'cb021439c683d9805e2864c58095b92d405e9b11',
             'type' => 'bower-asset',
             'install_path' => __DIR__ . '/../bower-asset/bootstrap',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'bower-asset/fontawesome' => array(
+            'pretty_version' => 'v4.3.0',
+            'version' => '4.3.0.0',
+            'reference' => '41b9ed01103e6820c3cb043ba7ddab30ecd3f4c0',
+            'type' => 'bower-asset',
+            'install_path' => __DIR__ . '/../bower-asset/fontawesome',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
@@ -418,6 +427,15 @@
             'aliases' => array(),
             'dev_requirement' => true,
         ),
+        'rmrevin/yii2-fontawesome' => array(
+            'pretty_version' => '2.10.3',
+            'version' => '2.10.3.0',
+            'reference' => 'ce4dd62a048090f3d98822d4bc9401bfcdde1f98',
+            'type' => 'yii2-extension',
+            'install_path' => __DIR__ . '/../rmrevin/yii2-fontawesome',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'sebastian/cli-parser' => array(
             'pretty_version' => '1.0.1',
             'version' => '1.0.1.0',
@@ -767,8 +785,8 @@
             'dev_requirement' => false,
         ),
         'yiisoft/yii2-app-basic' => array(
-            'pretty_version' => '2.0.49',
-            'version' => '2.0.49.0',
+            'pretty_version' => '1.0.0+no-version-set',
+            'version' => '1.0.0.0',
             'reference' => NULL,
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
