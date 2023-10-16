@@ -16,14 +16,14 @@ $(document).ready(function() {
     });
     // lracnum enq ordersi meji input dashtery stacac tablicayi toxeric
     function selectChange() {
-        let valuesArr = $(this).val().split(' ');
+        let valuesArr = $(this).val();
         for (let i = 1; i <= Object.keys(productList).length; i++) {
-            if (productList[i]['id'] == valuesArr[0]) {
+            if (productList[i]['id'] == valuesArr) {
                 $(this).val(productList[i]['product']);
                 $(this).attr('value',productList[i]['id']);
                 $(this).parent().parent().find("input[name='price']").val(productList[i]['price']);
                 $(this).parent().parent().find("input[name='saler']").val(productList[i]['user']['login']);
-                $(this).parent().parent().find(".micro-image > img").attr('src', "http://dress-shop/images/" + valuesArr[1]);
+                $(this).parent().parent().find(".micro-image > img").attr('src', "http://dress-shop/images/" + $(this).attr('data-image'));
             }
         }
         changePrice($(this));
@@ -34,8 +34,8 @@ $(document).ready(function() {
         if ($(".OrdersForm").length === 1) {
             return;
         }
-        changeTotalCost();
         $(this).parent().remove();
+        changeTotalCost();
     }
     function changeTotalCost(){
         let costValues = 0;

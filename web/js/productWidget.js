@@ -1,6 +1,7 @@
 $(document).ready(function() {
-    var productId;
-    var productInput;
+    let productId;
+    let productInput;
+    let productImage;
 
 
     $('.productInput').click(function () {
@@ -17,12 +18,14 @@ $(document).ready(function() {
     });
 
     $('.choose-window').click(function () {
-        productInput.val(productId).trigger("change");
+        productInput.attr('data-image', productImage);
         $('.select-product-widget').css('display', 'none');
+        productInput.val(productId).trigger("change");
     });
 
     $('.catalog a').click(function () {
-        productId = $(this).parent().val() + ' ' + $(this).parent().attr('src');
+        productId = $(this).parent().val();
+        productImage = $(this).parent().attr('src');
         $('.product-info img').attr('src', "http://dress-shop/images/" + $(this).parent().attr('src'));
     });
 

@@ -23,7 +23,8 @@ class OrdersSearch extends Orders
     public function rules()
     {
         return [
-            [['id', 'id_product', 'count', 'id_user', 'price', 'minPrice', 'maxPrice', 'minTotal', 'maxTotal'], 'integer'],
+            [['id', 'id_product', 'count', 'id_user'], 'integer'],
+            [['price', 'minPrice', 'maxPrice', 'minTotal', 'maxTotal'], 'double'],
             [['status', 'product', 'image'], 'safe'],
         ];
     }
@@ -53,7 +54,26 @@ class OrdersSearch extends Orders
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => [
+                'defaultOrder' => [
+
+                ],
+                'attributes' => [
+                    'count',
+                    'products.price',
+                    '`products`.`price` * `Orders`.`count`',
+                    'products.product',
+                    'status',
+                ],
+            ],
         ]);
+
+//        $query->select([
+//            '*',
+//            'total' => new Expression('products.price * Orders.count'),
+//            //new Expression('*, products.price * Orders.count AS `total`'),
+//        ]);
+
 
         $this->load($params);
 
@@ -81,7 +101,6 @@ class OrdersSearch extends Orders
         $query->andFilterWhere(['<=','products.price', $this->maxPrice]);
 
         $query->andFilterWhere(['like', 'status', $this->status]);
-
 
         return $dataProvider;
     }

@@ -61,17 +61,19 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            [
-                'label' => 'Products',
-                'value' => function ($model) {
-                    return $model['product']['product'];
-                },
-            ],
+                [
+                    'label' => 'Products',
+                    'value' => function ($model) {
+                        return $model['product']['product'];
+                    },
+                    'attribute' => 'products.product'
+                ],
             [
                 'label' => 'Price',
                 'value' => function ($model) {
                     return $model['product']['price'];
                 },
+                'attribute' => 'products.price'
             ],
             'count',
             [
@@ -80,6 +82,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $model['status'];
                 },
                 'contentOptions' => ['class' => 'status-column'],
+                'attribute' => 'status'
             ],
             [
                 'label' => 'Image',
@@ -95,6 +98,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function ($model) {
                     return $model['product']['price']*$model['count'];
                 },
+                'attribute' => '`products`.`price` * `Orders`.`count`'
             ],
             [
                 'class' => ActionColumn::class,
@@ -124,6 +128,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 <style>
+
+    thead a {
+        color: black;
+    }
 
     .close-block {
         position: absolute;
@@ -206,7 +214,7 @@ $this->params['breadcrumbs'][] = $this->title;
         width: 25px;
     }
 
-    #w1-filters {
+    .filters {
         display: none;
     }
 

@@ -41,9 +41,9 @@ use yii\widgets\ActiveForm;
                             </div>
                             <div class="total-range">
                                 <span>Total:</span>
-                                <?= $form->field($model, 'minTotal')->input('number', ['min' => 1, 'max' => 100000, 'step' => '10', 'oninput' => 'validity.valid||(value="1");','id' => 'min_price', 'class' => 'form-control range-areas'])->label('min') ?>
+                                <?= $form->field($model, 'minTotal')->input('number', ['min' => 0, 'max' => 100000, 'oninput' => 'validity.valid||(value="1");','id' => 'min_price', 'class' => 'form-control range-areas'])->label('min') ?>
                                 <div id="slider-range" class="price-filter-range" name="rangeInput"></div>
-                                <?= $form->field($model, 'maxTotal')->input('number', ['min' => 1, 'max' => 100000, 'step' => '10','oninput' => 'validity.valid||(value="100000");', 'id' => 'max_price', 'class' => 'form-control range-areas'])->label('max') ?>
+                                <?= $form->field($model, 'maxTotal')->input('number', ['min' => 0, 'max' => 100000,'oninput' => 'validity.valid||(value="100000");', 'id' => 'max_price', 'class' => 'form-control range-areas'])->label('max') ?>
                             </div>
                         </div>
                         <div class="price-range-block">
@@ -71,6 +71,13 @@ use yii\widgets\ActiveForm;
         display: flex;
         gap: 7px;
     }
+
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
 
     .bottom-buttons {
         display: flex;
