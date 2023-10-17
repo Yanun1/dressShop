@@ -18,7 +18,7 @@
     width:40%;
 }
 .ui-widget-header {
-    background: #3FE331;
+    background: #6c757d !important;
 }
 
 .price-range-search {
@@ -45,9 +45,22 @@
     min-width: 76px;
 }
 
-#slider-range {
+.slider-range {
     margin: 0 10px;
     width: 100%;
     margin-top: 8px;
 }
 
+.price-range, .total-range {
+    display: flex;
+    gap: 7px;
+    align-items: center;
+}
+
+.price-range span, .total-range span{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-right: 10px;
+}

@@ -87,12 +87,14 @@ class OrdersSearch extends Orders
         $query->where("users.id=$userId");
 
         $query->andFilterWhere([
-            'products.product' => $this->product,
             'Orders.count' => $this->count,
-            'status' => $this->status,
             'image' => $this->image,
             'users.id' => $this->id_user,
         ]);
+
+        $query->andFilterWhere(['LIKE', 'products.product', $this->product]);
+        $query->andFilterWhere(['LIKE', 'status', $this->status]);
+
 
         $query->andFilterWhere(['>=', new Expression('products.price * Orders.count'), $this->minTotal]);
         $query->andFilterWhere(['<=', new Expression('products.price * Orders.count'), $this->maxTotal]);

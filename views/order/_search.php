@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use app\components\rangeWidget;
 
 /** @var yii\web\View $this */
 /** @var app\models\OrdersSearch $model */
@@ -14,7 +15,7 @@ use yii\widgets\ActiveForm;
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
+                <h5 class="modal-title">Search settings</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -34,19 +35,8 @@ use yii\widgets\ActiveForm;
                             <?= $form->field($model, 'status') ?>
                         </div>
                         <div class="range-inputs">
-                            <div class="price-range">
-                                <span>Price:</span>
-                                <?= $form->field($model, 'minPrice')->label('min') ?>
-                                <?= $form->field($model, 'maxPrice')->label('max') ?>
-                            </div>
-                            <div class="total-range">
-                                <span>Total:</span>
-                                <?= $form->field($model, 'minTotal')->input('number', ['min' => 0, 'max' => 100000, 'oninput' => 'validity.valid||(value="1");','id' => 'min_price', 'class' => 'form-control range-areas'])->label('min') ?>
-                                <div id="slider-range" class="price-filter-range" name="rangeInput"></div>
-                                <?= $form->field($model, 'maxTotal')->input('number', ['min' => 0, 'max' => 100000,'oninput' => 'validity.valid||(value="100000");', 'id' => 'max_price', 'class' => 'form-control range-areas'])->label('max') ?>
-                            </div>
-                        </div>
-                        <div class="price-range-block">
+                            <?=  rangeWidget::widget(['title' => 'Price', 'model' => $model, 'form' => $form, 'inputs' => ['minPrice', 'maxPrice']]) ?>
+                            <?=  rangeWidget::widget(['title' => 'Total', 'model' => $model, 'form' => $form, 'inputs' => ['minTotal', 'maxTotal']]) ?>
                         </div>
                     </div>
                 </div>
@@ -86,19 +76,5 @@ use yii\widgets\ActiveForm;
 
     .modal-footer {
         display: block !important;
-    }
-
-    .price-range, .total-range {
-        display: flex;
-        gap: 7px;
-        align-items: center;
-    }
-
-    .price-range span, .total-range span{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: bold;
-        margin-right: 10px;
     }
 </style>

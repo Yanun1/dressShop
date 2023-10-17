@@ -13,8 +13,8 @@ class RangeAsset extends AssetBundle
         'css/jquery-ui.css',
     ];
     public $js = [
-        'js/price_range_script.js',
-        'js/jquery-ui.min.js'
+        'js/jquery-ui.min.js',
+        'js/price_range_script.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',
