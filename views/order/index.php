@@ -19,6 +19,12 @@ foreach ($role as $rol) {
 /** @var app\models\OrdersSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
+$this->registerCssFile('@web/css/owl.carousel.css');
+$this->registerCssFile('@web/css/owl.carousel.min.css');
+
+
+//$this->registerJsFile('@web/js/code.jquery.com_jquery-3.7.1.min.js', ['position'=>\yii\web\View::POS_END, 'depends' => [\yii\web\JqueryAsset::class, \yii\web\YiiAsset::class, \yii\bootstrap5\BootstrapAsset::class]]);
+$this->registerJsFile('@web/js/owl.carousel.min.js', ['position'=>\yii\web\View::POS_END, 'depends' => [\yii\web\JqueryAsset::class, \yii\web\YiiAsset::class, \yii\bootstrap5\BootstrapAsset::class]]);
 $this->registerJsFile('@web/js/order-index.js', ['position'=>\yii\web\View::POS_END, 'depends' => [\yii\web\JqueryAsset::class, \yii\web\YiiAsset::class, \yii\bootstrap5\BootstrapAsset::class]]);
 
 $this->title = 'Orders';
@@ -66,7 +72,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'value' => function ($model) {
                         return $model['product']['product'];
                     },
-                    'attribute' => 'products.product'
+                    'attribute' => 'products.product',
+                    'contentOptions' => ['class' => 'product-column'],
                 ],
             [
                 'label' => 'Price',
@@ -120,14 +127,38 @@ $this->params['breadcrumbs'][] = $this->title;
         <img src="http://dress-shop/images/close-button.png" alt="X">
     </div>
     <div class="select-window">
-        <div class="window-content">
-            <img src="" alt="photo">
+        <div class="window-content owl-carousel">
         </div>
+    </div>
+    <div class="slider-buttons">
+        <img src="/images/left_button.png" alt="<" class="left-button">
+        <img src="/images/left_button.png" alt=">" class="right-button">
     </div>
 </div>
 
 
 <style>
+
+    .owl-dots {
+        display: none;
+    }
+
+    .slider-buttons {
+        position: absolute;
+        display: flex;
+        justify-content: space-between;
+        z-index: 1100;
+        width: 97%;
+    }
+
+    .slider-buttons img {
+        width: 40px;
+        cursor: pointer;
+    }
+
+    .slider-buttons img:nth-child(2) {
+        transform: rotate(180deg);
+    }
 
     thead a {
         color: black;

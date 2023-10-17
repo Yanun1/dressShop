@@ -12,9 +12,9 @@ class AjaxController extends Controller
     public function actionBase()
     {
         if (isset(self::$base))
-            return json_encode(self::$base, );
+            return json_encode(self::$base);
         else {
-            self::$base = Products::find()->with('user')->indexBy('id')->asArray()->all();
+            self::$base = Products::find()->with('user')->with('images')->indexBy('id')->asArray()->all();
             return json_encode(self::$base);
         }
     }

@@ -86,4 +86,5 @@ $(function () {
 
 		$(this).parent().find(".slider-range").slider("values", [min_price_range, max_price_range]);
 	});
+
 });
