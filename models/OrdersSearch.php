@@ -15,6 +15,7 @@ class OrdersSearch extends Orders
 {
     public $product;
     public $price;
+    public $data;
     public $minPrice;
     public $maxPrice;
     public $minTotal;
@@ -25,7 +26,7 @@ class OrdersSearch extends Orders
         return [
             [['id', 'id_product', 'count', 'id_user'], 'integer'],
             [['price', 'minPrice', 'maxPrice', 'minTotal', 'maxTotal'], 'double'],
-            [['status', 'product', 'image'], 'safe'],
+            [['status', 'product', 'image', 'data'], 'safe'],
         ];
     }
 
@@ -64,16 +65,10 @@ class OrdersSearch extends Orders
                     '`products`.`price` * `Orders`.`count`',
                     'products.product',
                     'status',
+                    'DATE(`data`)'
                 ],
             ],
         ]);
-
-//        $query->select([
-//            '*',
-//            'total' => new Expression('products.price * Orders.count'),
-//            //new Expression('*, products.price * Orders.count AS `total`'),
-//        ]);
-
 
         $this->load($params);
 
@@ -90,6 +85,7 @@ class OrdersSearch extends Orders
             'Orders.count' => $this->count,
             'image' => $this->image,
             'users.id' => $this->id_user,
+            'DATE(`data`)' => $this->data
         ]);
 
         $query->andFilterWhere(['LIKE', 'products.product', $this->product]);

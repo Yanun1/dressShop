@@ -28,32 +28,40 @@ $(document).ready(function() {
         }
     });
 
-    $("button[type='reset']").click(function () {
+    $(".reset-button").click(function () {
         $('.search-inputs input').each(function () {
             $(this).attr('value', '');
         });
-        $('.form-group').trigger('submit');
+        localStorage.clear();
     });
 
     $('.image-column').click(function () {
-        console.log(productList);
-        $('.owl-carousel').trigger('destroy.owl.carousel');
-        $('.owl-carousel').trigger('refresh.owl.carousel');
-
-        $('.owl-carousel').owlCarousel({
+        let owl = $('.owl-carousel');
+        owl.owlCarousel('destroy');
+        owl.html('');
+        owl.owlCarousel({
             items:1,
         });
 
+        owl.trigger('remove.owl.carousel', [0, true]).trigger('refresh.owl.carousel');
         for (let product of productList)
         {
-            console.log($(this).parent().find('.product-column').val());
-            if(product['product'] == $(this).parent().find('.product-column').val())
+            if(product['product'] == $(this).parent().find('.product-column').text())
             {
-                console.log('true'); return
+                if(product['images'].length == 0) {
+                    $('.slider-buttons').hide();
+                    break;
+                }
+                else {
+                    $('.slider-buttons').show();
+                    for (let image of product['images']) {
+                        owl.trigger('add.owl.carousel', ["<img src='http://dress-shop/images/" + image['image'] + "' alt='photo'> </img>", 0]);
+                    }
+                }
             }
-            $('.owl-carousel').trigger('add.owl.carousel', ["<img src='" + $(this).find('img').attr('src') + "' alt='photo'> </img>", 0]);
         }
-        $('.owl-carousel').trigger('refresh.owl.carousel');
+        owl.trigger('add.owl.carousel', ["<img src='" + $(this).find('img').attr('src') + "' alt='photo'> </img>", 0]);
+
 
         $('.select-product-widget').css('display', 'flex');
     });

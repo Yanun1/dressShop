@@ -46,7 +46,7 @@ use app\components\rangeWidget;
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <div class="left-buttons">
                         <?= Html::submitButton('Search', ['class' => 'btn btn-secondary']) ?>
-                        <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>
+                        <?= Html::submitButton('Reset', ['class' => 'btn btn-outline-secondary reset-button']) ?>
                     </div>
                 </div>
             </div>

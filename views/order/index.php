@@ -108,6 +108,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => '`products`.`price` * `Orders`.`count`'
             ],
             [
+                'label' => 'Date',
+                'value' => function ($model) {
+                    $temp = new DateTime($model['data']);
+                    return $temp->format('Y-m-d');
+                },
+                'attribute' => 'DATE(`data`)'
+            ],
+            [
                 'class' => ActionColumn::class,
                 'urlCreator' => function ($action, Orders $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
@@ -139,8 +147,26 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <style>
 
+    .grid-view {
+        overflow: auto;
+    }
+
     .owl-dots {
         display: none;
+    }
+
+    .owl-stage {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .owl-item {
+        margin-left: 5px;
+    }
+
+    .owl-carousel .owl-stage:after {
+        content: '' !important;
     }
 
     .slider-buttons {
@@ -199,9 +225,6 @@ $this->params['breadcrumbs'][] = $this->title;
     }
 
     .select-window {
-        border-radius: 7px;
-        border: 1px solid rgba(0,0,0,.9);
-        background-color: #ffffff;
         width: 60%;
         z-index: 1060;
         max-height: 80%;
