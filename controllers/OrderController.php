@@ -12,6 +12,8 @@ use yii\filters\VerbFilter;
 use Yii;
 use yii\data\ArrayDataProvider;
 use yii\web\ForbiddenHttpException;
+use app\models\OrderCheck;
+use yii\helpers\Url;
 
 
 /**
@@ -34,6 +36,10 @@ class OrderController extends Controller
                         'allow' => true,
                         'actions' => ['index', 'delete'],
                         'roles' => ['user'],
+                    ],
+                    [
+                        'allow' => false,
+                        'roles' => ['?'],
                     ],
                 ],
             ],
@@ -72,12 +78,21 @@ class OrderController extends Controller
         if(Yii::$app->request->isPost) {
             $postValues = Yii::$app->request->post()['Orders'];
 
+            $checkNubmers = time();
+
+            $check = new OrderCheck();
+            $check['id_order'] = $checkNubmers;
+            $check->save();
+            $checkId = OrderCheck::find()->where("id_order=$checkNubmers")->limit(1)->one();
+
             for($i = 0; $i < count($postValues['id_product']); $i++){
                 $model = new Orders();
                 $model['count'] = $postValues['count'][$i];
                 $model['id_product'] = $postValues['id_product'][$i];
                 $model['id_user'] = Yii::$app->user->getId();
+                $model['price'] = $postValues['price'][$i];
                 $model['status'] = 'waiting';
+                $model['id_check'] = $checkId['id'];
                 if($model->validate())
                     $model->save();
                 else {

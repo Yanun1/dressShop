@@ -73,6 +73,10 @@ class Orders extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::class, ['id' => 'id_user']);
     }
+    public function getOrderCheck()
+    {
+        return $this->hasOne(OrderCheck::class, ['id' => 'id_check']);
+    }
 }
 
 

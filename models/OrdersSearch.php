@@ -21,10 +21,11 @@ class OrdersSearch extends Orders
     public $minTotal;
     public $maxTotal;
     public $image;
+    public $id_check;
     public function rules()
     {
         return [
-            [['id', 'id_product', 'count', 'id_user'], 'integer'],
+            [['id', 'id_product', 'count', 'id_user', 'id_check'], 'integer'],
             [['price', 'minPrice', 'maxPrice', 'minTotal', 'maxTotal'], 'double'],
             [['status', 'product', 'image', 'data'], 'safe'],
         ];
@@ -65,6 +66,7 @@ class OrdersSearch extends Orders
                     '`products`.`price` * `Orders`.`count`',
                     'products.product',
                     'status',
+                    'orderCheck.id_order',
                     'DATE(`data`)'
                 ],
             ],
@@ -79,13 +81,15 @@ class OrdersSearch extends Orders
         }
         $query->joinWith(['user']);
         $query->joinWith(['product']);
+        $query->joinWith(['orderCheck']);
         $query->where("users.id=$userId");
 
         $query->andFilterWhere([
             'Orders.count' => $this->count,
             'image' => $this->image,
             'users.id' => $this->id_user,
-            'DATE(`data`)' => $this->data
+            'DATE(`data`)' => $this->data,
+            'orderCheck.id_order' => $this->id_check
         ]);
 
         $query->andFilterWhere(['LIKE', 'products.product', $this->product]);

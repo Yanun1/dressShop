@@ -18,7 +18,7 @@ $(document).ready(function() {
             if (productList[i]['id'] == valuesArr) {
                 $(this).val(productList[i]['product']);
                 $(this).attr('value',productList[i]['id']);
-                $(this).parent().parent().find("input[name='price']").val(productList[i]['price']);
+                $(this).parent().parent().find("input[name='Orders[price][]']").val(productList[i]['price']);
                 $(this).parent().parent().find("input[name='saler']").val(productList[i]['user']['login']);
                 $(this).parent().parent().find(".micro-image > img").attr('src', "http://dress-shop/images/" + $(this).attr('data-image'));
             }
@@ -61,7 +61,7 @@ $(document).ready(function() {
 
     // poxum enq selectov yntrac produkti tvyalnery
     function changePrice(element) {
-        let price = Number(element.parent().parent().find("input[name='price']").val());
+        let price = Number(element.parent().parent().find("input[name='Orders[price][]']").val());
         let count = Number(element.parent().parent().find("input[name*='Orders[count']").val());
 
         if (price < 0 || price === 0) {
@@ -80,7 +80,7 @@ $(document).ready(function() {
 
     // mi apranqi yndhanur patveri gumari hashvarkum
     function changePriceEvent() {
-        let price = Number($(this).parent().parent().find("input[name='price']").val());
+        let price = Number($(this).parent().parent().find("input[name='Orders[price][]']").val());
         let count = Number($(this).parent().parent().find("input[name*='Orders[count']").val());
 
         if (price < 0 || price === 0) {
@@ -111,7 +111,8 @@ $(document).ready(function() {
             ordersList[i] = [];
             ordersList[i]['Product'] = $(this).find('.productInput ').val();
             ordersList[i]['Saler'] = $(this).find("input[name='saler']").val();
-            ordersList[i]['Price'] = $(this).find("input[name='price']").val();
+            ordersList[i]['Price'] = $(this).find("input[name='Orders[price][]']").val();
+            ordersList[i]['Image'] = $(this).find('.micro-image img').attr('src');
             ordersList[i]['Count'] = $(this).find('#orders-count').val();
             ordersList[i]['Total'] = $(this).find("input[name='sumName']").val();
             i++;
@@ -131,18 +132,4 @@ $(document).ready(function() {
     $(".remove-row").click(removeForm);
     $('.productInput').on('change', selectChange);
     $('#orders-count').on('input', changePriceEvent);
-
-
-
-    // $('html').on('mousemove',function () {
-    //     console.log($(this));
-    //     if($(this).text() == '') {
-    //         $(this).find('#orders-id_product').css('border-color', '#ced4da');
-    //     }
-    //     else {
-    //         $(this).
-    //         find('#orders-id_product').css('border-color', 'red');
-    //     }
-    // });
-
 })

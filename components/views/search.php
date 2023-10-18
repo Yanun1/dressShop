@@ -28,15 +28,33 @@ use app\components\rangeWidget;
 
                     <div class="all-inputs">
                         <div class="search-inputs">
-                            <?= $form->field($model, 'product') ?>
+                            <?php
+                                foreach ($fields as $filed) {
+                                    echo $form->field($model, $filed);
+                                }
 
-                            <?= $form->field($model, 'count') ?>
-
-                            <?= $form->field($model, 'status') ?>
+                                if (isset($lists)) {
+                                    foreach ($lists as $list) {
+                                        echo $form->field($model, $list['input'])->dropDownList(
+                                            $list['options'],
+                                            [
+                                                'prompt' => 'Not choosed'
+                                            ]
+                                        );
+                                    }
+                                }
+                            ?>
                         </div>
                         <div class="range-inputs">
-                            <?=  rangeWidget::widget(['title' => 'Price', 'model' => $model, 'form' => $form, 'inputs' => ['minPrice', 'maxPrice']]) ?>
-                            <?=  rangeWidget::widget(['title' => 'Total', 'model' => $model, 'form' => $form, 'inputs' => ['minTotal', 'maxTotal']]) ?>
+                            <?php
+                            if (isset($ranges)) {
+                                foreach ($ranges as $range) {
+                                    echo rangeWidget::widget(['title' => $range['title'], 'model' => $model,
+                                        'form' => $form, 'inputs' => $range['names']]);
+                                }
+                            }
+                            ?>
+
                         </div>
                     </div>
                 </div>
@@ -57,6 +75,10 @@ use app\components\rangeWidget;
 
 
 <style>
+    .help-block {
+        color: red;
+    }
+
     .search-inputs {
         display: flex;
         gap: 7px;

@@ -41,10 +41,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= Html::label('Saler', 'SalerLabel') ?>
                     <?= Html::input('text','saler', 'None', ['class' => 'form-control field-ordersform-count', 'readOnly' => true])?>
                 </div>
-                <div class="form-group field-orders-id_product noneInput">
-                    <?= Html::label('Price', 'priceLabel') ?>
-                    <?= Html::input('Number','price', '', ['class' => 'form-control field-ordersform-count', 'readOnly' => true])?>
-                </div>
+<!--                <div class="form-group field-orders-id_product noneInput">-->
+<!--                    --><?php //= Html::label('Price', 'priceLabel') ?>
+<!--                    --><?php //= Html::input('Number','price', '', ['class' => 'form-control field-ordersform-count', 'readOnly' => true])?>
+<!--                </div>-->
+                <?= $form->field($model,'price[]', ['options' => ['class' => 'form-group field-orders-id_product'],])->label('Price')->input('number', ['readOnly' => true, 'class' => 'form-control field-ordersform-count'])?>
+
                 <?= $form->field($model,'count[]')->label('Count')->input('number', ['value' => 1, 'min' => 1])?>
                 <div class="form-group field-orders-id_product noneInput">
                     <?= Html::label('Total', 'costLabel') ?>
