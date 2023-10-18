@@ -3,6 +3,9 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use app\components\rangeWidget;
+use ejfrias\yii2_xdan_datetimepicker\DateTimePickerAsset;
+
+DatetimepickerAsset::register($this);
 
 /** @var yii\web\View $this */
 /** @var app\models\OrdersSearch $model */
@@ -45,6 +48,28 @@ use app\components\rangeWidget;
                                 }
                             ?>
                         </div>
+                        <div class="calendare">
+                            <?php
+                            if (isset($calendars)) {
+                                foreach ($calendars as $calendar) {
+                                    echo $form->field($model, $calendar['inputs'][0])->widget(\ejfrias\yii2_xdan_datetimepicker\DateTimePicker::class, [
+                                        'options' => ['class' => 'form-control', 'placeholder' => 'Выберите дату и время'],
+                                        'clientOptions' => [
+                                            'dateFormat' => 'yyyy-mm-dd',
+                                            'timeFormat' => 'HH:mm:ss',
+                                        ],
+                                    ]);
+                                    echo $form->field($model, $calendar['inputs'][1])->widget(\ejfrias\yii2_xdan_datetimepicker\DateTimePicker::class, [
+                                        'options' => ['class' => 'form-control', 'placeholder' => 'Выберите дату и время'],
+                                        'clientOptions' => [
+                                            'dateFormat' => 'yyyy-mm-dd',
+                                            'timeFormat' => 'HH:mm:ss',
+                                        ],
+                                    ]);
+                                }
+                            }
+                            ?>
+                        </div>
                         <div class="range-inputs">
                             <?php
                             if (isset($ranges)) {
@@ -54,7 +79,6 @@ use app\components\rangeWidget;
                                 }
                             }
                             ?>
-
                         </div>
                     </div>
                 </div>
@@ -72,31 +96,3 @@ use app\components\rangeWidget;
         </div>
     </div>
 </div>
-
-
-<style>
-    .help-block {
-        color: red;
-    }
-
-    .search-inputs {
-        display: flex;
-        gap: 7px;
-    }
-
-    input[type="number"]::-webkit-inner-spin-button,
-    input[type="number"]::-webkit-outer-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-    }
-
-
-    .bottom-buttons {
-        display: flex;
-        justify-content: space-between;
-    }
-
-    .modal-footer {
-        display: block !important;
-    }
-</style>

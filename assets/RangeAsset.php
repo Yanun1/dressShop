@@ -11,6 +11,7 @@ class RangeAsset extends AssetBundle
     public $css = [
         'css/price_range_style.css',
         'css/jquery-ui.css',
+        'css/search.css',
     ];
     public $js = [
         'js/jquery-ui.min.js',

@@ -22,12 +22,14 @@ class OrdersSearch extends Orders
     public $maxTotal;
     public $image;
     public $id_check;
+    public $minDate;
+    public $maxDate;
     public function rules()
     {
         return [
             [['id', 'id_product', 'count', 'id_user', 'id_check'], 'integer'],
             [['price', 'minPrice', 'maxPrice', 'minTotal', 'maxTotal'], 'double'],
-            [['status', 'product', 'image', 'data'], 'safe'],
+            [['status', 'product', 'image', 'data', 'maxDate', 'minDate'], 'safe'],
         ];
     }
 
@@ -101,6 +103,9 @@ class OrdersSearch extends Orders
 
         $query->andFilterWhere(['>=', 'products.price', $this->minPrice]);
         $query->andFilterWhere(['<=','products.price', $this->maxPrice]);
+
+        $query->andFilterWhere(['>=', 'data', $this->minDate]);
+        $query->andFilterWhere(['<=','data', $this->maxDate]);
 
         $query->andFilterWhere(['like', 'status', $this->status]);
 

@@ -138,6 +138,11 @@ $this->params['breadcrumbs'][] = $this->title;
 <?= SearchWidget::widget([
         'model' => $searchModel,
         'fields' => ['product', 'count', 'id_check'],
+        'calendars' => [
+                [
+                        'inputs' => ['minDate', 'maxDate']
+                ]
+        ],
         'lists' => [
                 [
                         'input' => 'status',

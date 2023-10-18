@@ -40,6 +40,10 @@ class ComposerStaticInit772e2e451822aead045fa7a783d56c3e
         array (
             'rmrevin\\yii\\fontawesome\\' => 24,
         ),
+        'e' => 
+        array (
+            'ejfrias\\yii2_xdan_datetimepicker\\' => 33,
+        ),
         'c' => 
         array (
             'cebe\\markdown\\' => 14,
@@ -136,6 +140,10 @@ class ComposerStaticInit772e2e451822aead045fa7a783d56c3e
         'rmrevin\\yii\\fontawesome\\' => 
         array (
             0 => __DIR__ . '/..' . '/rmrevin/yii2-fontawesome',
+        ),
+        'ejfrias\\yii2_xdan_datetimepicker\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/ejfrias/yii2-xdan-datetimepicker',
         ),
         'cebe\\markdown\\' => 
         array (

@@ -196,6 +196,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'ejfrias/yii2-xdan-datetimepicker' => array(
+            'pretty_version' => 'v0.0.7',
+            'version' => '0.0.7.0',
+            'reference' => '7d2af00b2cf7c2ddb025959c10dc384be43df974',
+            'type' => 'yii2-extension',
+            'install_path' => __DIR__ . '/../ejfrias/yii2-xdan-datetimepicker',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'ezyang/htmlpurifier' => array(
             'pretty_version' => 'v4.16.0',
             'version' => '4.16.0.0',

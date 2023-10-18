@@ -58,4 +58,13 @@ return array (
       '@rmrevin/yii/fontawesome' => $vendorDir . '/rmrevin/yii2-fontawesome',
     ),
   ),
+  'ejfrias/yii2-xdan-datetimepicker' => 
+  array (
+    'name' => 'ejfrias/yii2-xdan-datetimepicker',
+    'version' => '0.0.7.0',
+    'alias' => 
+    array (
+      '@ejfrias/yii2_xdan_datetimepicker' => $vendorDir . '/ejfrias/yii2-xdan-datetimepicker',
+    ),
+  ),
 );

@@ -1,6 +1,7 @@
 <?php
 
 namespace app\controllers;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use app\models\Products;
 use Yii;
@@ -9,6 +10,30 @@ use Yii;
 class AjaxController extends Controller
 {
     private static $base;
+
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['admin', 'employee'],
+                    ],
+                    [
+                        'allow' => true,
+                        'roles' => ['user'],
+                    ],
+                    [
+                        'allow' => false,
+                        'roles' => ['?'],
+                    ],
+                ],
+            ],
+        ];
+    }
+
     public function actionBase()
     {
         if (isset(self::$base))
@@ -24,7 +49,8 @@ class AjaxController extends Controller
         if(isset(self::$base))
             return self::$base;
         else {
-            return self::$base = Products::find()->with('user')->indexBy('id')->asArray()->all();
+            self::$base = Products::find()->with('user')->indexBy('id')->asArray()->all();
+            return self::$base;
         }
     }
 }
