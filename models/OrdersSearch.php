@@ -16,6 +16,8 @@ class OrdersSearch extends Orders
     public $product;
     public $price;
     public $data;
+    public $count;
+    //public $id_user;
     public $minPrice;
     public $maxPrice;
     public $minTotal;
@@ -27,7 +29,7 @@ class OrdersSearch extends Orders
     public function rules()
     {
         return [
-            [['id', 'id_product', 'count', 'id_user', 'id_check'], 'integer'],
+            [['id', 'id_product', 'count', 'id_check'], 'integer'],
             [['price', 'minPrice', 'maxPrice', 'minTotal', 'maxTotal'], 'double'],
             [['status', 'product', 'image', 'data', 'maxDate', 'minDate'], 'safe'],
         ];
@@ -63,13 +65,14 @@ class OrdersSearch extends Orders
 
                 ],
                 'attributes' => [
-                    'count',
-                    'products.price',
-                    '`products`.`price` * `Orders`.`count`',
-                    'products.product',
+                    'orderProduct.count',
+                    'orderProduct.price',
+                    '`orderProduct`.`price` * `orderProduct`.`count`',
+                    'orderProduct.product',
                     'status',
                     'orderCheck.id_order',
-                    'DATE(`data`)'
+                    'DATE(`data`)',
+                    'id'
                 ],
             ],
         ]);
@@ -81,28 +84,30 @@ class OrdersSearch extends Orders
             // $query->where('0=1');
             return $dataProvider;
         }
-        $query->joinWith(['user']);
-        $query->joinWith(['product']);
+
+        $query->joinWith(['orderProduct']);
         $query->joinWith(['orderCheck']);
-        $query->where("users.id=$userId");
+        //$query->joinWith(['user']);
+        $name = User::find()->where("id=$userId")->asArray()->one();
+        $query->where("orderProduct.user='$name[login]'");
 
         $query->andFilterWhere([
-            'Orders.count' => $this->count,
+            'orderProduct.count' => $this->count,
             'image' => $this->image,
-            'users.id' => $this->id_user,
+            //'users.id' => $this->id_user,
             'DATE(`data`)' => $this->data,
             'orderCheck.id_order' => $this->id_check
         ]);
 
-        $query->andFilterWhere(['LIKE', 'products.product', $this->product]);
+        $query->andFilterWhere(['LIKE', 'orderProduct.product', $this->product]);
         $query->andFilterWhere(['LIKE', 'status', $this->status]);
 
 
-        $query->andFilterWhere(['>=', new Expression('products.price * Orders.count'), $this->minTotal]);
-        $query->andFilterWhere(['<=', new Expression('products.price * Orders.count'), $this->maxTotal]);
+        $query->andFilterWhere(['>=', new Expression('orderProduct.price * orderProduct.count'), $this->minTotal]);
+        $query->andFilterWhere(['<=', new Expression('orderProduct.price * orderProduct.count'), $this->maxTotal]);
 
-        $query->andFilterWhere(['>=', 'products.price', $this->minPrice]);
-        $query->andFilterWhere(['<=','products.price', $this->maxPrice]);
+        $query->andFilterWhere(['>=', 'orderProduct.price', $this->minPrice]);
+        $query->andFilterWhere(['<=','orderProduct.price', $this->maxPrice]);
 
         $query->andFilterWhere(['>=', 'data', $this->minDate]);
         $query->andFilterWhere(['<=','data', $this->maxDate]);

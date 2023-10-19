@@ -14,13 +14,6 @@ if(Yii::$app->user->isGuest) {
     return;
 }
 
-$access = false;
-
-//$role = Yii::$app->authManager->getRolesByUser(Yii::$app->user->id);
-//foreach ($role as $rol) {
-//    if($rol->name == 'admin'|| $rol->name == 'employee')
-//        $access = true;
-//}
 
 /** @var yii\web\View $this */
 /** @var app\models\OrdersSearch $searchModel */
@@ -30,6 +23,7 @@ $this->registerJsFile('@web/js/order-index.js', ['position'=>\yii\web\View::POS_
 
 $this->title = 'Orders';
 $this->params['breadcrumbs'][] = $this->title;
+$defaultValue = 'option2';
 ?>
 <div class="orders-index">
 
@@ -66,6 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
+            'id',
             [
                 'label' => 'ID Check',
                 'value' => function ($model) {
@@ -76,19 +71,25 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => 'Products',
                 'value' => function ($model) {
-                    return $model['product']['product'];
+                    return $model['orderProduct']['product'];
                 },
-                'attribute' => 'products.product',
+                'attribute' => 'orderProduct.product',
                 'contentOptions' => ['class' => 'product-column'],
             ],
             [
                 'label' => 'Price',
                 'value' => function ($model) {
-                    return $model['price'];
+                    return $model['orderProduct']['price'];
                 },
-                'attribute' => 'products.price'
+                'attribute' => 'orderProduct.price'
             ],
-            'count',
+            [
+                'label' => 'Count',
+                'value' => function ($model) {
+                    return $model['orderProduct']['count'];
+                },
+                'attribute' => 'orderProduct.count'
+            ],
             [
                 'label' => 'Status',
                 'value' => function ($model) {
@@ -101,7 +102,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'Image',
                 'format' => 'raw',
                 'value' => function ($model) {
-                    return  Html::img('http://dress-shop/images/'.$model['product']['image'], ['class' => 'mini-photo', 'alt' => 'photo']);
+                    return  Html::img('http://dress-shop/images/'.$model['orderProduct']['image'], ['class' => 'mini-photo', 'alt' => 'photo']);
                 },
                 'contentOptions' => ['class' => 'image-column'],
                 'headerOptions' => ['class' => 'image-header']
@@ -109,9 +110,9 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => 'Total',
                 'value' => function ($model) {
-                    return $model['product']['price']*$model['count'];
+                    return $model['orderProduct']['price']*$model['orderProduct']['count'];
                 },
-                'attribute' => '`products`.`price` * `Orders`.`count`'
+                'attribute' => '`orderProduct`.`price` * `orderProduct`.`count`'
             ],
             [
                 'label' => 'Date',
