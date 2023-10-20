@@ -9,17 +9,19 @@ use yii\bootstrap5\Alert;
 use app\components\SearchWidget;
 use app\components\productSliderWidget;
 
-if(Yii::$app->user->isGuest) {
-    Yii::$app->response->redirect(['/site/login']);
-    return;
-}
 
 
 /** @var yii\web\View $this */
 /** @var app\models\OrdersSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
+if(Yii::$app->user->isGuest) {
+    Yii::$app->response->redirect(['/site/login']);
+    return;
+}
 
 $this->registerJsFile('@web/js/order-index.js', ['position'=>\yii\web\View::POS_END, 'depends' => [\yii\web\JqueryAsset::class, \yii\web\YiiAsset::class, \yii\bootstrap5\BootstrapAsset::class]]);
+
+
 
 $this->title = 'Orders';
 $this->params['breadcrumbs'][] = $this->title;

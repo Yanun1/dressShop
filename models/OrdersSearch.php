@@ -99,6 +99,8 @@ class OrdersSearch extends Orders
             'orderCheck.id_order' => $this->id_check
         ]);
 
+//        var_dump($this->id_check);
+
         $query->andFilterWhere(['LIKE', 'orderProduct.product', $this->product]);
         $query->andFilterWhere(['LIKE', 'status', $this->status]);
 

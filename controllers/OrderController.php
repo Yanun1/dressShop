@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\CheckSearch;
 use app\models\OrderProduct;
 use app\models\Orders;
 use app\models\OrdersSearch;
@@ -61,10 +62,23 @@ class OrderController extends Controller
     {
         //$userId = Yii::$app->user->id;
         //$dataProvider = new ArrayDataProvider(['allModels' => Orders::find()->where("id_user=$userId")->with('user')->with('product')->all()]);
-
         $searchModel = new OrdersSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+
+    }
+
+    public function actionChecks()
+    {
+        $searchModel = new CheckSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+//        echo '<pre>';
+//        var_dump($dataProvider);die;
+
+        return $this->render('checks', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
