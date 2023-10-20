@@ -22,9 +22,9 @@ if(Yii::$app->user->isGuest) {
 $this->registerJsFile('@web/js/order-index.js', ['position'=>\yii\web\View::POS_END, 'depends' => [\yii\web\JqueryAsset::class, \yii\web\YiiAsset::class, \yii\bootstrap5\BootstrapAsset::class]]);
 
 
-
-$this->title = 'Orders';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'List';
+$this->params['breadcrumbs'][] = ['label' => 'Orders', 'url' => ['index']];
+$this->params['breadcrumbs'][] = 'List';
 $defaultValue = 'option2';
 ?>
 <div class="orders-index">

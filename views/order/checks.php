@@ -62,7 +62,6 @@ $defaultValue = 'option2';
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            'id',
             [
                 'label' => 'ID Check',
                 'value' => function ($model) {
@@ -90,7 +89,7 @@ $defaultValue = 'option2';
                     $temp = new DateTime($model['orders'][0]['data']);
                     return $temp->format('Y-m-d');
                 },
-                'attribute' => 'DATE(data)'
+                'attribute' => 'data'
             ],
             [
                 'class' => ActionColumn::class,
@@ -100,7 +99,7 @@ $defaultValue = 'option2';
                 'buttons' => [
                     'view' => function ($url, $model, $key) {
                         $checkID = $model['id_order'];
-                        $customUrl = "index?OrdersSearch[id_check]=$checkID";
+                        $customUrl = "list?OrdersSearch[id_check]=$checkID";
                         return "<a class='to-view' href='$customUrl'><img src='/images/view_icon.png' alt='View'></a>";
                         //return \yii\helpers\Html::a('View', $customUrl, ['class' => 'btn btn-primary']);
                     },
@@ -116,12 +115,12 @@ $defaultValue = 'option2';
 
 <?= SearchWidget::widget([
     'model' => $searchModel,
-    'fields' => ['id', 'id_order'],
-//    'calendars' => [
-//        [
-//            'inputs' => ['minDate', 'maxDate']
-//        ]
-//    ],
+    'fields' => ['id_order'],
+    'calendars' => [
+        [
+            'inputs' => ['minDate', 'maxDate']
+        ]
+    ],
     'ranges' => [
         [
             'title' => 'Price',

@@ -58,7 +58,7 @@ class OrderController extends Controller
         }
     }
 
-    public function actionIndex()
+    public function actionList()
     {
         //$userId = Yii::$app->user->id;
         //$dataProvider = new ArrayDataProvider(['allModels' => Orders::find()->where("id_user=$userId")->with('user')->with('product')->all()]);
@@ -71,7 +71,7 @@ class OrderController extends Controller
 
     }
 
-    public function actionChecks()
+    public function actionIndex()
     {
         $searchModel = new CheckSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);

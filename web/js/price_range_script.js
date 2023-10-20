@@ -1,16 +1,16 @@
 $(function () {
 	$(".slider-range").each(function (index) {
-		var slider = $(this);
-		var minInput = slider.parent().find(".min_price");
-		var maxInput = slider.parent().find(".max_price");
+		let slider = $(this);
+		let minInput = slider.parent().find(".min_price");
+		let maxInput = slider.parent().find(".max_price");
 
 		// Генерация уникальных ключей для каждого слайдера
-		var localStorageKeyMin = "savedMinValue" + index;
-		var localStorageKeyMax = "savedMaxValue" + index;
+		let localStorageKeyMin = "savedMinValue" + index;
+		let localStorageKeyMax = "savedMaxValue" + index;
 
 		// Получение сохраненных значений из localStorage
-		var savedMinValue = localStorage.getItem(localStorageKeyMin) || 0;
-		var savedMaxValue = localStorage.getItem(localStorageKeyMax) || 100000;
+		let savedMinValue = localStorage.getItem(localStorageKeyMin) || 0;
+		let savedMaxValue = localStorage.getItem(localStorageKeyMax) || 100000;
 
 		slider.slider({
 			range: true,
@@ -35,8 +35,8 @@ $(function () {
 
 		// Обработчик событий при изменении .min_price
 		minInput.on("input", function () {
-			var minValue = parseInt($(this).val());
-			var maxValue = parseInt(maxInput.val());
+			let minValue = parseInt($(this).val());
+			let maxValue = parseInt(maxInput.val());
 
 			if (minValue > maxValue) {
 				minValue = maxValue;
@@ -52,8 +52,8 @@ $(function () {
 
 		// Обработчик событий при изменении .max_price
 		maxInput.on("input", function () {
-			var minValue = parseInt(minInput.val());
-			var maxValue = parseInt($(this).val());
+			let minValue = parseInt(minInput.val());
+			let maxValue = parseInt($(this).val());
 
 			if (maxValue < minValue) {
 				maxValue = minValue;
@@ -74,8 +74,8 @@ $(function () {
 	$(".min_price, .max_price").on("paste keyup", function () {
 		$('#price-range-submit').show();
 
-		var min_price_range = parseInt($(this).parent().find(".min_price").val());
-		var max_price_range = parseInt($(this).parent().find(".max_price").val());
+		let min_price_range = parseInt($(this).parent().find(".min_price").val());
+		let max_price_range = parseInt($(this).parent().find(".max_price").val());
 
 		if (min_price_range == max_price_range) {
 			max_price_range = min_price_range + 100;

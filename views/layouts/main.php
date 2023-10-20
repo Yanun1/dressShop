@@ -42,7 +42,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'Product', 'url' => ['/product/index']],
-            ['label' => 'Orders', 'url' => ['/order/checks']],
+            ['label' => 'Orders', 'url' => ['/order/index']],
             ['label' => 'Base', 'url' => ['/site/base']],
             Yii::$app->user->isGuest
                 ? ['label' => 'Login', 'url' => ['/site/login']]

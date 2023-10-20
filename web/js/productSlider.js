@@ -38,6 +38,7 @@ $(document).ready(function() {
                     for (let image of product['images']) {
                         owl.trigger('add.owl.carousel', ["<img src='http://dress-shop/images/" + image['image'] + "' alt='photo'> </img>", 0]);
                     }
+                    break;
                 }
             }
         }

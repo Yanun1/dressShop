@@ -2,10 +2,12 @@
 
 namespace app\models;
 
+use Cassandra\Date;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\OrderCheck;
 use yii\db\Expression;
+use yii\helpers\Console;
 
 /**
  * CheckSearch represents the model behind the search form of `app\models\OrderCheck`.
@@ -15,10 +17,10 @@ class CheckSearch extends OrderCheck
     public $Total_Price;
     public $Total_Count;
     public $data;
-    public $minPrice;
-    public $maxPrice;
-    public $minCount;
-    public $maxCount;
+    public $minPrice = 0;
+    public $maxPrice = 1000000;
+    public $minCount = 1;
+    public $maxCount = 100000;
     public $minDate;
     public $maxDate;
     /**
@@ -63,10 +65,10 @@ class CheckSearch extends OrderCheck
 
                 ],
                 'attributes' => [
-                    'id',
                     'orderCheck.id_order',
                     'Total_Price',
                     'Total_Count',
+                    'data'
                 ],
             ],
         ]);
@@ -83,22 +85,33 @@ class CheckSearch extends OrderCheck
             ->join('LEFT JOIN', 'orderProduct', 'Orders.id_product = orderProduct.id')
             ->groupBy(['id_order'])
             ->select([
-            'orderCheck.id, id_order, SUM(`price`*`count`) AS Total_Price, SUM(`count`) AS Total_Count'
+            'orderCheck.id, MIN(`Orders`.`data`) AS data ,id_order, SUM(`price`*`count`) AS Total_Price, SUM(`count`) AS Total_Count'
             ]);
 
-        // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
             'id_order' => $this->id_order,
-            'Total_Count' => $this->Total_Count,
-            'Total_Price' => $this->Total_Price,
+            'data' => $this->data
         ]);
 
-        $query->having(['>=', 'Total_Price', $this->minPrice]);
-        $query->having(['<=', 'Total_Price', $this->maxPrice]);
+        if(is_null($this->minDate)) {
+            $this->minDate = date('Y-m').'-01';
+        }
+        if(is_null($this->maxDate)) {
+            $this->maxDate = date('Y-m').'-'.date('t');
+        }
 
-        $query->having(['>=', 'Total_Count', $this->minCount]);
-        $query->having(['<=', 'Total_Count', $this->maxCount]);
+        $query->having(
+            ['AND',
+                ['>=', 'Total_Price', $this->minPrice],
+                ['<=', 'Total_Price', $this->maxPrice],
+                ['>=', 'Total_Count', $this->minCount],
+                ['<=', 'Total_Count', $this->maxCount],
+                ['>=', 'data', $this->minDate],
+                ['<=', 'data', $this->maxDate],
+            ]
+        );
+
+
 
         //$query->having(['>=', 'Orders.data', $this->minDate]);
         //$query->having(['<=', 'Orders.data', $this->maxDate]);
@@ -110,6 +123,9 @@ class CheckSearch extends OrderCheck
             $this->Total_Price = $result['Total_Price'];
             $this->Total_Count = $result['Total_Count'];
         }
+
+//        echo '<pre>';
+//        var_dump($query);
 
         return $dataProvider;
     }

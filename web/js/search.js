@@ -6,4 +6,5 @@ $(".reset-button").click(function () {
         $(this).val('');
     });
     localStorage.clear();
+    $(this).parent().find('.btn-secondary').trigger('submit');
 });
