@@ -18,11 +18,19 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="products-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
+    <?php if (Yii::$app->session->hasFlash('successAdd')): ?>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong><?= Yii::$app->session->getFlash('successAdd'); ?>! </strong>
+            You can check your new Product in current section
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <?php endif; ?>
 
-    <div class="create-product">
-        <?= Html::a('Create Products', ['create'], ['class' => 'btn btn-success']) ?>
-    </div>
-
+    <?php if(Yii::$app->user->can('Add product')): ?>
+        <div class="create-product">
+            <?= Html::a('Create Products', ['create'], ['class' => 'btn btn-success']) ?>
+        </div>
+    <?php endif; ?>
     <div class="create-product filet-button">
         <button type="button" class="btn btn-secondary search-button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Search<img src="http://dress-shop/images/filter_icon.png" alt="Y"></button>
     </div>
@@ -73,11 +81,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?= SearchWidget::widget([
     'model' => $searchModel,
-    'fields' => ['id', 'product', 'count', 'image'],
+    'fields' => ['id', 'product'],
     'ranges' => [
         [
             'title' => 'Price',
             'names' => ['minPrice', 'maxPrice']
+        ],
+        [
+            'title' => 'Count',
+            'names' => ['minCount', 'maxCount']
         ],
     ]
 ]) ?>

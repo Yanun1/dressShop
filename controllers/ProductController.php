@@ -3,11 +3,13 @@
 namespace app\controllers;
 
 use app\commands\RolesController;
+use app\models\ImagesProduct;
 use app\models\Products;
 use app\models\ProductsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * ProductController implements the CRUD actions for Products model.
@@ -68,17 +70,47 @@ class ProductController extends Controller
     public function actionCreate()
     {
         $model = new Products();
+        $modelImages = new ImagesProduct();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->load($this->request->post()) && $modelImages->load($this->request->post())) {
+
+                $model->id_user = \Yii::$app->user->getId();
+
+                if (\Yii::$app->request->post('category')) {
+                    $model->id_product = 0;
+                }
+
+                $model->image = UploadedFile::getInstance($model, 'image');
+                $model->upload();
+                $model->image = $model->image->name;
+
+                if (!$model->save()) {
+
+                    \Yii::$app->session->setFlash('errorOrder', 'Something gone wrong');
+                    return $this->refresh();
+                }
+
+                $extraName = time();
+                $modelImages->image = UploadedFile::getInstances($modelImages, 'image');
+                $modelImages->upload($extraName);
+
+                foreach ($modelImages->image as $image) {
+                    $ImagesProduct = new ImagesProduct();
+                    $ImagesProduct->image = $image->baseName.$extraName.'.'.$image->extension;
+                    $ImagesProduct->id_product = $model->id;
+                    $ImagesProduct->save();
+                }
+                \Yii::$app->session->setFlash('successAdd', 'Added');
+                return $this->redirect(['index', 'id' => $model->id]);
+            } else {
+                $model->loadDefaultValues();
             }
-        } else {
-            $model->loadDefaultValues();
         }
 
         return $this->render('create', [
             'model' => $model,
+            'modelImages' => $modelImages
         ]);
     }
 

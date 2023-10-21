@@ -13,11 +13,13 @@ class ProductsSearch extends Products
 {
     public $minPrice;
     public $maxPrice;
+    public $minCount;
+    public $maxCount;
 
     public function rules()
     {
         return [
-            [['id', 'count', 'id_product', 'id_user'], 'integer'],
+            [['id', 'count', 'id_product', 'id_user', 'minCount', 'maxCount'], 'integer'],
             [['product', 'image'], 'safe'],
             [['price', 'minPrice', 'maxPrice'], 'double'],
         ];
@@ -72,18 +74,21 @@ class ProductsSearch extends Products
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
             'price' => $this->price,
             'count' => $this->count,
-            'product' => $this->product,
             'users.id' => $this->id_user,
         ]);
 
-        $query->andFilterWhere(['like', 'product', $this->product])
-            ->andFilterWhere(['like', 'image', $this->image]);
+//        $query->andFilterWhere(['LIKE', 'id_order', $this->id_order]);
+//        $query->andFilterWhere(['LIKE', 'data', $this->data]);
+
+        $query->andFilterWhere(['LIKE', 'product', $this->product]);
+        $query->andFilterWhere(['LIKE', 'id', $this->id]);
 
         $query->andFilterWhere(['>=', 'products.price', $this->minPrice]);
         $query->andFilterWhere(['<=','products.price', $this->maxPrice]);
+        $query->andFilterWhere(['>=', 'products.count', $this->minCount]);
+        $query->andFilterWhere(['<=','products.count', $this->maxCount]);
 
         return $dataProvider;
     }

@@ -5,7 +5,7 @@ $(document).ready(function() {
         type: 'POST',
         dataType: 'json',
         success: function (res) {
-            productList =  res;
+            productList =  Object.values(res);
         },
         error: function () {
             alert('Error!');
@@ -14,13 +14,14 @@ $(document).ready(function() {
     // lracnum enq ordersi meji input dashtery stacac tablicayi toxeric
     function selectChange() {
         let valuesArr = $(this).val();
-        for (let i = 1; i <= Object.keys(productList).length; i++) {
+        for (let i = 0; i < productList.length; i++) {
             if (productList[i]['id'] == valuesArr) {
                 $(this).val(productList[i]['product']);
                 $(this).attr('value',productList[i]['id']);
                 $(this).parent().parent().find("input[name='OrderProduct[price][]']").val(productList[i]['price']);
                 $(this).parent().parent().find("input[name='saler[]']").val(productList[i]['user']['login']);
                 $(this).parent().parent().find(".micro-image > img").attr('src', "http://dress-shop/images/" + $(this).attr('data-image'));
+                break;
             }
         }
         changePrice($(this));

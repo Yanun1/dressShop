@@ -110,6 +110,7 @@ class OrderController extends Controller
                 $model = new Orders();
                 $orderProduct = new OrderProduct();
 
+
                 $product = Products::find()->with('user')->where("id={$postValues['id_product'][$i]}")->asArray()->one();
                 $name = User::find()->where("id=$userId")->asArray()->one();
 

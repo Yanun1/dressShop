@@ -29,11 +29,27 @@ class ImagesProduct extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['image', 'id_product'], 'required'],
+            [['id_product'], 'required'],
             [['id_product'], 'integer'],
-            [['image'], 'string', 'max' => 45],
+            ['image', 'file', 'maxSize' => 1024 * 1024 * 20, 'extensions' => 'png, jpg', 'maxFiles' => 5,  'tooBig' => 'The file is too large. Maximum size 20 MB.'],
+            [['image'], 'string', 'max' => 100],
             [['id_product'], 'exist', 'skipOnError' => true, 'targetClass' => Products::class, 'targetAttribute' => ['id_product' => 'id']],
         ];
+    }
+
+    public function upload($name)
+    {
+        if ($this->validate('image')) {
+            foreach ($this->image as $file) {
+                if(!$file->saveAs('images/' . $file->baseName .$name. '.' . $file->extension)){
+                    var_dump('Error');die;
+                }
+            }
+            return true;
+        } else {
+            //die;
+            return false;
+        }
     }
 
     /**

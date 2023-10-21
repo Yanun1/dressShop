@@ -88,10 +88,8 @@ class CheckSearch extends OrderCheck
             'orderCheck.id, MIN(`Orders`.`data`) AS data ,id_order, SUM(`price`*`count`) AS Total_Price, SUM(`count`) AS Total_Count'
             ]);
 
-        $query->andFilterWhere([
-            'id_order' => $this->id_order,
-            'data' => $this->data
-        ]);
+        $query->andFilterWhere(['LIKE', 'id_order', $this->id_order]);
+        $query->andFilterWhere(['LIKE', 'data', $this->data]);
 
         if(is_null($this->minDate)) {
             $this->minDate = date('Y-m').'-01';

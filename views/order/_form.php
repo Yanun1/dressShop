@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap5\ActiveForm;
 use app\components\ProductWidget;
 
 /** @var yii\web\View $this */
@@ -29,3 +29,9 @@ use app\components\ProductWidget;
 
     <?= ProductWidget::widget()  ;?>
 </div>
+
+<style>
+    .orders-form {
+        max-width: 400px;
+    }
+</style>

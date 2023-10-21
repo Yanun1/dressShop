@@ -1,6 +1,7 @@
+
 <div class="category-products">
     <li value="<?= $category['id']?>" src="<?= $category['image']?>" >
-        <a href="#"> <?= $category['product'] ?></a>
+        <a href="#" class="item"> <?= $category['product'] ?></a>
        <?php if(isset($category['childs'])):?>
         <a class = "badge pull-right"><i class="fa fa-plus"></i></a>
         <?php endif;?>

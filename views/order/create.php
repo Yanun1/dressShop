@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
             You can check your orders in "My Order" section
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-        <?php endif; ?>
+    <?php endif; ?>
 
     <?php if (Yii::$app->session->hasFlash('errorOrder')): ?>
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             all orders after this line were not ordered
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-        <?php endif; ?>
+    <?php endif; ?>
         <div class="ordersMain_container">
             <div class="OrdersForm">
                 <?= $form->field($model,'id_product[]',)->label('Products')->input('text', ['placeholder' => "Select product", 'class' => 'productInput form-control', 'readOnly' => true])?>

@@ -16,7 +16,7 @@ ProductSliderAsset::register($this);
                     </div>
             </div>
         <div class="slider-buttons">
-                <img src="/images/left_button.png" alt="<" class="left-button">
-                <img src="/images/left_button.png" alt=">" class="right-button">
-            </div>
+            <img src="/images/left_button.png" alt="<" class="left-button">
+            <img src="/images/left_button.png" alt=">" class="right-button">
+        </div>
     </div>

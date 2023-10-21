@@ -7,9 +7,9 @@ class ProductSliderAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'css/productSlider.css',
         'css/owl.carousel.css',
         'css/owl.carousel.min.css',
+        'css/productSlider.css',
     ];
     public $js = [
         'js/owl.carousel.min.js',

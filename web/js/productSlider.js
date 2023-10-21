@@ -44,6 +44,7 @@ $(document).ready(function() {
         }
         owl.trigger('add.owl.carousel', ["<img src='" + $(this).find('img').attr('src') + "' alt='photo'> </img>", 0]);
 
+        owl.trigger('refresh.owl.carousel');
 
         $('.select-product-widget').css('display', 'flex');
     });
