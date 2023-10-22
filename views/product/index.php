@@ -14,6 +14,8 @@ use app\components\productSliderWidget;
 
 $this->title = 'Products';
 $this->params['breadcrumbs'][] = $this->title;
+$this->registerJsFile('@web/js/product-update.js', ['position'=>\yii\web\View::POS_END, 'depends' => [\yii\web\JqueryAsset::class, \yii\web\YiiAsset::class, \yii\bootstrap5\BootstrapAsset::class]]);
+
 ?>
 <div class="products-index">
 
@@ -39,7 +41,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            'id',
+            [
+                'label' => 'ID',
+                'attribute' => 'products.id',
+                'value' => function ($model) {
+                    return $model['id'];
+                },
+                'contentOptions' => ['class' => 'id-column'],
+            ],
             [
                 'label' => 'Product',
                 'attribute' => 'product',
@@ -53,7 +62,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function ($model) {
                     return  Html::img('http://dress-shop/images/'.$model['image'], ['class' => 'mini-photo', 'alt' => 'photo']);
                 },
-                'contentOptions' => ['class' => 'image-column'],
+                'contentOptions' => ['class' => 'image-column', 'value' => 1],
                 'headerOptions' => ['class' => 'image-header']
             ],
             [

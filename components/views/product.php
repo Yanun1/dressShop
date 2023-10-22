@@ -6,10 +6,20 @@ use app\controllers\AjaxController;
 $data =  AjaxController::productGet();
 ProductWidgetAsset::register($this);
 
+
+
 $menuHtml;
 $tree = [];
 
 foreach ($data as $id => &$node) {
+//        echo '<pre>';
+//        var_dump($data);die;
+//    if(!isset($node['id_product'])) {
+//        echo '<pre>';
+//        var_dump($data);
+//        //var_dump($node['childs']['id_product']);
+//        die;
+//    }
     if (!$node['id_product'])
         $tree[$id] = &$node;
     else

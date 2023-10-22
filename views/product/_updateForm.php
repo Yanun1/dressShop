@@ -20,7 +20,8 @@ $this->registerJsFile('@web/js/product-update.js', ['position'=>\yii\web\View::P
 
     <?= $form->field($model, 'count')->textInput() ?>
 
-    <?= $form->field($model, 'image')->fileInput(['accept' => 'image/*'])->label('Main photo') ?>
+    <?= $form->field($modelProductsImage, 'image')->fileInput(['accept' => 'image/*'])->label('Main photo') ?>
+    <?= Html::label('Current photo - '.$model->image, 'oldImage', ['class' => 'current-photo']) ?>
 
     <?= $form->field($modelImages, 'image[]')->fileInput(['multiple' => true, 'accept' => 'image/*'])->label('Additional images (optional)') ?>
 
@@ -40,12 +41,25 @@ $this->registerJsFile('@web/js/product-update.js', ['position'=>\yii\web\View::P
 
 
 <style>
+    .custom-file-label {
+        display: block;
+    }
+
+    .current-photo {
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+
     .products-form {
         max-width: 400px;
     }
 
     .checkbox {
         margin-bottom: 30px;
+    }
+
+    .field-imagesform-image {
+        margin-bottom: 0 !important;
     }
 
 </style>

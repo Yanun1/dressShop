@@ -4,6 +4,7 @@ $(document).ready(function() {
     if (isNaN(productList)) {
         $.ajax({
             url: '/ajax/base',
+            data: {orderProduct:$('.image-column').attr('value')},
             type: 'POST',
             dataType: 'json',
             success: function (res) {
@@ -27,7 +28,7 @@ $(document).ready(function() {
         owl.trigger('remove.owl.carousel', [0, true]);
         for (let product of productList)
         {
-            if(product['product'] == $(this).parent().find('.product-column').text())
+            if(product['id'] == $(this).parent().find('.id-column').text())
             {
                 if(product['images'].length == 0) {
                     $('.slider-buttons').hide();

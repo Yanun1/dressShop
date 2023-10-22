@@ -133,9 +133,6 @@ $defaultValue = 'option2';
     ]
 ]) ?>
 
-
-<?= productSliderWidget::widget() ?>
-
 <style>
 
     .to-view img {

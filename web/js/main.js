@@ -3,6 +3,7 @@ $(document).ready(function() {
     $.ajax({
         url: '/ajax/base',
         type: 'POST',
+        data: {orderProduct:1},
         dataType: 'json',
         success: function (res) {
             productList =  Object.values(res);

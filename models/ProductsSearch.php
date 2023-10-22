@@ -53,7 +53,7 @@ class ProductsSearch extends Products
             'query' => $query,
             'sort' => [
                 'attributes' => [
-                    'id',
+                    'products.id',
                     'price',
                     'count',
                     'product',
@@ -83,7 +83,7 @@ class ProductsSearch extends Products
 //        $query->andFilterWhere(['LIKE', 'data', $this->data]);
 
         $query->andFilterWhere(['LIKE', 'product', $this->product]);
-        $query->andFilterWhere(['LIKE', 'id', $this->id]);
+        $query->andFilterWhere(['LIKE', 'products.id', $this->id]);
 
         $query->andFilterWhere(['>=', 'products.price', $this->minPrice]);
         $query->andFilterWhere(['<=','products.price', $this->maxPrice]);

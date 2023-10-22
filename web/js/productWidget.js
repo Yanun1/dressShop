@@ -49,6 +49,7 @@ $(document).ready(function() {
         $.ajax({
             url: '/ajax/base',
             type: 'POST',
+            data: {orderProduct:1},
             dataType: 'json',
             success: function (res) {
                 productList =  Object.values(res);
@@ -87,7 +88,6 @@ $(document).ready(function() {
                 }
             }
         }
-        console.log(productList);
         owl.trigger('add.owl.carousel', ["<img src='" + 'http://dress-shop/images/' + productMain['image'] + "' alt='photo'> </img>", 0]);
         owl.trigger('refresh.owl.carousel');
 

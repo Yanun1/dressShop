@@ -39,15 +39,13 @@ class ImagesProduct extends \yii\db\ActiveRecord
 
     public function upload($name)
     {
-        if ($this->validate('image')) {
+        if (true) {
             foreach ($this->image as $file) {
-                if(!$file->saveAs('images/' . $file->baseName .$name. '.' . $file->extension)){
-                    var_dump('Error');die;
-                }
+                $file->saveAs('images/' . $file->baseName .$name. '.' . $file->extension);
             }
             return true;
         } else {
-            //die;
+            var_dump('didn\'t pass validate');die;
             return false;
         }
     }

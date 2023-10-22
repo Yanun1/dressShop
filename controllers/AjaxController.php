@@ -38,22 +38,36 @@ class AjaxController extends Controller
 
     public function actionBase()
     {
-        if (isset(self::$base))
-            return json_encode(self::$base);
-        else {
-//            self::$base = OrderProduct::find()->with('images')->indexBy('id')->asArray()->all();
-            self::$base = Products::find()->with('user')->with('images')->indexBy('id')->asArray()->all();
-            return json_encode(self::$base);
+        if (Yii::$app->request->isAjax) {
+            if ($_POST['orderProduct'] == 1) {
+                //return json_encode('true');
+                if (isset(self::$base))
+                    return json_encode(self::$base);
+                else {
+                    //            self::$base = OrderProduct::find()->with('images')->indexBy('id')->asArray()->all();
+                    self::$base = Products::find()->with('user')->with('images')->indexBy('id')->asArray()->all();
+                    return json_encode(self::$base);
+                }
+            } elseif ($_POST['orderProduct'] == 0) {
+                //return json_encode('false');
+                if (isset(self::$baseProduct))
+                    return json_encode(self::$baseProduct);
+                else {
+                    // self::$base = OrderProduct::find()->with('images')->indexBy('id')->asArray()->all();
+                    self::$baseProduct = OrderProduct::find()->with('images')->indexBy('id')->asArray()->all();
+                    return json_encode(self::$baseProduct);
+                }
+            }
         }
     }
 
     public static function productGet()
     {
-        if(isset(self::$baseProduct))
-            return self::$baseProduct;
+        if(isset(self::$base))
+            return self::$base;
         else {
-            self::$baseProduct = Products::find()->with('user')->with('images')->indexBy('id')->asArray()->all();
-            return self::$baseProduct;
+            self::$base = Products::find()->with('user')->with('images')->indexBy('id')->asArray()->all();
+            return self::$base;
         }
     }
 }

@@ -62,7 +62,11 @@ $defaultValue = 'option2';
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            'id',
+            [
+                'label' => 'ID',
+                'attribute' => 'id',
+                'contentOptions' => ['class' => 'id-column'],
+            ],
             [
                 'label' => 'ID Check',
                 'value' => function ($model) {
@@ -106,7 +110,7 @@ $defaultValue = 'option2';
                 'value' => function ($model) {
                     return  Html::img('http://dress-shop/images/'.$model['orderProduct']['image'], ['class' => 'mini-photo', 'alt' => 'photo']);
                 },
-                'contentOptions' => ['class' => 'image-column'],
+                'contentOptions' => ['class' => 'image-column', 'value' => 0],
                 'headerOptions' => ['class' => 'image-header']
             ],
             [
