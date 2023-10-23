@@ -63,6 +63,10 @@ class ComposerStaticInit772e2e451822aead045fa7a783d56c3e
             'dosamigos\\highcharts\\' => 21,
             'dosamigos\\chartjs\\' => 18,
         ),
+        'e' => 
+        array (
+            'ejfrias\\yii2_xdan_datetimepicker\\' => 33,
+        ),
         'c' => 
         array (
             'cebe\\markdown\\' => 14,
@@ -191,6 +195,10 @@ class ComposerStaticInit772e2e451822aead045fa7a783d56c3e
         'dosamigos\\chartjs\\' => 
         array (
             0 => __DIR__ . '/..' . '/2amigos/yii2-chartjs-widget/src',
+        ),
+        'ejfrias\\yii2_xdan_datetimepicker\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/ejfrias/yii2-xdan-datetimepicker',
         ),
         'cebe\\markdown\\' => 
         array (

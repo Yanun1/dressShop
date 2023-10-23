@@ -34,9 +34,9 @@ class SiteController extends Controller
                         'roles' => ['employee'],
                     ],
                     [
-                        'actions' => ['logout'],
+                        'actions' => ['index', 'logout'],
                         'allow' => true,
-                        'roles' => ['*'],
+                        'roles' => ['user'],
                     ],
                 ],
             ],
@@ -103,7 +103,7 @@ class SiteController extends Controller
     {
         Yii::$app->user->logout();
 
-        return  $this->goHome();
+        return  $this->redirect('login');
     }
 
     public function actionChart(){

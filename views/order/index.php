@@ -6,23 +6,26 @@ use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\bootstrap5\Alert;
+use app\components\SearchWidget;
+use app\components\productSliderWidget;
 
 
-$access = false;
-$role = Yii::$app->authManager->getRolesByUser(Yii::$app->user->id);
-foreach ($role as $rol) {
-    if($rol->name == 'admin'|| $rol->name == 'employee')
-        $access = true;
-}
 
 /** @var yii\web\View $this */
 /** @var app\models\OrdersSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
+if(Yii::$app->user->isGuest) {
+    Yii::$app->response->redirect(['/site/login']);
+    return;
+}
 
 $this->registerJsFile('@web/js/order-index.js', ['position'=>\yii\web\View::POS_END, 'depends' => [\yii\web\JqueryAsset::class, \yii\web\YiiAsset::class, \yii\bootstrap5\BootstrapAsset::class]]);
 
-$this->title = 'Orders';
-$this->params['breadcrumbs'][] = $this->title;
+
+$this->title = 'List';
+$this->params['breadcrumbs'][] = ['label' => 'Orders', 'url' => ['index']];
+$this->params['breadcrumbs'][] = 'List';
+$defaultValue = 'option2';
 ?>
 <div class="orders-index">
 
@@ -31,8 +34,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="create-order">
         <?= Html::a('Create Orders', ['create'], ['class' => 'btn btn-success']) ?>
     </div>
+    <div class="create-order filet-button">
+        <button type="button" class="btn btn-secondary search-button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Search<img src="http://dress-shop/images/filter_icon.png" alt="Y"></button>
+    </div>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
     <?php
 
     if (Yii::$app->session->hasFlash('failed')) {
@@ -55,42 +60,73 @@ $this->params['breadcrumbs'][] = $this->title;
     ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            [
+                'label' => 'ID',
+                'attribute' => 'id',
+                'contentOptions' => ['class' => 'id-column'],
+            ],
+            [
+                'label' => 'ID Check',
+                'value' => function ($model) {
+                    return $model['orderCheck']['id_order'];
+                },
+                'attribute' => 'orderCheck.id_order',
+            ],
             [
                 'label' => 'Products',
                 'value' => function ($model) {
-                    return $model['product']['product'];
+                    return $model['orderProduct']['product'];
                 },
+                'attribute' => 'orderProduct.product',
+                'contentOptions' => ['class' => 'product-column'],
             ],
             [
                 'label' => 'Price',
                 'value' => function ($model) {
-                    return $model['product']['price'];
+                    return $model['orderProduct']['price'];
                 },
+                'attribute' => 'orderProduct.price'
             ],
-            'count',
+            [
+                'label' => 'Count',
+                'value' => function ($model) {
+                    return $model['orderProduct']['count'];
+                },
+                'attribute' => 'orderProduct.count'
+            ],
             [
                 'label' => 'Status',
                 'value' => function ($model) {
                     return $model['status'];
                 },
                 'contentOptions' => ['class' => 'status-column'],
+                'attribute' => 'status'
             ],
             [
                 'label' => 'Image',
                 'format' => 'raw',
                 'value' => function ($model) {
-                    return  Html::img('http://dress-shop/images/'.$model['product']['image'], ['class' => 'mini-photo', 'alt' => 'photo']);
+                    return  Html::img('http://dress-shop/images/'.$model['orderProduct']['image'], ['class' => 'mini-photo', 'alt' => 'photo']);
                 },
-                'contentOptions' => ['class' => 'image-column'],
+                'contentOptions' => ['class' => 'image-column', 'value' => 0],
                 'headerOptions' => ['class' => 'image-header']
             ],
             [
                 'label' => 'Total',
                 'value' => function ($model) {
-                    return $model['product']['price']*$model['count'];
+                    return $model['orderProduct']['price']*$model['orderProduct']['count'];
                 },
+                'attribute' => '`orderProduct`.`price` * `orderProduct`.`count`'
+            ],
+            [
+                'label' => 'Date',
+                'value' => function ($model) {
+                    $temp = new DateTime($model['data']);
+                    return $temp->format('Y-m-d');
+                },
+                'attribute' => 'DATE(`data`)'
             ],
             [
                 'class' => ActionColumn::class,
@@ -99,14 +135,47 @@ $this->params['breadcrumbs'][] = $this->title;
                  },
                 'visibleButtons' => [
                     'view' => false,
-                    'update' => $access
+                    'update' => Yii::$app->user->can('Update elements'),
                 ],
             ],
         ],
     ]); ?>
 </div>
 
+<?= SearchWidget::widget([
+        'model' => $searchModel,
+        'fields' => ['product', 'count', 'id_check'],
+        'calendars' => [
+                [
+                        'inputs' => ['minDate', 'maxDate']
+                ]
+        ],
+        'lists' => [
+                [
+                        'input' => 'status',
+                        'options' => ['waiting' => 'Waiting', 'on the way' => 'On the way', 'delivered' => 'Delivered', 'received' => 'Received']
+                ]
+        ],
+        'ranges' => [
+                [
+                    'title' => 'Price',
+                    'names' => ['minPrice', 'maxPrice']
+                ],
+                [
+                    'title' => 'Total',
+                    'names' => ['minTotal', 'maxTotal']
+                ]
+        ]
+]) ?>
+
+
+<?= productSliderWidget::widget() ?>
+
 <style>
+    thead a {
+        color: black;
+    }
+
     .create-order {
         margin: 12px 0;
         display: flex;
@@ -127,10 +196,20 @@ $this->params['breadcrumbs'][] = $this->title;
         position: relative;
         padding: 0 !important;
         overflow: hidden;
+        cursor: pointer;
     }
 
     .image-header {
         width: 25px;
+    }
+
+    .filters {
+        display: none;
+    }
+
+    .filet-button img {
+        height: 18px;
+        margin-left: 10px;
     }
 
 </style>

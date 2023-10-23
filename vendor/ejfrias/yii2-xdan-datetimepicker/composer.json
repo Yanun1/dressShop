@@ -1,0 +1,22 @@
+{
+    "name": "ejfrias/yii2-xdan-datetimepicker",
+    "description": "Yii2 wrapper for xdan/datetimepicker",
+    "minimum-stability": "dev",
+    "license": "proprietary",
+    "type": "yii2-extension",
+    "authors": [],
+    "require": {
+        "yiisoft/yii2": "*"
+     },
+     "autoload": {
+        "psr-4": {
+            "ejfrias\\yii2_xdan_datetimepicker\\" : ""
+        }
+    },
+    "extra": {
+        "asset-installer-paths": {
+            "npm-asset-library": "vendor/npm",
+            "bower-asset-library": "vendor/bower"
+        }
+    }
+}

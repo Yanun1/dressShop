@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2a5d10581f62995e630efa643aabbe30",
+    "content-hash": "c79463dac819de08f00326c0b911529d",
     "packages": [
         {
             "name": "2amigos/yii2-chartjs-widget",
@@ -508,6 +508,46 @@
                 }
             ],
             "time": "2023-10-06T06:47:41+00:00"
+        },
+        {
+            "name": "ejfrias/yii2-xdan-datetimepicker",
+            "version": "v0.0.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ejfrias/yii2-xdan-datetimepicker.git",
+                "reference": "7d2af00b2cf7c2ddb025959c10dc384be43df974"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ejfrias/yii2-xdan-datetimepicker/zipball/7d2af00b2cf7c2ddb025959c10dc384be43df974",
+                "reference": "7d2af00b2cf7c2ddb025959c10dc384be43df974",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "asset-installer-paths": {
+                    "npm-asset-library": "vendor/npm",
+                    "bower-asset-library": "vendor/bower"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ejfrias\\yii2_xdan_datetimepicker\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "proprietary"
+            ],
+            "description": "Yii2 wrapper for xdan/datetimepicker",
+            "support": {
+                "issues": "https://github.com/ejfrias/yii2-xdan-datetimepicker/issues",
+                "source": "https://github.com/ejfrias/yii2-xdan-datetimepicker/tree/v0.0.7"
+            },
+            "time": "2018-04-19T05:38:00+00:00"
         },
         {
             "name": "ezyang/htmlpurifier",

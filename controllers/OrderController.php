@@ -2,8 +2,12 @@
 
 namespace app\controllers;
 
+use app\models\CheckSearch;
+use app\models\OrderProduct;
 use app\models\Orders;
 use app\models\OrdersSearch;
+use app\models\Products;
+use app\models\User;
 use app\widgets\Alert;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -12,6 +16,8 @@ use yii\filters\VerbFilter;
 use Yii;
 use yii\data\ArrayDataProvider;
 use yii\web\ForbiddenHttpException;
+use app\models\OrderCheck;
+use yii\helpers\Url;
 
 
 /**
@@ -35,6 +41,10 @@ class OrderController extends Controller
                         'actions' => ['index', 'delete'],
                         'roles' => ['user'],
                     ],
+                    [
+                        'allow' => false,
+                        'roles' => ['?'],
+                    ],
                 ],
             ],
         ];
@@ -48,16 +58,28 @@ class OrderController extends Controller
         }
     }
 
+    public function actionList()
+    {
+        //$userId = Yii::$app->user->id;
+        //$dataProvider = new ArrayDataProvider(['allModels' => Orders::find()->where("id_user=$userId")->with('user')->with('product')->all()]);
+        $searchModel = new OrdersSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+
+    }
+
     public function actionIndex()
     {
-        $userId = Yii::$app->user->id;
-        $dataProvider = new ArrayDataProvider(['allModels' => Orders::find()->where("id_user=$userId")->with('user')->with('product')->all()]);
+        $searchModel = new CheckSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 //        echo '<pre>';
-//        var_dump(Orders::find()->with('user')->with('product')->asArray()->all());
-//        echo '</pre>';
+//        var_dump($dataProvider);die;
 
-        return $this->render('index', [
-//            'searchModel' => $searchModel,
+        return $this->render('checks', [
+            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
@@ -69,20 +91,53 @@ class OrderController extends Controller
      */
     public function actionCreate(){
         $model = new Orders();
+        $orderProduct = new OrderProduct();
+
+        $userId = Yii::$app->user->id;
 
         if(Yii::$app->request->isPost) {
             $postValues = Yii::$app->request->post()['Orders'];
+            $orderProductValues = Yii::$app->request->post()['OrderProduct'];
+
+            $checkNubmers = time();
+
+            $check = new OrderCheck();
+            $check['id_order'] = $checkNubmers;
+            $check->save();
+            $checkId = $check['id'];
 
             for($i = 0; $i < count($postValues['id_product']); $i++){
                 $model = new Orders();
-                $model['count'] = $postValues['count'][$i];
-                $model['id_product'] = $postValues['id_product'][$i];
-                $model['id_user'] = Yii::$app->user->getId();
-                $model['status'] = 'waiting';
-                if($model->validate())
-                    $model->save();
+                $orderProduct = new OrderProduct();
+
+
+                $product = Products::find()->with('user')->where("id={$postValues['id_product'][$i]}")->asArray()->one();
+                $name = User::find()->where("id=$userId")->asArray()->one();
+
+                $orderProduct['product'] = $product['product'];
+                $orderProduct['employee'] = $product['user']['login'];
+                $orderProduct['image'] = $product['image'];
+                $orderProduct['count'] = $orderProductValues['count'][$i];
+                $orderProduct['id_product'] = $postValues['id_product'][$i];
+                $orderProduct['user'] = $name['login'];
+                $orderProduct['price'] = $orderProductValues['price'][$i];
+
+                if($orderProduct->validate()) {
+                    $orderProduct->save();
+                }
                 else {
-                    Yii::$app->session->setFlash('errorOrder', 'Something gone wrong in'."$i row!");
+                    Yii::$app->session->setFlash('errorOrder', 'Something gone wrong in '."$i row!");
+                    return $this->refresh();
+                }
+
+                $model['id_product'] = $orderProduct['id'];
+                $model['status'] = 'waiting';
+                $model['id_check'] = $checkId;
+
+                if($model->validate()) {
+                    $model->save();}
+                else {
+                    Yii::$app->session->setFlash('errorOrder', 'Something gone wrong in '."$i row!");
                     return $this->refresh();
                 }
             }
@@ -90,7 +145,7 @@ class OrderController extends Controller
             return $this->refresh();
         }
 
-        return $this->render('create',compact('model'));
+        return $this->render('create',compact('model','orderProduct'));
     }
 
     /**
@@ -103,13 +158,35 @@ class OrderController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $orderProduct = OrderProduct::find()->where("id={$model['id_product']}")->one();
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+        if (Yii::$app->request->isPost) {
+
+            $order = Yii::$app->request->post()['OrdersSearch'];
+            $orderProductPost = Yii::$app->request->post()['OrderProduct'];
+
+            //$model['id'] = $_GET['id'];
+            $model['status'] = $order['status'];
+
+            $model->save();
+
+            //$orderProduct['id'] = $model['id_product'];
+            $product = Products::find()->where("id={$orderProductPost['id_product']}")->with('user')->one();
+
+            $orderProduct['id_product'] = $orderProductPost['id_product'];
+            $orderProduct['price'] = $product['price'];
+            $orderProduct['product'] = $product['product'];
+            $orderProduct['employee'] = $product['user']['login'];
+            $orderProduct['image'] = $product['image'];
+            $orderProduct['count'] = $orderProductPost['count'];
+
+            $orderProduct->save();
+
             return $this->redirect(['index', 'id' => $model->id]);
         }
 
         return $this->render('update', [
-            'model' => $model,
+            'model' => $model, 'orderProduct' => $orderProduct
         ]);
     }
 
@@ -141,7 +218,7 @@ class OrderController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Orders::findOne(['id' => $id])) !== null) {
+        if (($model = OrdersSearch::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

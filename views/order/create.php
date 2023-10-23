@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
             You can check your orders in "My Order" section
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-        <?php endif; ?>
+    <?php endif; ?>
 
     <?php if (Yii::$app->session->hasFlash('errorOrder')): ?>
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -32,20 +32,18 @@ $this->params['breadcrumbs'][] = $this->title;
             all orders after this line were not ordered
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-        <?php endif; ?>
+    <?php endif; ?>
         <div class="ordersMain_container">
             <div class="OrdersForm">
                 <?= $form->field($model,'id_product[]',)->label('Products')->input('text', ['placeholder' => "Select product", 'class' => 'productInput form-control', 'readOnly' => true])?>
 
                 <div class="form-group field-orders-id_product noneInput">
                     <?= Html::label('Saler', 'SalerLabel') ?>
-                    <?= Html::input('text','saler', 'None', ['class' => 'form-control field-ordersform-count', 'readOnly' => true])?>
+                    <?= Html::input('text','saler[]', 'None', ['class' => 'form-control field-ordersform-count', 'readOnly' => true])?>
                 </div>
-                <div class="form-group field-orders-id_product noneInput">
-                    <?= Html::label('Price', 'priceLabel') ?>
-                    <?= Html::input('Number','price', '', ['class' => 'form-control field-ordersform-count', 'readOnly' => true])?>
-                </div>
-                <?= $form->field($model,'count[]')->label('Count')->input('number', ['value' => 1, 'min' => 1])?>
+                <?= $form->field($orderProduct,'price[]', ['options' => ['class' => 'form-group field-orders-id_product'],])->label('Price')->input('number', ['readOnly' => true, 'class' => 'form-control field-ordersform-count'])?>
+
+                <?= $form->field($orderProduct,'count[]')->label('Count')->input('number', ['value' => 1, 'min' => 1])?>
                 <div class="form-group field-orders-id_product noneInput">
                     <?= Html::label('Total', 'costLabel') ?>
                     <?= Html::input('Number','sumName', 0, ['class' => 'form-control field-ordersform-count costInput', 'readOnly' => true])?>

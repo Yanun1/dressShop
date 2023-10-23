@@ -27,7 +27,8 @@
         "2amigos/yii2-highcharts-widget": "^1.0",
         "yiisoft/yii2-composer": "^2.0",
         "kartik-v/yii2-widget-datepicker": "^1.4",
-        "yiisoft/yii2-jui": "*"
+        "yiisoft/yii2-jui": "*",
+        "ejfrias/yii2-xdan-datetimepicker": "^0.0.7"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

@@ -1,7 +1,8 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap5\ActiveForm;
+use app\components\ProductWidget;
 
 /** @var yii\web\View $this */
 /** @var app\models\Orders $model */
@@ -12,9 +13,9 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'id_product')->textInput() ?>
+    <?= $form->field($orderProduct, 'id_product')->label('Products')->input('text', ['placeholder' => "Select product", 'class' => 'productInput form-control', 'readOnly' => true]) ?>
 
-    <?= $form->field($model, 'count')->textInput() ?>
+    <?= $form->field($orderProduct, 'count')->textInput() ?>
 
     <?= $form->field($model, 'status')->dropDownList(
         ['waiting' => 'Waiting', 'on the way' => 'On the way', 'delivered' => 'Delivered', 'received' => 'Received'],
@@ -26,4 +27,11 @@ use yii\widgets\ActiveForm;
 
     <?php ActiveForm::end(); ?>
 
+    <?= ProductWidget::widget()  ;?>
 </div>
+
+<style>
+    .orders-form {
+        max-width: 400px;
+    }
+</style>

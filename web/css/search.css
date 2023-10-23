@@ -1,0 +1,39 @@
+.calendare {
+    display: flex;
+    gap: 5px;
+}
+
+.calendare > .form-group {
+    flex-grow: 1;
+}
+
+.search-inputs > .form-group {
+    flex-grow: 1;
+    flex-basis: 150px;
+}
+
+.help-block {
+    color: red;
+}
+
+.search-inputs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+.bottom-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.modal-footer {
+    display: block !important;
+}

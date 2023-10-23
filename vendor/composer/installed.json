@@ -1253,6 +1253,49 @@
             "install-path": "../egulias/email-validator"
         },
         {
+            "name": "ejfrias/yii2-xdan-datetimepicker",
+            "version": "v0.0.7",
+            "version_normalized": "0.0.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ejfrias/yii2-xdan-datetimepicker.git",
+                "reference": "7d2af00b2cf7c2ddb025959c10dc384be43df974"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ejfrias/yii2-xdan-datetimepicker/zipball/7d2af00b2cf7c2ddb025959c10dc384be43df974",
+                "reference": "7d2af00b2cf7c2ddb025959c10dc384be43df974",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "time": "2018-04-19T05:38:00+00:00",
+            "type": "yii2-extension",
+            "extra": {
+                "asset-installer-paths": {
+                    "npm-asset-library": "vendor/npm",
+                    "bower-asset-library": "vendor/bower"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "ejfrias\\yii2_xdan_datetimepicker\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "proprietary"
+            ],
+            "description": "Yii2 wrapper for xdan/datetimepicker",
+            "support": {
+                "issues": "https://github.com/ejfrias/yii2-xdan-datetimepicker/issues",
+                "source": "https://github.com/ejfrias/yii2-xdan-datetimepicker/tree/v0.0.7"
+            },
+            "install-path": "../ejfrias/yii2-xdan-datetimepicker"
+        },
+        {
             "name": "ezyang/htmlpurifier",
             "version": "v4.16.0",
             "version_normalized": "4.16.0.0",

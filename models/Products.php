@@ -2,7 +2,9 @@
 
 namespace app\models;
 
+use yii\web\UploadedFile;
 use Yii;
+use function PHPUnit\Framework\isEmpty;
 
 /**
  * This is the model class for table "products".
@@ -33,12 +35,26 @@ class Products extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['product', 'price', 'id_product'], 'required'],
-            [['price'], 'number'],
+            [['product', 'price', 'count', 'image'], 'required'],
+            ['id_product', 'default', 'value' => 0],
+            ['product', 'match', 'pattern' => '/^[a-zA-Z0-9\-\s]+$/', 'message' => 'Please enter only letters and numbers.'],
+            ['image', 'file', 'maxSize' => 1024 * 1024 * 20, 'extensions' => 'png, jpg', 'tooBig' => 'The file is too large. Maximum size 20 MB.'],
+            [['price'], 'double'],
             [['count', 'id_product', 'id_user'], 'integer'],
-            [['product'], 'string', 'max' => 45],
+            [['count', 'id_product', 'id_user', 'price'], 'match', 'pattern' => '/^[0-9\s]+$/', 'message' => 'The value must be a positive number.'],
+            [['product'], 'string', 'min' => 3, 'max' => 45],
             [['id_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['id_user' => 'id']],
         ];
+    }
+
+    public function upload($extraName)
+    {
+        if ($this->validate()) {
+            $this->image->saveAs('images/' . $this->image->baseName . $extraName . '.' . $this->image->extension);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -74,5 +90,10 @@ class Products extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::class, ['id' => 'id_user']);
+    }
+
+    public function getImages()
+    {
+        return $this->hasMany(ImagesProduct::class, ['id_product' => 'id']);
     }
 }

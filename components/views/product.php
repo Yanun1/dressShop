@@ -8,11 +8,18 @@ ProductWidgetAsset::register($this);
 
 
 
-
 $menuHtml;
 $tree = [];
 
 foreach ($data as $id => &$node) {
+//        echo '<pre>';
+//        var_dump($data);die;
+//    if(!isset($node['id_product'])) {
+//        echo '<pre>';
+//        var_dump($data);
+//        //var_dump($node['childs']['id_product']);
+//        die;
+//    }
     if (!$node['id_product'])
         $tree[$id] = &$node;
     else
@@ -36,6 +43,7 @@ function getMenuHtml ($tree) {
 // var_dump($tree);
 // echo '</pre>'; die;
 $menuHtml= getMenuHtml($tree);
+
 ?>
 
 <div class="select-product-widget">
@@ -51,8 +59,12 @@ $menuHtml= getMenuHtml($tree);
                     <?= $menuHtml ?>
                 </ul>
                 <div class="product-info">
-                    <div class="product-info-view">
+                    <div class="product-info-view owl-carousel">
                         <img src="http://dress-shop/images/window_product_default.jpg" alt="product">
+                    </div>
+                    <div class="slider-buttons">
+                        <img src="/images/left_button.png" alt="<" class="left-button">
+                        <img src="/images/left_button.png" alt=">" class="right-button">
                     </div>
                 </div>
             </div>

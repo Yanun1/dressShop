@@ -33,10 +33,11 @@ class Orders extends \yii\db\ActiveRecord
     {
         return [
 
-            [['count', 'status'], 'required'],
+//            [['status'], 'required'],
             [['status'], 'string'],
-            [['id_product'], 'exist', 'skipOnError' => true, 'targetClass' => Products::class, 'targetAttribute' => ['id_product' => 'id']],
-            [['id_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['id_user' => 'id']],
+            [['status'], 'required'],
+            [['id_product', 'data', 'id', 'id_check'], 'safe'],
+            [['id_product'], 'exist', 'skipOnError' => true, 'targetClass' => OrderProduct::class, 'targetAttribute' => ['id_product' => 'id']],
         ];
     }
 
@@ -48,7 +49,6 @@ class Orders extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'id_product' => 'Product',
-            'count' => 'Count',
             'id_user' => 'Id User',
             'status' => 'Status',
         ];
@@ -64,6 +64,11 @@ class Orders extends \yii\db\ActiveRecord
         return $this->hasOne(Products::class, ['id' => 'id_product']);
     }
 
+    public function getOrderProduct()
+    {
+        return $this->hasOne(OrderProduct::class, ['id' => 'id_product']);
+    }
+
     /**
      * Gets query for [[User]].
      *
@@ -72,6 +77,10 @@ class Orders extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::class, ['id' => 'id_user']);
+    }
+    public function getOrderCheck()
+    {
+        return $this->hasOne(OrderCheck::class, ['id' => 'id_check']);
     }
 }
 
