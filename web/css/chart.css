@@ -11,6 +11,37 @@ select{
     display: block;
     margin-top: 10px;
 }
+
 .theme{
     margin-top:10px;
 }
+.chart-open{
+    display: none;
+    margin-top: 10px;
+}
+.chart-open {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    float: left;
+    margin: 5px;
+  }
+
+  label {
+    display: block;
+    margin-top: 10px;
+  }
+
+  input[type="color"] {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  .save{
+    display: block;
+    margin-top: 10px;
+}
+ 
+
