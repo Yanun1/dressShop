@@ -21,4 +21,14 @@ class imagesForm extends models
             'image' => 'Main photo',
         ];
     }
+
+    public function upload($extraName)
+    {
+        if (true) {
+            $this->image[0]->saveAs('images/' . $this->image[0]->baseName . $extraName . '.' . $this->image[0]->extension);
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

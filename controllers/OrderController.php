@@ -165,12 +165,10 @@ class OrderController extends Controller
             $order = Yii::$app->request->post()['OrdersSearch'];
             $orderProductPost = Yii::$app->request->post()['OrderProduct'];
 
-            //$model['id'] = $_GET['id'];
             $model['status'] = $order['status'];
 
             $model->save();
 
-            //$orderProduct['id'] = $model['id_product'];
             $product = Products::find()->where("id={$orderProductPost['id_product']}")->with('user')->one();
 
             $orderProduct['id_product'] = $orderProductPost['id_product'];

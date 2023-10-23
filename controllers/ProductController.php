@@ -130,8 +130,7 @@ class ProductController extends Controller
         $modelProductsImage = new imagesForm();
 
         if ($this->request->isPost) {
-            //$currentImage = $model->image;
-            if ($model->load($this->request->post()) && $modelImages->load($this->request->post())) {
+            if ($model->load($this->request->post()) && $modelImages->load($this->request->post()) && $modelProductsImage->load($this->request->post())) {
 
                 $model->id_user = \Yii::$app->user->getId();
 
@@ -141,12 +140,18 @@ class ProductController extends Controller
 
                 $extraName = time();
 
-                // model->image-i texy petqa im sarqac imagesFormy stugem nor anem updaty ete kariqy lini
-                if(!is_null($modelProductsImage->image)){
-                    $model->image = UploadedFile::getInstance($modelProductsImage, 'image');
-                    $model->upload($extraName);
-                    $model->image = $model->image->baseName . $extraName . '.' . $model->image->extension;
+
+                $modelProductsImage->image = UploadedFile::getInstances($modelProductsImage, 'image');
+
+
+                if($modelProductsImage->image != []) {
+                    $model->image = $modelProductsImage->image;
+                    $modelProductsImage->upload($extraName);
+                    //$model->upload($extraName);
+                    $model->image = $model->image[0]->baseName . $extraName . '.' . $model->image[0]->extension;
                 }
+//                echo '<pre>';
+//                var_dump($model->image);die;
 
                 if (!$model->save()) {
 
