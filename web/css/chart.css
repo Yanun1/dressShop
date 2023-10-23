@@ -9,7 +9,7 @@ select{
 }
 .save-button{
     display: block;
-    margin-top: 10px;
+    margin-top: 15px;
 }
 
 .theme{
@@ -24,24 +24,50 @@ select{
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 250px;
-    float: left;
+    display: none;
+    flex-direction: column;
+    gap: 4px;
     margin: 5px;
+    position: absolute;
+    z-index: 10;
+    min-width: 175px;
   }
 
-  label {
-    display: block;
-    margin-top: 10px;
-  }
-
-  input[type="color"] {
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-  }
-  .save{
+label {
     display: block;
     margin-top: 10px;
 }
+
+input[type="color"] {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+.save{
+    display: block;
+    margin-top: 10px;
+}
+
+  .container-view {
+      display: flex;
+      flex-direction: column;
+      padding-top: 100px !important;
+  }
+
+  .canvasjs-chart-canvas {
+      width: auto !important;
+      position:unset !important;
+      max-height: 300px !important;
+  }
  
 
+  .settings-column {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+  }
+
+  .color-bars {
+      position: relative;
+  }

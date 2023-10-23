@@ -124,7 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && !\Yii::$app->user->isGuest) {
 
 ?>
 
-<form action="" method="GET">
+<form action="" method="GET" class="settings-column">
     <?= Html::dropDownList('year', $show_year , [
         "2022" => "2022",
         "2023" => "2023",
@@ -144,22 +144,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && !\Yii::$app->user->isGuest) {
         "11" => "November",
         "12" => "December"
     ]) ?>
-    <button class="btn btn-primary save-button">Show</button>
-    <button class="btn btn-dark save-button">Change chart colors</button>
-    </form>
-    <div class="chart-open">
-        <form action="" method="GET">
-        <label for="favcolor">Select theme:</label>
-        <input type="color" class="selectTheme" name="selectTheme" value="<?=$selectTheme?>">
-        <label for="favcolor">Select total color:</label>
-        <input type="color" class="favcolor" name="selectTotal" value="<?=$selectTotal?>">
-        <label for="favcolor">Select count color:</label>
-        <input type="color" class="favcolor" name="selectCount" value="<?=$selectCount?>">
-        <label for="favcolor">Select text color:</label>
-        <input type="color" class="textcolor" name="textcolor" value="<?=$textcolor?>">
-        <button class="btn btn-success save-button">Save</button>
-        </form>
+    <button class="btn btn-primary">Show</button>
+
+    <div class="color-bars">
+        <button class="btn btn-dark">Change chart colors</button>
+
+        <div class="chart-open">
+            <form action="" method="GET">
+                <label for="favcolor">Select theme:</label>
+                <input type="color" class="selectTheme" name="selectTheme" value="<?=$selectTheme?>">
+                <label for="favcolor">Select total color:</label>
+                <input type="color" class="favcolor" name="selectTotal" value="<?=$selectTotal?>">
+                <label for="favcolor">Select count color:</label>
+                <input type="color" class="favcolor" name="selectCount" value="<?=$selectCount?>">
+                <label for="favcolor">Select text color:</label>
+                <input type="color" class="textcolor" name="textcolor" value="<?=$textcolor?>">
+                <button class="btn btn-success save-button">Save</button>
+            </form>
+        </div>
     </div>
+    </form>
     <div id="chartContainer" style="height: 370px; max-width: 920px; margin: 0px auto;"></div>
     <script>
     window.onload = function () {
@@ -262,10 +266,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && !\Yii::$app->user->isGuest) {
         if (action) {
             $(".chart-open").css("display", "none");
         } else {
-            $(".chart-open").css("display", "block");
+            $(".chart-open").css("display", "flex");
         }
         action = !action;
         });
+        // $('body').click(function () {
+        //     $(".chart-open").css("display", "none");
+        // });
     });
 }
 </script>    
