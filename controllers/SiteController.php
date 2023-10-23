@@ -105,6 +105,10 @@ class SiteController extends Controller
 
         return  $this->goHome();
     }
+
+    public function actionChart(){
+        return $this->render('chart');
+    }
 }
 
 // registraciayi jamanak petqa authKey generacnenq ev tanq assign-ov roly userin

@@ -18,7 +18,16 @@
         "yiisoft/yii2": "~2.0.45",
         "yiisoft/yii2-bootstrap5": "~2.0.2",
         "yiisoft/yii2-symfonymailer": "~2.0.3",
-        "rmrevin/yii2-fontawesome": "2.10.*"
+        "rmrevin/yii2-fontawesome": "2.10.*",
+        "onmotion/yii2-widget-apexcharts": "^1.0",
+        "practically/yii2-chartjs": "^1.1",
+        "bower-asset/chart-js": "^4.4",
+        "2amigos/yii2-chartjs-widget": "^3.0",
+        "miloschuman/yii2-highcharts-widget": "^10.0",
+        "2amigos/yii2-highcharts-widget": "^1.0",
+        "yiisoft/yii2-composer": "^2.0",
+        "kartik-v/yii2-widget-datepicker": "^1.4",
+        "yiisoft/yii2-jui": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
