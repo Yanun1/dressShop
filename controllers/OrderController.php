@@ -224,4 +224,7 @@ class OrderController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+    // public  function actionChart(){
+    //     return $this->render('chart');
+    // }
 }

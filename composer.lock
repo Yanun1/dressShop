@@ -7,17 +7,166 @@
     "content-hash": "c79463dac819de08f00326c0b911529d",
     "packages": [
         {
-            "name": "bower-asset/bootstrap",
-            "version": "v5.2.3",
+            "name": "2amigos/yii2-chartjs-widget",
+            "version": "3.0.1",
             "source": {
                 "type": "git",
-                "url": "git@github.com:twbs/bootstrap.git",
-                "reference": "cb021439c683d9805e2864c58095b92d405e9b11"
+                "url": "https://github.com/2amigos/yii2-chartjs-widget.git",
+                "reference": "639745d0dcaa3fc019c7d43e2fb7092e202da29a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/cb021439c683d9805e2864c58095b92d405e9b11",
-                "reference": "cb021439c683d9805e2864c58095b92d405e9b11"
+                "url": "https://api.github.com/repos/2amigos/yii2-chartjs-widget/zipball/639745d0dcaa3fc019c7d43e2fb7092e202da29a",
+                "reference": "639745d0dcaa3fc019c7d43e2fb7092e202da29a",
+                "shasum": ""
+            },
+            "require": {
+                "nnnick/chartjs": "^2.9",
+                "php": ">=7.3",
+                "yiisoft/yii2": "^2.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.16",
+                "phpunit/phpunit": "^8.5",
+                "roave/security-advisories": "dev-master"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "installer-types": [
+                    "bower-asset",
+                    "npm-asset"
+                ],
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "dosamigos\\chartjs\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "2amigOS! Consulting Group",
+                    "email": "hola@2amigos.us",
+                    "homepage": "http://2amigos.us",
+                    "role": "Developer"
+                }
+            ],
+            "description": "ChartJs widget for Yii2.",
+            "homepage": "http://yiiwheels.com/extension/chartjs-widget",
+            "keywords": [
+                "2amigos",
+                "chartjs",
+                "extension",
+                "widget",
+                "yii",
+                "yii 2",
+                "yii2"
+            ],
+            "support": {
+                "issues": "https://github.com/2amigos/yii2-chartjs-widget/issues",
+                "source": "https://github.com/2amigos/yii2-chartjs-widget"
+            },
+            "abandoned": true,
+            "time": "2020-02-05T12:29:41+00:00"
+        },
+        {
+            "name": "2amigos/yii2-highcharts-widget",
+            "version": "1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/2amigos/yii2-highcharts-widget.git",
+                "reference": "318cf3ad48c6b6db1c4e99a458b89d379b701263"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/2amigos/yii2-highcharts-widget/zipball/318cf3ad48c6b6db1c4e99a458b89d379b701263",
+                "reference": "318cf3ad48c6b6db1c4e99a458b89d379b701263",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/highcharts-release": "5.0.*",
+                "yiisoft/yii2": "*"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.0",
+                "phpunit/phpunit": "4.*",
+                "scrutinizer/ocular": "~1.1"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "dosamigos\\highcharts\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "2amigOS! Consulting Group",
+                    "email": "hola@2amigos.us",
+                    "homepage": "http://2amigos.us",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Highcharts JS widget for Yii2.",
+            "homepage": "http://yiiwheels.com/extension/highcharts-widget",
+            "keywords": [
+                "2amigos",
+                "chart",
+                "extension",
+                "highcharts",
+                "widget",
+                "yii",
+                "yii 2",
+                "yii2"
+            ],
+            "support": {
+                "issues": "https://github.com/2amigos/yii2-highcharts-widget/issues",
+                "source": "https://github.com/2amigos/yii2-highcharts-widget"
+            },
+            "abandoned": true,
+            "time": "2017-07-05T14:59:26+00:00"
+        },
+        {
+            "name": "bower-asset/bootstrap",
+            "version": "v5.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twbs/bootstrap.git",
+                "reference": "344e912d04b5b6a04482113eff20ab416ff01048"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/344e912d04b5b6a04482113eff20ab416ff01048",
+                "reference": "344e912d04b5b6a04482113eff20ab416ff01048"
+            },
+            "type": "bower-asset"
+        },
+        {
+            "name": "bower-asset/chart-js",
+            "version": "v4.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/chartjs/Chart.js.git",
+                "reference": "7ccd4a2d1463b0c5082de2538857554d9428d8d3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/chartjs/Chart.js/zipball/7ccd4a2d1463b0c5082de2538857554d9428d8d3",
+                "reference": "7ccd4a2d1463b0c5082de2538857554d9428d8d3"
             },
             "type": "bower-asset"
         },
@@ -42,17 +191,32 @@
             ]
         },
         {
-            "name": "bower-asset/inputmask",
-            "version": "3.3.11",
+            "name": "bower-asset/highcharts-release",
+            "version": "v5.0.14",
             "source": {
                 "type": "git",
-                "url": "git@github.com:RobinHerbots/Inputmask.git",
-                "reference": "5e670ad62f50c738388d4dcec78d2888505ad77b"
+                "url": "git@github.com:highslide-software/highcharts-release.git",
+                "reference": "4f89cf3f98a557a9512f7ba63f727998d21f3b79"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/RobinHerbots/Inputmask/zipball/5e670ad62f50c738388d4dcec78d2888505ad77b",
-                "reference": "5e670ad62f50c738388d4dcec78d2888505ad77b"
+                "url": "https://api.github.com/repos/highslide-software/highcharts-release/zipball/4f89cf3f98a557a9512f7ba63f727998d21f3b79",
+                "reference": "4f89cf3f98a557a9512f7ba63f727998d21f3b79"
+            },
+            "type": "bower-asset"
+        },
+        {
+            "name": "bower-asset/inputmask",
+            "version": "5.0.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/RobinHerbots/Inputmask.git",
+                "reference": "e0f39e0c93569c6b494c3a57edef2c59313a6b64"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/RobinHerbots/Inputmask/zipball/e0f39e0c93569c6b494c3a57edef2c59313a6b64",
+                "reference": "e0f39e0c93569c6b494c3a57edef2c59313a6b64"
             },
             "require": {
                 "bower-asset/jquery": ">=1.7"
@@ -81,17 +245,38 @@
             ]
         },
         {
-            "name": "bower-asset/punycode",
-            "version": "v1.3.2",
+            "name": "bower-asset/jquery-ui",
+            "version": "1.12.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/mathiasbynens/punycode.js.git",
-                "reference": "38c8d3131a82567bfef18da09f7f4db68c84f8a3"
+                "url": "git@github.com:components/jqueryui.git",
+                "reference": "44ecf3794cc56b65954cc19737234a3119d036cc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mathiasbynens/punycode.js/zipball/38c8d3131a82567bfef18da09f7f4db68c84f8a3",
-                "reference": "38c8d3131a82567bfef18da09f7f4db68c84f8a3"
+                "url": "https://api.github.com/repos/components/jqueryui/zipball/44ecf3794cc56b65954cc19737234a3119d036cc",
+                "reference": "44ecf3794cc56b65954cc19737234a3119d036cc"
+            },
+            "require": {
+                "bower-asset/jquery": ">=1.6"
+            },
+            "type": "bower-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "bower-asset/punycode",
+            "version": "v2.2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mathiasbynens/punycode.js.git",
+                "reference": "46d412120e2feb868876769a9847790ba278c882"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mathiasbynens/punycode.js/zipball/46d412120e2feb868876769a9847790ba278c882",
+                "reference": "46d412120e2feb868876769a9847790ba278c882"
             },
             "type": "bower-asset"
         },
@@ -426,6 +611,283 @@
             "time": "2022-09-18T07:06:19+00:00"
         },
         {
+            "name": "kartik-v/yii2-krajee-base",
+            "version": "v3.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kartik-v/yii2-krajee-base.git",
+                "reference": "5c095126d1be47e0bb1f92779b7dc099f6feae31"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kartik-v/yii2-krajee-base/zipball/5c095126d1be47e0bb1f92779b7dc099f6feae31",
+                "reference": "5c095126d1be47e0bb1f92779b7dc099f6feae31",
+                "shasum": ""
+            },
+            "suggest": {
+                "yiisoft/yii2-bootstrap": "for Krajee extensions to work with Bootstrap 3.x version",
+                "yiisoft/yii2-bootstrap4": "for Krajee extensions to work with Bootstrap 4.x version",
+                "yiisoft/yii2-bootstrap5": "for Krajee extensions to work with Bootstrap 5.x version"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "kartik\\base\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Kartik Visweswaran",
+                    "email": "kartikv2@gmail.com",
+                    "homepage": "http://www.krajee.com/"
+                }
+            ],
+            "description": "Base library and foundation components for all Yii2 Krajee extensions.",
+            "homepage": "https://github.com/kartik-v/yii2-krajee-base",
+            "keywords": [
+                "base",
+                "extension",
+                "foundation",
+                "krajee",
+                "widget",
+                "yii2"
+            ],
+            "support": {
+                "issues": "https://github.com/kartik-v/yii2-krajee-base/issues",
+                "source": "https://github.com/kartik-v/yii2-krajee-base/tree/v3.0.5"
+            },
+            "time": "2022-06-01T14:05:39+00:00"
+        },
+        {
+            "name": "kartik-v/yii2-widget-datepicker",
+            "version": "v1.4.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kartik-v/yii2-widget-datepicker.git",
+                "reference": "f5f8b396cf03d4a383aad5e7b338f8cb065abf66"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kartik-v/yii2-widget-datepicker/zipball/f5f8b396cf03d4a383aad5e7b338f8cb065abf66",
+                "reference": "f5f8b396cf03d4a383aad5e7b338f8cb065abf66",
+                "shasum": ""
+            },
+            "require": {
+                "kartik-v/yii2-krajee-base": ">=2.0.0"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.4.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "kartik\\date\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Kartik Visweswaran",
+                    "email": "kartikv2@gmail.com",
+                    "homepage": "http://www.krajee.com/"
+                }
+            ],
+            "description": "Enhanced Yii2 wrapper for the bootstrap datepicker plugin (sub repo split from yii2-widgets).",
+            "homepage": "https://github.com/kartik-v/yii2-widget-datepicker",
+            "keywords": [
+                "date",
+                "extension",
+                "form",
+                "jquery",
+                "picker",
+                "plugin",
+                "select2",
+                "widget",
+                "yii2"
+            ],
+            "support": {
+                "issues": "https://github.com/kartik-v/yii2-widget-datepicker/issues",
+                "source": "https://github.com/kartik-v/yii2-widget-datepicker/tree/v1.4.8"
+            },
+            "time": "2021-10-28T03:58:09+00:00"
+        },
+        {
+            "name": "miloschuman/yii2-highcharts-widget",
+            "version": "v10.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/miloschuman/yii2-highcharts.git",
+                "reference": "cf8a31577fd34950547aec1935d6109f6db05e31"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/miloschuman/yii2-highcharts/zipball/cf8a31577fd34950547aec1935d6109f6db05e31",
+                "reference": "cf8a31577fd34950547aec1935d6109f6db05e31",
+                "shasum": ""
+            },
+            "require": {
+                "npm-asset/highcharts": "^10.0",
+                "yiisoft/yii2": "*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.4"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "miloschuman\\highcharts\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Milo Schuman",
+                    "email": "miloschuman@gmail.com"
+                }
+            ],
+            "description": "Highcharts widget for Yii 2 Framework.",
+            "homepage": "https://github.com/miloschuman/yii2-highcharts",
+            "keywords": [
+                "extension",
+                "highcharts",
+                "highmaps",
+                "highstock",
+                "widget",
+                "yii2"
+            ],
+            "support": {
+                "issues": "https://github.com/miloschuman/yii2-highcharts/issues",
+                "source": "https://github.com/miloschuman/yii2-highcharts/tree/v10.0.1"
+            },
+            "time": "2023-01-23T19:41:04+00:00"
+        },
+        {
+            "name": "nnnick/chartjs",
+            "version": "v2.9.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/chartjs/Chart.js.git",
+                "reference": "9bd4cf82fda9f50a5fb50b72843e06ab88124278"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/chartjs/Chart.js/zipball/9bd4cf82fda9f50a5fb50b72843e06ab88124278",
+                "reference": "9bd4cf82fda9f50a5fb50b72843e06ab88124278",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "release/2.0": "v2.0-dev"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "NICK DOWNIE",
+                    "email": "hello@nickdownie.com"
+                }
+            ],
+            "description": "Simple HTML5 charts using the canvas element.",
+            "homepage": "https://www.chartjs.org/",
+            "keywords": [
+                "JS",
+                "chart"
+            ],
+            "support": {
+                "issues": "https://github.com/chartjs/Chart.js/issues",
+                "source": "https://github.com/chartjs/Chart.js/tree/v2.9.4"
+            },
+            "time": "2020-10-19T12:22:11+00:00"
+        },
+        {
+            "name": "npm-asset/highcharts",
+            "version": "10.3.3",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/highcharts/-/highcharts-10.3.3.tgz"
+            },
+            "type": "npm-asset",
+            "license": [
+                "https://www.highcharts.com/license"
+            ]
+        },
+        {
+            "name": "onmotion/yii2-widget-apexcharts",
+            "version": "v1.0.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/onmotion/yii2-widget-apexcharts.git",
+                "reference": "f1cf30bf5e3f6c10cbacb40b6210b2210d792690"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/onmotion/yii2-widget-apexcharts/zipball/f1cf30bf5e3f6c10cbacb40b6210b2210d792690",
+                "reference": "f1cf30bf5e3f6c10cbacb40b6210b2210d792690",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.0",
+                "yiisoft/yii2": ">=2.0.1"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "onmotion\\apexcharts\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alexandr Kozhevnikov",
+                    "email": "onmotion1@gmail.com",
+                    "homepage": "http://kozhevnikov.site",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Yii2 charts widget - wrapper for the ApexCharts.js",
+            "keywords": [
+                "apexcharts",
+                "chart",
+                "charts",
+                "diagram",
+                "extension",
+                "widget",
+                "yii2"
+            ],
+            "support": {
+                "issues": "https://github.com/onmotion/yii2-widget-apexcharts/issues",
+                "source": "https://github.com/onmotion/yii2-widget-apexcharts/tree/v1.0.8"
+            },
+            "time": "2023-02-13T13:54:47+00:00"
+        },
+        {
             "name": "paragonie/random_compat",
             "version": "v9.99.100",
             "source": {
@@ -474,6 +936,55 @@
                 "source": "https://github.com/paragonie/random_compat"
             },
             "time": "2020-10-15T08:29:30+00:00"
+        },
+        {
+            "name": "practically/yii2-chartjs",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Practically/yii2-chartjs.git",
+                "reference": "11d35b27200f193400e267d7bcc23f65b8097ff4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Practically/yii2-chartjs/zipball/11d35b27200f193400e267d7bcc23f65b8097ff4",
+                "reference": "11d35b27200f193400e267d7bcc23f65b8097ff4",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "^2.0"
+            },
+            "require-dev": {
+                "bower-asset/chart-js": "^2.7",
+                "squizlabs/php_codesniffer": "^3.5",
+                "symfony/phpunit-bridge": "^5.2",
+                "vimeo/psalm": "^4.10"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "practically\\chartjs\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Ade Attwood",
+                    "email": "ade@practically.io",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Neil Davies",
+                    "email": "neil@practically.io",
+                    "role": "Contributor"
+                }
+            ],
+            "description": "Chart js wrapper for yii2 to help with rendering data charts",
+            "support": {
+                "issues": "https://github.com/Practically/yii2-chartjs/issues",
+                "source": "https://github.com/Practically/yii2-chartjs/tree/v1.1.0"
+            },
+            "time": "2021-09-09T08:34:55+00:00"
         },
         {
             "name": "psr/container",
@@ -1485,22 +1996,22 @@
         },
         {
             "name": "yiisoft/yii2",
-            "version": "2.0.49.1",
+            "version": "2.0.49.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "f3d608c338860699d9e12238835e212048f49aa1"
+                "reference": "7d38bf7584acbe838a8d08e40e949b6393162441"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/f3d608c338860699d9e12238835e212048f49aa1",
-                "reference": "f3d608c338860699d9e12238835e212048f49aa1",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/7d38bf7584acbe838a8d08e40e949b6393162441",
+                "reference": "7d38bf7584acbe838a8d08e40e949b6393162441",
                 "shasum": ""
             },
             "require": {
-                "bower-asset/inputmask": "~3.2.2 | ~3.3.5",
+                "bower-asset/inputmask": "~3.2.2 | ~3.3.5 | ~5.0.8 ",
                 "bower-asset/jquery": "3.7.*@stable | 3.6.*@stable | 3.5.*@stable | 3.4.*@stable | 3.3.*@stable | 3.2.*@stable | 3.1.*@stable | 2.2.*@stable | 2.1.*@stable | 1.11.*@stable | 1.12.*@stable",
-                "bower-asset/punycode": "1.3.*",
+                "bower-asset/punycode": "1.3.* | 2.2.*",
                 "bower-asset/yii2-pjax": "~2.0.1",
                 "cebe/markdown": "~1.0.0 | ~1.1.0 | ~1.2.0",
                 "ext-ctype": "*",
@@ -1603,7 +2114,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-08-29T13:36:45+00:00"
+            "time": "2023-10-12T15:46:26+00:00"
         },
         {
             "name": "yiisoft/yii2-bootstrap5",
@@ -1763,6 +2274,59 @@
             "time": "2020-06-24T00:04:01+00:00"
         },
         {
+            "name": "yiisoft/yii2-jui",
+            "version": "2.0.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yiisoft/yii2-jui.git",
+                "reference": "ce45c16d4fbbe7d1c516d8d0e8311e07f6138eed"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yiisoft/yii2-jui/zipball/ce45c16d4fbbe7d1c516d8d0e8311e07f6138eed",
+                "reference": "ce45c16d4fbbe7d1c516d8d0e8311e07f6138eed",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/jquery-ui": "~1.12.1",
+                "yiisoft/yii2": "~2.0.4"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "yii\\jui\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Qiang Xue",
+                    "email": "qiang.xue@gmail.com"
+                }
+            ],
+            "description": "The Jquery UI extension for the Yii framework",
+            "keywords": [
+                "jQuery UI",
+                "yii2"
+            ],
+            "support": {
+                "forum": "http://www.yiiframework.com/forum/",
+                "irc": "irc://irc.freenode.net/yii",
+                "issues": "https://github.com/yiisoft/yii2-jui/issues",
+                "source": "https://github.com/yiisoft/yii2-jui",
+                "wiki": "http://www.yiiframework.com/wiki/"
+            },
+            "time": "2017-11-25T15:32:29+00:00"
+        },
+        {
             "name": "yiisoft/yii2-symfonymailer",
             "version": "2.0.4",
             "source": {
@@ -1904,16 +2468,16 @@
         },
         {
             "name": "codeception/codeception",
-            "version": "5.0.11",
+            "version": "5.0.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Codeception.git",
-                "reference": "1998a287a3d7f2771c9591aef1c528d9d44cc4b4"
+                "reference": "7f528f5fd8cdcd05cd0a85eb1e24d05df989e0c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/1998a287a3d7f2771c9591aef1c528d9d44cc4b4",
-                "reference": "1998a287a3d7f2771c9591aef1c528d9d44cc4b4",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/7f528f5fd8cdcd05cd0a85eb1e24d05df989e0c4",
+                "reference": "7f528f5fd8cdcd05cd0a85eb1e24d05df989e0c4",
                 "shasum": ""
             },
             "require": {
@@ -2008,7 +2572,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Codeception/Codeception/issues",
-                "source": "https://github.com/Codeception/Codeception/tree/5.0.11"
+                "source": "https://github.com/Codeception/Codeception/tree/5.0.12"
             },
             "funding": [
                 {
@@ -2016,7 +2580,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2023-08-22T06:42:39+00:00"
+            "time": "2023-10-15T18:04:50+00:00"
         },
         {
             "name": "codeception/lib-asserts",
@@ -3562,16 +4126,16 @@
         },
         {
             "name": "psy/psysh",
-            "version": "v0.11.21",
+            "version": "v0.11.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bobthecow/psysh.git",
-                "reference": "bcb22101107f3bf770523b65630c9d547f60c540"
+                "reference": "128fa1b608be651999ed9789c95e6e2a31b5802b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/bcb22101107f3bf770523b65630c9d547f60c540",
-                "reference": "bcb22101107f3bf770523b65630c9d547f60c540",
+                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/128fa1b608be651999ed9789c95e6e2a31b5802b",
+                "reference": "128fa1b608be651999ed9789c95e6e2a31b5802b",
                 "shasum": ""
             },
             "require": {
@@ -3600,7 +4164,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "0.11.x-dev"
+                    "dev-0.11": "0.11.x-dev"
                 },
                 "bamarni-bin": {
                     "bin-links": false,
@@ -3636,9 +4200,9 @@
             ],
             "support": {
                 "issues": "https://github.com/bobthecow/psysh/issues",
-                "source": "https://github.com/bobthecow/psysh/tree/v0.11.21"
+                "source": "https://github.com/bobthecow/psysh/tree/v0.11.22"
             },
-            "time": "2023-09-17T21:15:54+00:00"
+            "time": "2023-10-14T21:56:36+00:00"
         },
         {
             "name": "ralouphie/getallheaders",

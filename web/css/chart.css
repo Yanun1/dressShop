@@ -1,0 +1,16 @@
+.canvasjs-chart-canvas{
+  
+    margin: 20px auto;
+}
+select{
+    width: 90px;
+    height: 35px;
+    border-radius: 10px;
+}
+.save-button{
+    display: block;
+    margin-top: 10px;
+}
+.theme{
+    margin-top:10px;
+}

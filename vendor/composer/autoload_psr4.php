@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'yii\\symfonymailer\\' => array($vendorDir . '/yiisoft/yii2-symfonymailer/src'),
+    'yii\\jui\\' => array($vendorDir . '/yiisoft/yii2-jui'),
     'yii\\gii\\' => array($vendorDir . '/yiisoft/yii2-gii/src'),
     'yii\\faker\\' => array($vendorDir . '/yiisoft/yii2-faker/src'),
     'yii\\debug\\' => array($vendorDir . '/yiisoft/yii2-debug/src'),
@@ -14,6 +15,13 @@ return array(
     'yii\\bootstrap5\\' => array($vendorDir . '/yiisoft/yii2-bootstrap5/src'),
     'yii\\' => array($vendorDir . '/yiisoft/yii2'),
     'rmrevin\\yii\\fontawesome\\' => array($vendorDir . '/rmrevin/yii2-fontawesome'),
+    'practically\\chartjs\\' => array($vendorDir . '/practically/yii2-chartjs/src'),
+    'onmotion\\apexcharts\\' => array($vendorDir . '/onmotion/yii2-widget-apexcharts'),
+    'miloschuman\\highcharts\\' => array($vendorDir . '/miloschuman/yii2-highcharts-widget/src'),
+    'kartik\\date\\' => array($vendorDir . '/kartik-v/yii2-widget-datepicker/src'),
+    'kartik\\base\\' => array($vendorDir . '/kartik-v/yii2-krajee-base/src'),
+    'dosamigos\\highcharts\\' => array($vendorDir . '/2amigos/yii2-highcharts-widget/src'),
+    'dosamigos\\chartjs\\' => array($vendorDir . '/2amigos/yii2-chartjs-widget/src'),
     'ejfrias\\yii2_xdan_datetimepicker\\' => array($vendorDir . '/ejfrias/yii2-xdan-datetimepicker'),
     'cebe\\markdown\\' => array($vendorDir . '/cebe/markdown'),
     'Symfony\\Polyfill\\Php72\\' => array($vendorDir . '/symfony/polyfill-php72'),

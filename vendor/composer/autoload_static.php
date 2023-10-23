@@ -15,8 +15,8 @@ class ComposerStaticInit772e2e451822aead045fa7a783d56c3e
         'ec07570ca5a812141189b1fa81503674' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
         '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
-        '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
+        '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
@@ -29,6 +29,7 @@ class ComposerStaticInit772e2e451822aead045fa7a783d56c3e
         'y' => 
         array (
             'yii\\symfonymailer\\' => 18,
+            'yii\\jui\\' => 8,
             'yii\\gii\\' => 8,
             'yii\\faker\\' => 10,
             'yii\\debug\\' => 10,
@@ -39,6 +40,28 @@ class ComposerStaticInit772e2e451822aead045fa7a783d56c3e
         'r' => 
         array (
             'rmrevin\\yii\\fontawesome\\' => 24,
+        ),
+        'p' => 
+        array (
+            'practically\\chartjs\\' => 20,
+        ),
+        'o' => 
+        array (
+            'onmotion\\apexcharts\\' => 20,
+        ),
+        'm' => 
+        array (
+            'miloschuman\\highcharts\\' => 23,
+        ),
+        'k' => 
+        array (
+            'kartik\\date\\' => 12,
+            'kartik\\base\\' => 12,
+        ),
+        'd' => 
+        array (
+            'dosamigos\\highcharts\\' => 21,
+            'dosamigos\\chartjs\\' => 18,
         ),
         'e' => 
         array (
@@ -113,6 +136,10 @@ class ComposerStaticInit772e2e451822aead045fa7a783d56c3e
         array (
             0 => __DIR__ . '/..' . '/yiisoft/yii2-symfonymailer/src',
         ),
+        'yii\\jui\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/yiisoft/yii2-jui',
+        ),
         'yii\\gii\\' => 
         array (
             0 => __DIR__ . '/..' . '/yiisoft/yii2-gii/src',
@@ -140,6 +167,34 @@ class ComposerStaticInit772e2e451822aead045fa7a783d56c3e
         'rmrevin\\yii\\fontawesome\\' => 
         array (
             0 => __DIR__ . '/..' . '/rmrevin/yii2-fontawesome',
+        ),
+        'practically\\chartjs\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/practically/yii2-chartjs/src',
+        ),
+        'onmotion\\apexcharts\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/onmotion/yii2-widget-apexcharts',
+        ),
+        'miloschuman\\highcharts\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/miloschuman/yii2-highcharts-widget/src',
+        ),
+        'kartik\\date\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-datepicker/src',
+        ),
+        'kartik\\base\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-krajee-base/src',
+        ),
+        'dosamigos\\highcharts\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/2amigos/yii2-highcharts-widget/src',
+        ),
+        'dosamigos\\chartjs\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/2amigos/yii2-chartjs-widget/src',
         ),
         'ejfrias\\yii2_xdan_datetimepicker\\' => 
         array (
