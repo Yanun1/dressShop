@@ -1,6 +1,10 @@
 <?php
+use app\models\OrderProduct;
 use app\models\Orders;
 use yii\helpers\Html;
+use app\assets\ChartAsset;
+
+ChartAsset::register($this);
 
 if (isset($_GET['year']) && isset($_GET['month'])) {
     $show_year = $_GET['year'];
@@ -17,13 +21,20 @@ if (isset($_GET['year']) && isset($_GET['month'])) {
 
 $orders = Orders::find()
     ->asArray()
-    ->with('product')
-    ->where(['BETWEEN', 'data', $first_day, $last_day])
+    ->with('orderProduct')
+   // ->andFilterWhere(['BETWEEN', 'data', $first_day, $last_day])
     ->all();
+
+// echo '<pre>';
+// var_dump($orders);die;
 
 $data = [];
 $xAxis = [];
 $currentDate = strtotime($first_day);
+
+// echo '<pre>';
+// var_dump($orders);die;
+
 $endDate = strtotime($last_day);
     while ($currentDate <= $endDate) {
         $date = date('Y-m-d', $currentDate);
@@ -32,9 +43,13 @@ $endDate = strtotime($last_day);
         $currentDate = strtotime('+1 day', $currentDate);
     }
     foreach ($orders as $order) {
+    // if(!isset($order['data'])){       
+    //     echo '<pre>';
+    //     var_dump($order);die;
+    // }
         $date = date('Y-m-d', strtotime($order['data']));
-        $price = (double)$order['product']['price'];
-        $count = (int)$order['count'];
+        $price = (double)$order['orderProduct']['price'];
+        $count = (int)$order['orderProduct']['count'];
         $data[$date]['price'] += $price;
         $data[$date]['count'] += $count;
     }
@@ -98,7 +113,7 @@ $endDate = strtotime($last_day);
         "11" => "November",
         "12" => "December"
     ]) ?>
-    <button class="btn btn-primary">Show</button>
+    <button class="btn btn-primary save-button">Show</button>
     </form>
     <form action="" method="GET">
     <label for="favcolor">Select theme:</label>
@@ -109,20 +124,9 @@ $endDate = strtotime($last_day);
     <input type="color" class="favcolor" name="selectCount" value="<?=$selectCount?>">
     <label for="favcolor">Select text color:</label>
     <input type="color" class="textcolor" name="textcolor" value="<?=$textcolor?>">
-    <button class="btn btn-success">Save</button>
+    <button class="btn btn-success save-button">Save</button>
     </form>
     
-
-
-<!DOCTYPE html>
-<html>
-<head>
-    <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-    <style src="../../assets/css/site.css"></style>
-</head>
-<body>
     <div id="chartContainer" style="height: 370px; max-width: 920px; margin: 0px auto;"></div>
     <script>
     window.onload = function () {
@@ -261,5 +265,3 @@ if (isset($_SESSION['textcolor'])) {
     $textcolor = "#fff";
 }
     ?>
-</body>
-</html>

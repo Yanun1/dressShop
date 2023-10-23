@@ -66,7 +66,7 @@ class OrderProduct extends \yii\db\ActiveRecord
      */
     public function getOrders()
     {
-        return $this->hasMany(Orders::class, ['id_product' => 'id']);
+        return $this->hasOne(Orders::class, ['id_product' => 'id']);
     }
 
     /**
