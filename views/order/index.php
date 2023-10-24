@@ -67,35 +67,18 @@ $defaultValue = 'option2';
                 'attribute' => 'id',
                 'contentOptions' => ['class' => 'id-column'],
             ],
-            [
-                'label' => 'ID Check',
-                'value' => function ($model) {
-                    return $model['orderCheck']['id_order'];
-                },
-                'attribute' => 'orderCheck.id_order',
-            ],
+            'id_check',
             [
                 'label' => 'Products',
                 'value' => function ($model) {
-                    return $model['orderProduct']['product'];
+                    return $model['product'];
                 },
-                'attribute' => 'orderProduct.product',
+                'attribute' => 'product',
                 'contentOptions' => ['class' => 'product-column'],
             ],
-            [
-                'label' => 'Price',
-                'value' => function ($model) {
-                    return $model['orderProduct']['price'];
-                },
-                'attribute' => 'orderProduct.price'
-            ],
-            [
-                'label' => 'Count',
-                'value' => function ($model) {
-                    return $model['orderProduct']['count'];
-                },
-                'attribute' => 'orderProduct.count'
-            ],
+            'employee',
+            'price',
+            'count',
             [
                 'label' => 'Status',
                 'value' => function ($model) {
@@ -108,7 +91,7 @@ $defaultValue = 'option2';
                 'label' => 'Image',
                 'format' => 'raw',
                 'value' => function ($model) {
-                    return  Html::img('http://dress-shop/images/'.$model['orderProduct']['image'], ['class' => 'mini-photo', 'alt' => 'photo']);
+                    return  Html::img('http://dress-shop/images/'.$model['image'], ['class' => 'mini-photo', 'alt' => 'photo']);
                 },
                 'contentOptions' => ['class' => 'image-column', 'value' => 0],
                 'headerOptions' => ['class' => 'image-header', 'value' => 1]
@@ -116,17 +99,9 @@ $defaultValue = 'option2';
             [
                 'label' => 'Total',
                 'value' => function ($model) {
-                    return $model['orderProduct']['price']*$model['orderProduct']['count'];
+                    return $model['price']*$model['count'];
                 },
-                'attribute' => '`orderProduct`.`price` * `orderProduct`.`count`'
-            ],
-            [
-                'label' => 'Date',
-                'value' => function ($model) {
-                    $temp = new DateTime($model['data']);
-                    return $temp->format('Y-m-d');
-                },
-                'attribute' => 'DATE(`data`)'
+                'attribute' => '`price` * `count`'
             ],
             [
                 'class' => ActionColumn::class,
@@ -145,15 +120,10 @@ $defaultValue = 'option2';
 <?= SearchWidget::widget([
         'model' => $searchModel,
         'fields' => ['product', 'count', 'id_check'],
-        'calendars' => [
-                [
-                        'inputs' => ['minDate', 'maxDate']
-                ]
-        ],
         'lists' => [
                 [
-                        'input' => 'status',
-                        'options' => ['waiting' => 'Waiting', 'on the way' => 'On the way', 'delivered' => 'Delivered', 'received' => 'Received']
+                    'input' => 'status',
+                    'options' => ['waiting' => 'Waiting', 'on the way' => 'On the way', 'delivered' => 'Delivered', 'received' => 'Received']
                 ]
         ],
         'ranges' => [

@@ -22,8 +22,8 @@ $last_day = date('Y-m-t', strtotime($selected_year . '-' . $selected_month));
 
     $orders = Orders::find()
     ->asArray()
-    ->with('orderProduct')
-    ->andFilterWhere(['BETWEEN', 'data', $first_day, $last_day])
+    ->joinWith('check')
+    ->andFilterWhere(['BETWEEN', 'date', $first_day, $last_day])
     ->all();
 
 // echo '<pre>';
@@ -44,9 +44,9 @@ $last_day = date('Y-m-t', strtotime($selected_year . '-' . $selected_month));
         $currentDate = strtotime('+1 day', $currentDate);
     }
     foreach ($orders as $order) {
-    $date = date('Y-m-d', strtotime($order['data']));
-    $price = (double)$order['orderProduct']['price'];
-    $count = (int)$order['orderProduct']['count'];
+    $date = date('Y-m-d', strtotime($order["check"]['date']));
+    $price = (double)$order['price'];
+    $count = (int)$order['count'];
     $data[$date]['price'] += $price;
     $data[$date]['count'] += $count;
 }

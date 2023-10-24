@@ -9,6 +9,11 @@ use Yii;
  *
  * @property int $id
  * @property int $id_order
+ * @property string $customer
+ * @property float $price
+ * @property int $count
+ * @property string $status
+ * @property string|null $date
  *
  * @property Orders[] $orders
  */
@@ -28,8 +33,12 @@ class OrderCheck extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_order'], 'required'],
-            [['id_order'], 'integer'],
+            [['id_order', 'customer', 'price', 'count'], 'required'],
+            [['id_order', 'count'], 'integer'],
+            [['price'], 'number'],
+            [['status'], 'string'],
+            [['date'], 'safe'],
+            [['customer'], 'string', 'max' => 15],
             [['id_order'], 'unique'],
         ];
     }
@@ -41,7 +50,12 @@ class OrderCheck extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'id_order' => 'Id Order',
+            'id_order' => 'ID Check',
+            'customer' => 'Customer',
+            'price' => 'Total Price',
+            'count' => 'Total Count',
+            'status' => 'Status',
+            'date' => 'Date',
         ];
     }
 

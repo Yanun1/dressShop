@@ -62,60 +62,43 @@ $defaultValue = 'option2';
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
+        'id_order',
+        'price',
+        'count',
             [
-                'label' => 'ID Check',
+                'label' => 'Status',
                 'value' => function ($model) {
-                    return $model['id_order'];
+                    return $model['status'];
                 },
-                'attribute' => 'orderCheck.id_order',
+                'contentOptions' => ['class' => 'status-column'],
+                'attribute' => 'status'
             ],
-            [
-                'label' => 'Total Price',
-                'value' => function ($model) {
-                    return $model['Total_Price'];
+        'customer',
+        'date',
+        [
+            'class' => ActionColumn::class,
+            'urlCreator' => function ($action, $model, $key, $index, $column) {
+                return Url::toRoute([$action, 'id' => $model['id']]);
+            },
+            'buttons' => [
+                'view' => function ($url, $model, $key) {
+                    $checkID = $model['id'];
+                    $customUrl = "list?OrdersSearch[id_check]=$checkID";
+                    return "<a class='to-view' href='$customUrl'><img src='/images/view_icon.png' alt='View'></a>";
                 },
-                'attribute' => 'Total_Price'
             ],
-            [
-                'label' => 'Total Count',
-                'value' => function ($model) {
-                    return $model['Total_Count'];
-                },
-                'attribute' => 'Total_Count'
+            'visibleButtons' => [
+                'update' => false,
+                'delete' => false,
             ],
-            [
-                'label' => 'Date',
-                'value' => function ($model) {
-                    $temp = new DateTime($model['orders'][0]['data']);
-                    return $temp->format('Y-m-d');
-                },
-                'attribute' => 'data'
-            ],
-            [
-                'class' => ActionColumn::class,
-                'urlCreator' => function ($action, $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model['id']]);
-                },
-                'buttons' => [
-                    'view' => function ($url, $model, $key) {
-                        $checkID = $model['id_order'];
-                        $customUrl = "list?OrdersSearch[id_check]=$checkID";
-                        return "<a class='to-view' href='$customUrl'><img src='/images/view_icon.png' alt='View'></a>";
-                        //return \yii\helpers\Html::a('View', $customUrl, ['class' => 'btn btn-primary']);
-                    },
-                ],
-                'visibleButtons' => [
-                    'update' => false,
-                    'delete' => false,
-                ],
-            ],
+        ],
         ],
     ]); ?>
 </div>
 
 <?= SearchWidget::widget([
     'model' => $searchModel,
-    'fields' => ['id_order'],
+    'fields' => ['id_order', 'status'],
     'calendars' => [
         [
             'inputs' => ['minDate', 'maxDate']

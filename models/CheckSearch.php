@@ -14,9 +14,7 @@ use yii\helpers\Console;
  */
 class CheckSearch extends OrderCheck
 {
-    public $Total_Price;
-    public $Total_Count;
-    public $data;
+    public $date;
     public $minPrice = 0;
     public $maxPrice = 1000000;
     public $minCount = 1;
@@ -30,8 +28,7 @@ class CheckSearch extends OrderCheck
     {
         return [
             [['id', 'id_order'], 'integer'],
-            [['Total_Price', 'Total_Count'], 'double'],
-            [['data', 'minPrice', 'maxPrice', 'minCount', 'maxCount', 'minDate', 'maxDate'], 'safe']
+            [['date', 'minPrice', 'maxPrice', 'minCount', 'maxCount', 'minDate', 'maxDate'], 'safe']
         ];
     }
 
@@ -55,25 +52,16 @@ class CheckSearch extends OrderCheck
     {
         $query = OrderCheck::find();
 
-
-        // add conditions that should always apply here
+        $this->load($params);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort' => [
-                'defaultOrder' => [
-
-                ],
-                'attributes' => [
-                    'orderCheck.id_order',
-                    'Total_Price',
-                    'Total_Count',
-                    'data'
-                ],
-            ],
+//            'sort' => [
+//                'defaultOrder' => [
+//                    'id_order'
+//                ],
+//            ],
         ]);
-
-        $this->load($params);
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
@@ -81,15 +69,9 @@ class CheckSearch extends OrderCheck
             return $dataProvider;
         }
 
-        $query->joinWith(['orders'])
-            ->join('LEFT JOIN', 'orderProduct', 'Orders.id_product = orderProduct.id')
-            ->groupBy(['id_order'])
-            ->select([
-            'orderCheck.id, MIN(`Orders`.`data`) AS data ,id_order, SUM(`price`*`count`) AS Total_Price, SUM(`count`) AS Total_Count'
-            ]);
-
         $query->andFilterWhere(['LIKE', 'id_order', $this->id_order]);
-        $query->andFilterWhere(['LIKE', 'data', $this->data]);
+        $query->andFilterWhere(['LIKE', 'status', $this->status]);
+        $query->andFilterWhere(['LIKE', 'date', $this->date]);
 
         if(is_null($this->minDate)) {
             $this->minDate = date('Y-m').'-01';
@@ -100,31 +82,21 @@ class CheckSearch extends OrderCheck
 
         $query->having(
             ['AND',
-                ['>=', 'Total_Price', $this->minPrice],
-                ['<=', 'Total_Price', $this->maxPrice],
-                ['>=', 'Total_Count', $this->minCount],
-                ['<=', 'Total_Count', $this->maxCount],
-                ['>=', 'data', $this->minDate],
-                ['<=', 'data', $this->maxDate],
+                ['>=', 'price', $this->minPrice],
+                ['<=', 'price', $this->maxPrice],
+                ['>=', 'count', $this->minCount],
+                ['<=', 'count', $this->maxCount],
+                ['>=', 'date', $this->minDate],
+                ['<=', 'date', $this->maxDate],
             ]
         );
 
-
-
-        //$query->having(['>=', 'Orders.data', $this->minDate]);
-        //$query->having(['<=', 'Orders.data', $this->maxDate]);
-
-
-        $result = $query->asArray()->one();
-
-        if ($result !== null) {
-            $this->Total_Price = $result['Total_Price'];
-            $this->Total_Count = $result['Total_Count'];
-        }
-
 //        echo '<pre>';
-//        var_dump($query);
+//        var_dump($dataProvider);
+//        var_dump($query->asArray()->all());die;
+
 
         return $dataProvider;
     }
 }
+
