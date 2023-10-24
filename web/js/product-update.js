@@ -17,3 +17,28 @@ $('.checkbox').on('click', function () {
         $('#products-id_product').removeAttr('disabled')
     }
 });
+
+$('.remove-image').click(function () {
+    $(this).parent().parent().remove();
+    $('#imagesform-images').trigger('change');
+});
+
+$('#imagesform-images').on('change', function() {
+    if(this.files.length + $('.current-photo > .images-span').length > 5) {
+        $('.images-error').show();
+        $('#imagesform-images').parent().addClass('no-margin');
+        $('#imagesform-images').addClass('no-valid');
+    }
+    else {
+        $('.images-error').hide();
+        $('#imagesform-images').removeClass('no-valid');
+    }
+});
+
+
+$('.push-update').on('click', function (event) {
+    event.preventDefault();
+    if($('.images-error').css('display') == 'none') {
+        $(this).submit();
+    }
+});

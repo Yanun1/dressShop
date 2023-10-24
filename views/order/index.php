@@ -111,7 +111,7 @@ $defaultValue = 'option2';
                     return  Html::img('http://dress-shop/images/'.$model['orderProduct']['image'], ['class' => 'mini-photo', 'alt' => 'photo']);
                 },
                 'contentOptions' => ['class' => 'image-column', 'value' => 0],
-                'headerOptions' => ['class' => 'image-header']
+                'headerOptions' => ['class' => 'image-header', 'value' => 1]
             ],
             [
                 'label' => 'Total',

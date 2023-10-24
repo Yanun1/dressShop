@@ -91,7 +91,6 @@ class OrderController extends Controller
      */
     public function actionCreate(){
         $model = new Orders();
-        $orderProduct = new OrderProduct();
 
         $userId = Yii::$app->user->id;
 
@@ -145,7 +144,7 @@ class OrderController extends Controller
             return $this->refresh();
         }
 
-        return $this->render('create',compact('model','orderProduct'));
+        return $this->render('create',compact('model'));
     }
 
     /**

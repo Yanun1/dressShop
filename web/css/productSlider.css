@@ -74,7 +74,6 @@
 .select-window {
     width: 60%;
     z-index: 1060;
-    max-height: 80%;
     overflow: hidden;
 }
 
