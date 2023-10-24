@@ -48,18 +48,6 @@ input[type="color"] {
     margin-top: 10px;
 }
 
-  .container-view {
-      display: flex;
-      flex-direction: column;
-      padding-top: 100px !important;
-  }
-
-  .canvasjs-chart-canvas {
-      width: auto !important;
-      position:unset !important;
-      max-height: 300px !important;
-  }
- 
 
   .settings-column {
       position: relative;
@@ -67,7 +55,8 @@ input[type="color"] {
       align-items: center;
       gap: 15px;
   }
+  
 
-  .color-bars {
-      position: relative;
+  .canvasjs-chart-credit {
+      display: none;
   }

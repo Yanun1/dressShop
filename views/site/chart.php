@@ -92,33 +92,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && !\Yii::$app->user->isGuest) {
 
     if (isset($model->theme)) {
         $selectTheme = $model->theme;
+        $selectTotal = $model->total_color;
+        $selectCount = $model->count_color;
+        $textcolor = $model->text_color;
     }else {
         $selectTheme = "#330033";
-        if(!\Yii::$app->user->isGuest)
-        $model->theme = "#330033";
-    }
-    if (isset($model->total_color)) {
-        $selectTotal = $model->total_color;
-    }else {
         $selectTotal = "#FF0033";
-        if(!\Yii::$app->user->isGuest)
-        $model->total_color = "#FF0033";
-    }
-    if (isset($model->count_color)) {
-        $selectCount = $model->count_color;
-    }else{
         $selectCount = "#33FF33";
-        if(!\Yii::$app->user->isGuest)
-        $model->count_color = "#33FF33";
-    }
-    if (isset($model->text_color)) {
-        $textcolor = $model->text_color;
-    }else{
         $textcolor = "#fff";
-        if(!\Yii::$app->user->isGuest)
-        $model->text_color = "#fff";
+        if(!\Yii::$app->user->isGuest) {
+            $model->theme = "#330033";
+            $model->total_color = "#FF0033";
+            $model->count_color = "#33FF33";
+            $model->text_color = "#fff";
+        }
     }
-
     if(!\Yii::$app->user->isGuest)
     $model->save();
 
@@ -159,7 +147,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && !\Yii::$app->user->isGuest) {
                 <input type="color" class="favcolor" name="selectCount" value="<?=$selectCount?>">
                 <label for="favcolor">Select text color:</label>
                 <input type="color" class="textcolor" name="textcolor" value="<?=$textcolor?>">
-                <button class="btn btn-success save-button">Save</button>
+                <button class="btn btn-success save-button" style="background-color:#0d6efd; border:none">Save</button>
             </form>
         </div>
     </div>
@@ -270,9 +258,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && !\Yii::$app->user->isGuest) {
         }
         action = !action;
         });
-        // $('body').click(function () {
-        //     $(".chart-open").css("display", "none");
-        // });
     });
 }
 </script>    
