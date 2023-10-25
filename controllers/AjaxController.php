@@ -8,7 +8,6 @@ use yii\web\Controller;
 use app\models\Products;
 use Yii;
 
-
 class AjaxController extends Controller
 {
     private static $base;
