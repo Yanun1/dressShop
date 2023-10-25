@@ -126,11 +126,11 @@ class ProductController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $modelImages = new ImagesProduct();
+        $modelImages = ImagesProduct::find()->where("id_product=$model->id")->all();
         $modelProductsImage = new imagesForm();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $modelImages->load($this->request->post()) && $modelProductsImage->load($this->request->post())) {
+            if ($model->load($this->request->post()) && $modelProductsImage->load($this->request->post())) {
 
                 $model->id_user = \Yii::$app->user->getId();
 
@@ -140,29 +140,37 @@ class ProductController extends Controller
 
                 $extraName = time();
 
-
                 $modelProductsImage->image = UploadedFile::getInstances($modelProductsImage, 'image');
 
 
                 if($modelProductsImage->image != []) {
                     $model->image = $modelProductsImage->image;
                     $modelProductsImage->upload($extraName);
-                    //$model->upload($extraName);
                     $model->image = $model->image[0]->baseName . $extraName . '.' . $model->image[0]->extension;
                 }
-//                echo '<pre>';
-//                var_dump($model->image);die;
+
 
                 if (!$model->save()) {
-
                     \Yii::$app->session->setFlash('errorOrder', 'Something gone wrong');
                     return $this->refresh();
                 }
 
-                $modelImages->image = UploadedFile::getInstances($modelImages, 'image');
-                $modelImages->upload($extraName);
 
-                foreach ($modelImages->image as $image) {
+                if(count($modelProductsImage->remaining) != count($modelImages)) {
+                    foreach ($modelImages as $item) {
+                        if(!in_array($item['image'], $modelProductsImage->remaining)) {
+                            $item->delete();
+                        }
+                    }
+                }
+
+                $modelProductsImage->image = UploadedFile::getInstances($modelProductsImage, 'images');
+                $modelProductsImage->uploadImages($extraName);
+
+//                echo '<pre>';
+//                var_dump($modelProductsImage);die;
+
+                foreach ($modelProductsImage->image as $image) {
                     $ImagesProduct = new ImagesProduct();
                     $ImagesProduct->image = $image->baseName.$extraName.'.'.$image->extension;
                     $ImagesProduct->id_product = $model->id;

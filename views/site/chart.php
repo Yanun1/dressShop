@@ -1,5 +1,5 @@
 <?php
-use app\models\OrderProduct;
+use app\models\Products;
 use app\models\Orders;
 use app\models\ChartSettings;
 use yii\helpers\Html;
@@ -20,28 +20,28 @@ $selected_month = $show_month;
 $selected_year = $show_year;
 $first_day = date('Y-m-01', strtotime($selected_year . '-' . $selected_month . '-01'));
 $last_day = date('Y-m-t', strtotime($selected_year . '-' . $selected_month));
-    if(isset($_GET['id_product'])) {
+
+if(isset($_GET['id_product'])) {
         $id_product = $_GET['id_product'];
+        $productName = Products::find()->where("id=$id_product")->one();
         $orders = Orders::find()
         ->asArray()
-        ->joinWith('orderProduct')
-        ->andFilterWhere(["=", 'orderProduct.id_product', $id_product])
-        ->andFilterWhere(['BETWEEN', 'data', $first_day, $last_day])
+        ->joinWith('check')
+        ->andFilterWhere(["=", 'product', $productName['product']])
+        ->andFilterWhere(['BETWEEN', 'date', $first_day, $last_day])
         ->all();
     } else {
         $orders = Orders::find()
         ->asArray()
-        ->with('orderProduct')
-        ->andFilterWhere(['BETWEEN', 'data', $first_day, $last_day])
+        ->joinWith('check')
+        ->andFilterWhere(['BETWEEN', 'date', $first_day, $last_day])
         ->all();
     }
-// echo '<pre>';
-// var_dump($orders);die;
+
     $data = [];
     $xAxis = [];
     $currentDate = strtotime($first_day);
-// echo '<pre>';
-// var_dump($orders);die;
+
 $endDate = strtotime($last_day);
     while ($currentDate <= $endDate) {
         $date = date('Y-m-d', $currentDate);
@@ -50,9 +50,9 @@ $endDate = strtotime($last_day);
         $currentDate = strtotime('+1 day', $currentDate);
     }
 foreach($orders as $order) {
-    $date = date('Y-m-d', strtotime($order['data']));
-    $price = (double)$order['orderProduct']['price'];
-    $count = (int)$order['orderProduct']['count'];
+    $date = date('Y-m-d', strtotime($order["check"]['date']));
+    $price = (double)$order['price'];
+    $count = (int)$order['count'];
     $data[$date]['price'] += $price;
     $data[$date]['count'] += $count;
 }

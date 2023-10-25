@@ -40,11 +40,9 @@ class AjaxController extends Controller
     {
         if (Yii::$app->request->isAjax) {
             if ($_POST['orderProduct'] == 1) {
-                //return json_encode('true');
                 if (isset(self::$base))
                     return json_encode(self::$base);
                 else {
-                    //            self::$base = OrderProduct::find()->with('images')->indexBy('id')->asArray()->all();
                     self::$base = Products::find()->with('user')->with('images')->indexBy('id')->asArray()->all();
                     return json_encode(self::$base);
                 }

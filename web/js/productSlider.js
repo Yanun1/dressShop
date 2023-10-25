@@ -4,7 +4,7 @@ $(document).ready(function() {
     if (isNaN(productList)) {
         $.ajax({
             url: '/ajax/base',
-            data: {orderProduct:$('.image-column').attr('value')},
+            data: {orderProduct:$('.image-header').attr('value')},
             type: 'POST',
             dataType: 'json',
             success: function (res) {

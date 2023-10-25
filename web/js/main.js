@@ -19,7 +19,7 @@ $(document).ready(function() {
             if (productList[i]['id'] == valuesArr) {
                 $(this).val(productList[i]['product']);
                 $(this).attr('value',productList[i]['id']);
-                $(this).parent().parent().find("input[name='OrderProduct[price][]']").val(productList[i]['price']);
+                $(this).parent().parent().find("input[name='Orders[price][]']").val(productList[i]['price']);
                 $(this).parent().parent().find("input[name='saler[]']").val(productList[i]['user']['login']);
                 $(this).parent().parent().find(".micro-image > img").attr('src', "http://dress-shop/images/" + $(this).attr('data-image'));
                 break;
@@ -52,7 +52,7 @@ $(document).ready(function() {
 
         // empting cloned inputs
         newDiv.find("input[type='Number']").val(0);
-        newDiv.find("#orderproduct-count").val(1);
+        newDiv.find("#Orders-count").val(1);
         newDiv.find("input[name='saler[]']").val('None');
         newDiv.find(".productInput ").val('Select product');
         newDiv.find("img").attr('src', 'http://dress-shop/images/window_product_default.jpg');
@@ -63,8 +63,8 @@ $(document).ready(function() {
 
     // poxum enq selectov yntrac produkti tvyalnery
     function changePrice(element) {
-        let price = Number(element.parent().parent().find("input[name='OrderProduct[price][]']").val());
-        let count = Number(element.parent().parent().find("input[name*='OrderProduct[count][]']").val());
+        let price = Number(element.parent().parent().find("input[name='Orders[price][]']").val());
+        let count = Number(element.parent().parent().find("input[name*='Orders[count][]']").val());
 
         if (price < 0 || price === 0) {
             price = 0;
@@ -82,14 +82,14 @@ $(document).ready(function() {
 
     // mi apranqi yndhanur patveri gumari hashvarkum
     function changePriceEvent() {
-        let price = Number($(this).parent().parent().find("input[name='OrderProduct[price][]']").val());
-        let count = Number($(this).parent().parent().find("input[name*='OrderProduct[count][]']").val());
+        let price = Number($(this).parent().parent().find("input[name='Orders[price][]']").val());
+        let count = Number($(this).parent().parent().find("input[name*='Orders[count][]']").val());
 
         if (price < 0 || price === 0) {
             price = 0;
         }
         if (count < 0) {
-            $(this).parent().parent().find("input[name*='OrderProduct[count']").val(0);
+            $(this).parent().parent().find("input[name*='Orders[count']").val(0);
             count = 1;
         }
 
@@ -113,9 +113,9 @@ $(document).ready(function() {
             ordersList[i] = [];
             ordersList[i]['Product'] = $(this).find('.productInput ').val();
             ordersList[i]['Saler'] = $(this).find("input[name='saler[]']").val();
-            ordersList[i]['Price'] = $(this).find("input[name='OrderProduct[price][]']").val();
+            ordersList[i]['Price'] = $(this).find("input[name='Orders[price][]']").val();
             ordersList[i]['Image'] = $(this).find('.micro-image img').attr('src');
-            ordersList[i]['Count'] = $(this).find('#orderproduct-count').val();
+            ordersList[i]['Count'] = $(this).find('#Orders-count').val();
             ordersList[i]['Total'] = $(this).find("input[name='sumName']").val();
             i++;
         });
@@ -133,5 +133,5 @@ $(document).ready(function() {
     $(".add-row").click(duplicateForm);
     $(".remove-row").click(removeForm);
     $('.productInput').on('change', selectChange);
-    $('#orderproduct-count').on('input', changePriceEvent);
+    $('#orders-count').on('input', changePriceEvent);
 })

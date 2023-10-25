@@ -8,13 +8,15 @@ use Yii;
  * This is the model class for table "Orders".
  *
  * @property int $id
- * @property int|null $id_product
+ * @property string $product
+ * @property float $price
  * @property int $count
- * @property int|null $id_user
+ * @property string $image
  * @property string $status
+ * @property string $employee
+ * @property int $id_check
  *
- * @property Products $product
- * @property Users $user
+ * @property OrderCheck $check
  */
 class Orders extends \yii\db\ActiveRecord
 {
@@ -32,12 +34,14 @@ class Orders extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-
-//            [['status'], 'required'],
+            [['product', 'price', 'count', 'image', 'status', 'employee', 'id_check'], 'required'],
+            [['price'], 'number'],
+            [['count', 'id_check'], 'integer'],
             [['status'], 'string'],
-            [['status'], 'required'],
-            [['id_product', 'data', 'id', 'id_check'], 'safe'],
-            [['id_product'], 'exist', 'skipOnError' => true, 'targetClass' => OrderProduct::class, 'targetAttribute' => ['id_product' => 'id']],
+            [['product'], 'string', 'max' => 45],
+            [['image'], 'string', 'max' => 100],
+            [['employee'], 'string', 'max' => 15],
+            [['id_check'], 'exist', 'skipOnError' => true, 'targetClass' => OrderCheck::class, 'targetAttribute' => ['id_check' => 'id']],
         ];
     }
 
@@ -48,41 +52,23 @@ class Orders extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'id_product' => 'Product',
-            'id_user' => 'Id User',
+            'product' => 'Product',
+            'price' => 'Price',
+            'count' => 'Count',
+            'image' => 'Image',
             'status' => 'Status',
+            'employee' => 'Employee',
+            'id_check' => 'Id Check',
         ];
     }
 
     /**
-     * Gets query for [[Product]].
+     * Gets query for [[Check]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getProduct()
-    {
-        return $this->hasOne(Products::class, ['id' => 'id_product']);
-    }
-
-    public function getOrderProduct()
-    {
-        return $this->hasOne(OrderProduct::class, ['id' => 'id_product']);
-    }
-
-    /**
-     * Gets query for [[User]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUser()
-    {
-        return $this->hasOne(User::class, ['id' => 'id_user']);
-    }
-    public function getOrderCheck()
+    public function getCheck()
     {
         return $this->hasOne(OrderCheck::class, ['id' => 'id_check']);
     }
 }
-
-
-

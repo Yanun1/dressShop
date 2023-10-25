@@ -60,10 +60,9 @@ class OrderController extends Controller
 
     public function actionList()
     {
-        //$userId = Yii::$app->user->id;
-        //$dataProvider = new ArrayDataProvider(['allModels' => Orders::find()->where("id_user=$userId")->with('user')->with('product')->all()]);
         $searchModel = new OrdersSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -75,8 +74,6 @@ class OrderController extends Controller
     {
         $searchModel = new CheckSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-//        echo '<pre>';
-//        var_dump($dataProvider);die;
 
         return $this->render('checks', [
             'searchModel' => $searchModel,
@@ -91,52 +88,44 @@ class OrderController extends Controller
      */
     public function actionCreate(){
         $model = new Orders();
-        $orderProduct = new OrderProduct();
-
-        $userId = Yii::$app->user->id;
 
         if(Yii::$app->request->isPost) {
             $postValues = Yii::$app->request->post()['Orders'];
-            $orderProductValues = Yii::$app->request->post()['OrderProduct'];
 
             $checkNubmers = time();
 
             $check = new OrderCheck();
             $check['id_order'] = $checkNubmers;
-            $check->save();
-            $checkId = $check['id'];
+            $userId = Yii::$app->user->getId();
+            $check['customer'] = User::find()->where("id=$userId")->asArray()->one()['login'];
+            $check['price'] = \Yii::$app->request->post('totalCost');
 
-            for($i = 0; $i < count($postValues['id_product']); $i++){
+            $countAll = 0;
+            foreach ($postValues['count'] as $item)
+                $countAll += $item;
+
+            $check['count'] = $countAll;
+            $check['status'] = 'waiting';
+
+            if(!$check->save()) {
+                Yii::$app->session->setFlash('errorOrder', 'Something gone wrong in '."row!");
+                return $this->refresh();
+            }
+
+            for($i = 0; $i < count($postValues['product']); $i++){
                 $model = new Orders();
-                $orderProduct = new OrderProduct();
 
+                $product = Products::find()->with('user')->where("id={$postValues['product'][$i]}")->asArray()->one();
 
-                $product = Products::find()->with('user')->where("id={$postValues['id_product'][$i]}")->asArray()->one();
-                $name = User::find()->where("id=$userId")->asArray()->one();
-
-                $orderProduct['product'] = $product['product'];
-                $orderProduct['employee'] = $product['user']['login'];
-                $orderProduct['image'] = $product['image'];
-                $orderProduct['count'] = $orderProductValues['count'][$i];
-                $orderProduct['id_product'] = $postValues['id_product'][$i];
-                $orderProduct['user'] = $name['login'];
-                $orderProduct['price'] = $orderProductValues['price'][$i];
-
-                if($orderProduct->validate()) {
-                    $orderProduct->save();
-                }
-                else {
-                    Yii::$app->session->setFlash('errorOrder', 'Something gone wrong in '."$i row!");
-                    return $this->refresh();
-                }
-
-                $model['id_product'] = $orderProduct['id'];
+                $model['product'] = $product['product'];
+                $model['employee'] = $product['user']['login'];
+                $model['image'] = $product['image'];
+                $model['count'] = $postValues['count'][$i];
+                $model['price'] = $postValues['price'][$i];
                 $model['status'] = 'waiting';
-                $model['id_check'] = $checkId;
+                $model['id_check'] = $check['id'];
 
-                if($model->validate()) {
-                    $model->save();}
-                else {
+                if(!$model->save()) {
                     Yii::$app->session->setFlash('errorOrder', 'Something gone wrong in '."$i row!");
                     return $this->refresh();
                 }
@@ -145,7 +134,7 @@ class OrderController extends Controller
             return $this->refresh();
         }
 
-        return $this->render('create',compact('model','orderProduct'));
+        return $this->render('create',compact('model'));
     }
 
     /**

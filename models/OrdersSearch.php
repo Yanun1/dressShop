@@ -13,17 +13,10 @@ use yii\db\Expression;
  */
 class OrdersSearch extends Orders
 {
-    public $product;
-    public $price;
-    public $data;
-    public $count;
-    //public $id_user;
     public $minPrice;
     public $maxPrice;
     public $minTotal;
     public $maxTotal;
-    public $image;
-    public $id_check;
     public $minDate;
     public $maxDate;
     public function rules()
@@ -31,7 +24,7 @@ class OrdersSearch extends Orders
         return [
             [['id', 'id_product', 'count', 'id_check'], 'integer'],
             [['price', 'minPrice', 'maxPrice', 'minTotal', 'maxTotal'], 'double'],
-            [['status', 'product', 'image', 'data', 'maxDate', 'minDate'], 'safe'],
+            [['status', 'product', 'image', 'maxDate', 'minDate'], 'safe'],
         ];
     }
 
@@ -54,65 +47,54 @@ class OrdersSearch extends Orders
     public function search($params)
     {
         $userId = \Yii::$app->user->id;
-        $query = Orders::find();//->with('user')->with('product');
-
-        // add conditions that should always apply here
+        $query = Orders::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'sort' => [
-                'defaultOrder' => [
-
-                ],
                 'attributes' => [
-                    'orderProduct.count',
-                    'orderProduct.price',
-                    '`orderProduct`.`price` * `orderProduct`.`count`',
-                    'orderProduct.product',
+                    'count',
+                    'price',
+                    'employee',
+                    '`price` * `count`',
+                    'product',
                     'status',
-                    'orderCheck.id_order',
-                    'DATE(`data`)',
-                    'id'
+                    'id',
+                    'id_check'
                 ],
             ],
         ]);
 
+
         $this->load($params);
 
-        if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
-            return $dataProvider;
-        }
+//        if (!$this->validate()) {
+//            // uncomment the following line if you do not want to return any records when validation fails
+//            // $query->where('0=1');
+//            return $dataProvider;
+//        }
 
-        $query->joinWith(['orderProduct']);
-        $query->joinWith(['orderCheck']);
-        //$query->joinWith(['user']);
-        $name = User::find()->where("id=$userId")->asArray()->one();
-        $query->where("orderProduct.user='$name[login]'");
+        // chjnjel petqa galu
+//        $name = User::find()->where("id=$userId")->asArray()->one();
+//        $query->where("orderProduct.user='$name[login]'");
 
+//        $query->joinWith(['check']);
         $query->andFilterWhere([
-            'orderProduct.count' => $this->count,
+            'count' => $this->count,
             'image' => $this->image,
-            //'users.id' => $this->id_user,
-            'DATE(`data`)' => $this->data,
-            'orderCheck.id_order' => $this->id_check
+            'id_check' => $this->id_check,
         ]);
 
-//        var_dump($this->id_check);
-
-        $query->andFilterWhere(['LIKE', 'orderProduct.product', $this->product]);
+        $query->andFilterWhere(['LIKE', 'product', $this->product]);
         $query->andFilterWhere(['LIKE', 'status', $this->status]);
+        $query->andFilterWhere(['LIKE', 'employee', $this->employee]);
 
 
-        $query->andFilterWhere(['>=', new Expression('orderProduct.price * orderProduct.count'), $this->minTotal]);
-        $query->andFilterWhere(['<=', new Expression('orderProduct.price * orderProduct.count'), $this->maxTotal]);
+        $query->andFilterWhere(['>=', new Expression('price * count'), $this->minTotal]);
+        $query->andFilterWhere(['<=', new Expression('price * count'), $this->maxTotal]);
 
-        $query->andFilterWhere(['>=', 'orderProduct.price', $this->minPrice]);
-        $query->andFilterWhere(['<=','orderProduct.price', $this->maxPrice]);
-
-        $query->andFilterWhere(['>=', 'data', $this->minDate]);
-        $query->andFilterWhere(['<=','data', $this->maxDate]);
+        $query->andFilterWhere(['>=', 'price', $this->minPrice]);
+        $query->andFilterWhere(['<=','price', $this->maxPrice]);
 
         $query->andFilterWhere(['like', 'status', $this->status]);
 
