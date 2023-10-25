@@ -56,11 +56,6 @@ class CheckSearch extends OrderCheck
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-//            'sort' => [
-//                'defaultOrder' => [
-//                    'id_order'
-//                ],
-//            ],
         ]);
 
         if (!$this->validate()) {

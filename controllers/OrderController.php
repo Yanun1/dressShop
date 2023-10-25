@@ -74,8 +74,6 @@ class OrderController extends Controller
     {
         $searchModel = new CheckSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-//        echo '<pre>';
-//        var_dump($dataProvider);die;
 
         return $this->render('checks', [
             'searchModel' => $searchModel,
@@ -110,7 +108,7 @@ class OrderController extends Controller
             $check['status'] = 'waiting';
 
             if(!$check->save()) {
-                Yii::$app->session->setFlash('errorOrder', 'Something gone wrong in '."$i row!");
+                Yii::$app->session->setFlash('errorOrder', 'Something gone wrong in '."row!");
                 return $this->refresh();
             }
 

@@ -1,5 +1,4 @@
 <?php
-
 use app\models\CheckSearch;
 use app\models\Orders;
 use yii\helpers\Html;
@@ -28,18 +27,14 @@ $this->params['breadcrumbs'][] = $this->title;
 $defaultValue = 'option2';
 ?>
 <div class="orders-index">
-
     <h1><?= Html::encode($this->title) ?></h1>
-
     <div class="create-order">
         <?= Html::a('Create Orders', ['create'], ['class' => 'btn btn-success']) ?>
     </div>
     <div class="create-order filet-button">
         <button type="button" class="btn btn-secondary search-button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Search<img src="http://dress-shop/images/filter_icon.png" alt="Y"></button>
     </div>
-
     <?php
-
     if (Yii::$app->session->hasFlash('failed')) {
         echo Alert::widget([
             'options' => [
@@ -48,7 +43,6 @@ $defaultValue = 'option2';
             'body' => Yii::$app->session->getFlash('failed'),
         ]);
     }
-
     if (Yii::$app->session->hasFlash('success deleting')) {
         echo Alert::widget([
             'options' => [
@@ -126,18 +120,15 @@ $defaultValue = 'option2';
     thead a {
         color: black;
     }
-
     .create-order {
         margin: 12px 0;
         display: flex;
         justify-content: end;
     }
-
     .mini-photo {
         width: 100%;
         position: absolute;
     }
-
     .image-column {
         display: flex;
         justify-content: center;
@@ -149,15 +140,12 @@ $defaultValue = 'option2';
         overflow: hidden;
         cursor: pointer;
     }
-
     .image-header {
         width: 25px;
     }
-
     .filters {
         display: none;
     }
-
     .filet-button img {
         height: 18px;
         margin-left: 10px;

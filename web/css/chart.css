@@ -47,7 +47,10 @@ input[type="color"] {
     display: block;
     margin-top: 10px;
 }
-
+  
+.canvasjs-chart-credit {
+    display: none;
+}
 
   .settings-column {
       position: relative;
@@ -56,7 +59,6 @@ input[type="color"] {
       gap: 15px;
   }
 
-
-  .canvasjs-chart-credit {
-      display: none;
-  }
+.form-control {
+    width: auto !important;
+}

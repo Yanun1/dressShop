@@ -25,18 +25,16 @@ $this->params['breadcrumbs'][] = $this->title;
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     <?php endif; ?>
-
     <?php if (Yii::$app->session->hasFlash('errorOrder')): ?>
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <strong></strong><?= Yii::$app->session->getFlash('errorOrder'); ?>! </strong>
+            <strong></strong><?= Yii::$app->session->getFlash('errorOrder'); ?>!</strong>
             all orders after this line were not ordered
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-    <?php endif; ?>
+    <?php endif;?>
         <div class="ordersMain_container">
             <div class="OrdersForm">
                 <?= $form->field($model,'product[]',)->label('Products')->input('text', ['placeholder' => "Select product", 'class' => 'productInput form-control', 'readOnly' => true])?>
-
                 <div class="form-group field-orders-id_product noneInput">
                     <?= Html::label('Saler', 'SalerLabel') ?>
                     <?= Html::input('text','saler[]', 'None', ['class' => 'form-control field-ordersform-count', 'readOnly' => true])?>
@@ -64,79 +62,64 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     <?php ActiveForm::end() ?>
 </div>
-
 <?= ProductWidget::widget()  ;?>
-
 <style>
-    .newForm {
-        margin-top: 50px;
-    }
-
-    .OrdersForm {
-        display: flex;
-        gap: 5px;
-        align-items: end;
-        margin: 0 auto;
-        margin-bottom: 20px;
-    }
-
-    .noneInput > input {
-        margin-bottom: 24px;
-    }
-
-    .form-group {
-        margin-bottom: 0;
-    }
-
-    .OrdersForm > .btn {
-        height: 38px;
-        width: 38px;
-        margin-bottom: 24px;
-    }
-
-    .help-block {
-        height: 24px;
-        color: red;
-    }
-
-    input[type='Number'] {
-        max-width: 110px;
-    }
-
-    .form-control {
-        max-width: 120px;
-    }
-
-    .buyCost {
-        display: flex;
-        gap: 20px;
-        align-items: center;
-    }
-
-    .micro-image {
-        position: relative;
-        display: flex;
-        width: 38px;
-        height: 38px;
-        margin-bottom: 24px;
-        border-radius: 0.375rem;
-        overflow: hidden;
-    }
-
-    .productInput {
-        cursor: pointer;
-    }
-
-    .micro-image img {
-        width: 100%;
-    }
-
-    .to-excel-div {
-        display: flex;
-        justify-content: end;
-    }
-
-    .to-excel-div button {
-        padding: 5px 25px;
-    }
+.newForm {
+    margin-top: 50px;
+}
+.OrdersForm {
+    display: flex;
+    gap: 5px;
+    align-items: end;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+.noneInput > input {
+    margin-bottom: 24px;
+}
+.form-group {
+    margin-bottom: 0;
+}
+.OrdersForm > .btn {
+    height: 38px;
+    width: 38px;
+    margin-bottom: 24px;
+}
+.help-block {
+    height: 24px;
+    color: red;
+}
+input[type='Number'] {
+    max-width: 110px;
+}
+.form-control {
+    max-width: 120px;
+}
+.buyCost {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+.micro-image {
+    position: relative;
+    display: flex;
+    width: 38px;
+    height: 38px;
+    margin-bottom: 24px;
+    border-radius: 0.375rem;
+    overflow: hidden;
+}
+.productInput {
+    cursor: pointer;
+}
+.micro-image img {
+    width: 100%;
+}
+.to-excel-div {
+    display: flex;
+    justify-content: end;
+}
+.to-excel-div button {
+    padding: 5px 25px;
+}
 </style>
