@@ -27,7 +27,7 @@ use app\components\ProductWidget;
 
     <?php ActiveForm::end(); ?>
 
-    <?= ProductWidget::widget()  ;?>
+    <?= ProductWidget::widget();?>
 </div>
 
 <style>

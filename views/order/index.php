@@ -37,27 +37,24 @@ $defaultValue = 'option2';
     <div class="create-order filet-button">
         <button type="button" class="btn btn-secondary search-button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Search<img src="http://dress-shop/images/filter_icon.png" alt="Y"></button>
     </div>
-
-    <?php
-
+<?php
     if (Yii::$app->session->hasFlash('failed')) {
-            echo Alert::widget([
-                    'options' => [
-                    'class' => 'alert-danger',
-                    ],
-                    'body' => Yii::$app->session->getFlash('failed'),
-                ]);
-            }
-
+        echo Alert::widget([
+            'options' => [
+            'class' => 'alert-danger',
+            ],
+                'body' => Yii::$app->session->getFlash('failed'),
+        ]);
+    }
     if (Yii::$app->session->hasFlash('success deleting')) {
-            echo Alert::widget([
-                    'options' => [
-                    'class' => 'alert-success',
-                    ],
-                    'body' => Yii::$app->session->getFlash('success deleting'),
-                ]);
-            }
-    ?>
+        echo Alert::widget([
+            'options' => [
+            'class' => 'alert-success',
+            ],
+            'body' => Yii::$app->session->getFlash('success deleting'),
+        ]);
+    }
+?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -76,7 +73,7 @@ $defaultValue = 'option2';
             ],
             [
                 'label' => 'Products',
-                'value' => function ($model) {
+                'value' => function ($model){
                     return $model['orderProduct']['product'];
                 },
                 'attribute' => 'orderProduct.product',
@@ -84,21 +81,21 @@ $defaultValue = 'option2';
             ],
             [
                 'label' => 'Price',
-                'value' => function ($model) {
+                'value' => function ($model){
                     return $model['orderProduct']['price'];
                 },
                 'attribute' => 'orderProduct.price'
             ],
             [
                 'label' => 'Count',
-                'value' => function ($model) {
+                'value' => function ($model){
                     return $model['orderProduct']['count'];
                 },
                 'attribute' => 'orderProduct.count'
             ],
             [
                 'label' => 'Status',
-                'value' => function ($model) {
+                'value' => function ($model){
                     return $model['status'];
                 },
                 'contentOptions' => ['class' => 'status-column'],
@@ -107,7 +104,7 @@ $defaultValue = 'option2';
             [
                 'label' => 'Image',
                 'format' => 'raw',
-                'value' => function ($model) {
+                'value' => function ($model){
                     return  Html::img('http://dress-shop/images/'.$model['orderProduct']['image'], ['class' => 'mini-photo', 'alt' => 'photo']);
                 },
                 'contentOptions' => ['class' => 'image-column', 'value' => 0],
@@ -115,7 +112,7 @@ $defaultValue = 'option2';
             ],
             [
                 'label' => 'Total',
-                'value' => function ($model) {
+                'value' => function ($model){
                     return $model['orderProduct']['price']*$model['orderProduct']['count'];
                 },
                 'attribute' => '`orderProduct`.`price` * `orderProduct`.`count`'
@@ -132,7 +129,7 @@ $defaultValue = 'option2';
                 'class' => ActionColumn::class,
                 'urlCreator' => function ($action, Orders $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
-                 },
+                },
                 'visibleButtons' => [
                     'view' => false,
                     'update' => Yii::$app->user->can('Update elements'),
@@ -147,13 +144,13 @@ $defaultValue = 'option2';
         'fields' => ['product', 'count', 'id_check'],
         'calendars' => [
                 [
-                        'inputs' => ['minDate', 'maxDate']
+                    'inputs' => ['minDate', 'maxDate']
                 ]
         ],
         'lists' => [
                 [
-                        'input' => 'status',
-                        'options' => ['waiting' => 'Waiting', 'on the way' => 'On the way', 'delivered' => 'Delivered', 'received' => 'Received']
+                    'input' => 'status',
+                    'options' => ['waiting' => 'Waiting', 'on the way' => 'On the way', 'delivered' => 'Delivered', 'received' => 'Received']
                 ]
         ],
         'ranges' => [

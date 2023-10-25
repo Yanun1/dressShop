@@ -4,13 +4,14 @@ use app\models\Orders;
 use app\models\ChartSettings;
 use yii\helpers\Html;
 use app\assets\ChartAsset;
+use app\components\ProductWidget;
 
-ChartAsset::register($this);
+ChartAsset::register($this);//css js kpcnelu hamar
 
 if (isset($_GET['year']) && isset($_GET['month'])) {
     $show_year = $_GET['year'];
     $show_month = $_GET['month'];
-} else {
+}else{
     $show_year = date('Y');
     $show_month = date('m');
 }
@@ -19,31 +20,36 @@ $selected_month = $show_month;
 $selected_year = $show_year;
 $first_day = date('Y-m-01', strtotime($selected_year . '-' . $selected_month . '-01'));
 $last_day = date('Y-m-t', strtotime($selected_year . '-' . $selected_month));
-
-    $orders = Orders::find()
-    ->asArray()
-    ->with('orderProduct')
-    ->andFilterWhere(['BETWEEN', 'data', $first_day, $last_day])
-    ->all();
-
+    if(isset($_GET['id_product'])) {
+        $id_product = $_GET['id_product'];
+        $orders = Orders::find()
+        ->asArray()
+        ->joinWith('orderProduct')
+        ->andFilterWhere(["=", 'orderProduct.id_product', $id_product])
+        ->andFilterWhere(['BETWEEN', 'data', $first_day, $last_day])
+        ->all();
+    } else {
+        $orders = Orders::find()
+        ->asArray()
+        ->with('orderProduct')
+        ->andFilterWhere(['BETWEEN', 'data', $first_day, $last_day])
+        ->all();
+    }
 // echo '<pre>';
 // var_dump($orders);die;
-
     $data = [];
     $xAxis = [];
     $currentDate = strtotime($first_day);
-
 // echo '<pre>';
 // var_dump($orders);die;
-
-    $endDate = strtotime($last_day);
+$endDate = strtotime($last_day);
     while ($currentDate <= $endDate) {
         $date = date('Y-m-d', $currentDate);
         $xAxis[] = date('d', $currentDate);
         $data[$date] = ['price' => 0, 'count' => 0];
         $currentDate = strtotime('+1 day', $currentDate);
     }
-    foreach ($orders as $order) {
+foreach($orders as $order) {
     $date = date('Y-m-d', strtotime($order['data']));
     $price = (double)$order['orderProduct']['price'];
     $count = (int)$order['orderProduct']['count'];
@@ -56,51 +62,46 @@ $last_day = date('Y-m-t', strtotime($selected_year . '-' . $selected_month));
         $priceData[] = $value['price'];
         $countData[] = $value['count'];
     }
-
     $chartData = [];
     foreach ($xAxis as $index => $xValue) {
         $chartData[] = ['x' => (int)$xValue, 'y' => $priceData[$index]];
     }
-
     $countChartData = [];
     foreach ($xAxis as $index => $xValue) {
         $countChartData[] = ['x' => (int)$xValue, 'y' => $countData[$index]];
     }
-
     if(!\Yii::$app->user->isGuest) {
         $id = \Yii::$app->user->getId();
         $model = ChartSettings::find()->with('user')->where("user_id=$id")->one();
-    }
+    }//stugum a te ova mutq gorcel
 
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && !\Yii::$app->user->isGuest) {
+if($_SERVER['REQUEST_METHOD'] === 'GET' && !\Yii::$app->user->isGuest){
     if (isset($_GET['selectTheme'])) {
         $model->theme = $_GET['selectTheme'];
     }
-    if (isset($_GET['selectTotal'])) {
+    if (isset($_GET['selectTotal'])){
         $model->total_color = $_GET['selectTotal'];
     }
-    if (isset($_GET['textcolor'])) {
+    if (isset($_GET['textcolor'])){
         $model->text_color = $_GET['textcolor'];
     }
-    if (isset($_GET['selectCount'])) {
+    if (isset($_GET['selectCount'])){
         $model->count_color	 = $_GET['selectCount'];
     }
 }
-
     if(!\Yii::$app->user->isGuest && $model->user_id == null)
         $model->user_id = \Yii::$app->user->getId();
-
-    if (isset($model->theme)) {
+    if (isset($model->theme)){
         $selectTheme = $model->theme;
         $selectTotal = $model->total_color;
         $selectCount = $model->count_color;
         $textcolor = $model->text_color;
-    }else {
+    }else{
         $selectTheme = "#330033";
         $selectTotal = "#FF0033";
         $selectCount = "#33FF33";
         $textcolor = "#fff";
-        if(!\Yii::$app->user->isGuest) {
+        if(!\Yii::$app->user->isGuest){
             $model->theme = "#330033";
             $model->total_color = "#FF0033";
             $model->count_color = "#33FF33";
@@ -109,9 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && !\Yii::$app->user->isGuest) {
     }
     if(!\Yii::$app->user->isGuest)
     $model->save();
-
 ?>
-
 <form action="" method="GET" class="settings-column">
     <?= Html::dropDownList('year', $show_year , [
         "2022" => "2022",
@@ -132,11 +131,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && !\Yii::$app->user->isGuest) {
         "11" => "November",
         "12" => "December"
     ]) ?>
+    <?= Html::input('text', 'id_product', null, ['placeholder' => 'Select product', 'class' => 'productInput form-control', 'readonly' => true]) ?>
     <button class="btn btn-primary">Show</button>
-
     <div class="color-bars">
-        <button class="btn btn-dark">Change chart colors</button>
-
+     <button class="btn btn-dark">Change chart colors</button>
         <div class="chart-open">
             <form action="" method="GET">
                 <label for="favcolor">Select theme:</label>
@@ -151,7 +149,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && !\Yii::$app->user->isGuest) {
             </form>
         </div>
     </div>
-    </form>
+</form>
     <div id="chartContainer" style="height: 370px; max-width: 920px; margin: 0px auto;"></div>
     <script>
     window.onload = function () {
@@ -208,7 +206,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && !\Yii::$app->user->isGuest) {
         }]
     });
     chart.render();
-
     function toggleDataSeries(e) {
         if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
             e.dataSeries.visible = false;
@@ -222,7 +219,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && !\Yii::$app->user->isGuest) {
         chart.options.backgroundColor = selectedThemeColor;
         chart.render();
     });
-
     $(".favcolor").change(function() {
         let selectedColor = $(this).val();
         let colorType = $(this).attr("name");
@@ -233,7 +229,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && !\Yii::$app->user->isGuest) {
         }
             chart.render();
     });
-
     $(".textcolor").change(function() {
         let selectedTextColor = $(this).val();
         chart.options.title.fontColor = selectedTextColor;
@@ -246,7 +241,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && !\Yii::$app->user->isGuest) {
         chart.render();
     });
     chart.render();
-
     $(document).ready(function(){
         let action = false;
         $(".btn.btn-dark").click(function(event){
@@ -262,5 +256,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && !\Yii::$app->user->isGuest) {
 }
 </script>    
 <?php
-    
+    echo ProductWidget::widget();
 ?>

@@ -47,16 +47,16 @@ input[type="color"] {
     display: block;
     margin-top: 10px;
 }
-
-
-  .settings-column {
-      position: relative;
-      display: flex;
-      align-items: center;
-      gap: 15px;
-  }
+.settings-column {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
   
+.canvasjs-chart-credit {
+    display: none;
+}
 
-  .canvasjs-chart-credit {
-      display: none;
-  }
+.form-control {
+    width: auto !important;
+}
