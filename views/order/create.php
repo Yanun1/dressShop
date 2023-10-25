@@ -73,6 +73,7 @@ $this->params['breadcrumbs'][] = $this->title;
     align-items: end;
     margin: 0 auto;
     margin-bottom: 20px;
+    flex-wrap: wrap;
 }
 .noneInput > input {
     margin-bottom: 24px;

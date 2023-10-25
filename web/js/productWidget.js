@@ -23,7 +23,14 @@ $(document).ready(function() {
         productInput.val(productId).trigger("change");
     });
 
-    $('.catalog a').click(function () {
+    // $('.catalog a').click(function () {
+    //     productId = $(this).parent().val();
+    //     productImage = $(this).parent().attr('src');
+    //     $('.owl-item img').attr('src', "http://dress-shop/images/" + $(this).parent().attr('src'));
+    // });
+
+    $('.pull-right').click(function () {
+        // $(this).parent().find('.active').trigger('click');
         productId = $(this).parent().val();
         productImage = $(this).parent().attr('src');
         $('.owl-item img').attr('src', "http://dress-shop/images/" + $(this).parent().attr('src'));

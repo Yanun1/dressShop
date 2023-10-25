@@ -21,8 +21,9 @@ $selected_year = $show_year;
 $first_day = date('Y-m-01', strtotime($selected_year . '-' . $selected_month . '-01'));
 $last_day = date('Y-m-t', strtotime($selected_year . '-' . $selected_month));
 
-if(isset($_GET['id_product'])) {
+if(isset($_GET['id_product']) && $_GET['id_product'] != '') {
     $id_product = $_GET['id_product'];
+//    var_dump($id_product);die;
     $productName = Products::find()->where("id=$id_product")->one();
     $orders = Orders::find()
         ->asArray()
@@ -136,7 +137,7 @@ for ($i = 6; $i <= count($newData); $i++) {
 
 
 <?php
-$orders = Orders::find()->select(['product AS 0', 'SUM(`price`) AS `1`'])->groupBy(['product'])->orderBy(['`1`' => SORT_DESC])->asArray()->all();
+$orders = Orders::find()->select(['product AS 0', 'SUM(`price`*`count`) AS `1`'])->groupBy(['product'])->orderBy(['`1`' => SORT_DESC])->asArray()->all();
 
 $newPriceData = [];
 $newPriceData[] = ['Product', 'Price'];
@@ -147,7 +148,7 @@ foreach ($orders as $order) {
 
 ?>
 
-<div style="display: flex">
+<div class="cycle-charts">
     <?php
     echo GoogleChart::widget(array(
         'visualization' => 'PieChart',
@@ -155,7 +156,7 @@ foreach ($orders as $order) {
         'options' => [
             'title' => 'Monthly Count Data',
             'titleTextStyle' => ['color' => '#871b47', 'fontSize' => 20],
-            'backgroundColor' => '#f9f9f9',
+            'backgroundColor' => '#fff',
             'chartArea' => ['width' => '60%'],
             'pieSliceTextStyle' => ['color' => 'white'],
             // Add more style options as needed
@@ -170,7 +171,7 @@ foreach ($orders as $order) {
         'options' => [
             'title' => 'Monthly Price Data',
             'titleTextStyle' => ['color' => '#871b47', 'fontSize' => 20],
-            'backgroundColor' => '#f9f9f9',
+            'backgroundColor' => '#fff',
             'chartArea' => ['width' => '60%'],
             'pieSliceTextStyle' => ['color' => 'white'],
             // Add more style options as needed
@@ -181,9 +182,9 @@ foreach ($orders as $order) {
 </div>
 
 
+<div id="chartContainer" style="height: 370px; max-width: 920px; margin: 0px auto;"></div>
 
-<form action="" method="GET" class="settings-column"
-      </form>
+<form action="" method="GET" class="settings-column">
 <?= Html::dropDownList('year', $show_year, [
         "2022" => "2022",
         "2023" => "2023",
@@ -203,7 +204,7 @@ foreach ($orders as $order) {
         "11" => "November",
         "12" => "December"
     ]) ?>
-    <?= Html::input('text', 'id_product', null, ['placeholder' => 'Select product', 'class' => 'productInput form-control', 'readonly' => true]) ?>
+    <?= Html::input('text', 'id_product', $_GET['id_product'], ['placeholder' => 'Select product', 'class' => 'productInput form-control', 'readonly' => true]) ?>
     <button class="btn btn-primary">Show</button>
     <div class="color-bars">
         <button class="btn btn-dark">Change chart colors</button>
@@ -222,7 +223,6 @@ foreach ($orders as $order) {
         </div>
     </div>
 </form>
-<div id="chartContainer" style="height: 370px; max-width: 920px; margin: 0px auto;"></div>
 <script>
     window.onload = function () {
         var chart = new CanvasJS.Chart("chartContainer", {

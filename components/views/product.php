@@ -29,9 +29,7 @@ function getMenuHtml ($tree) {
 
      return ob_get_clean();
 }
-// echo '<pre>';
-// var_dump($tree);
-// echo '</pre>'; die;
+
 $menuHtml= getMenuHtml($tree);
 
 ?>
@@ -68,8 +66,3 @@ $menuHtml= getMenuHtml($tree);
         </div>
     </div>
 </div>
-
-<script>
-    //var temp = '<?php //echo json_encode($data, true) ?>//';
-    //console.log( JSON.parse(temp));
-</script>

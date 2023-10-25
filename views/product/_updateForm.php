@@ -43,7 +43,7 @@ $this->registerJsFile('@web/js/product-update.js', ['position'=>\yii\web\View::P
 
     <?= Html::label('Current photos: '.$images, 'oldImage', ['class' => 'current-photo']) ?>
 
-    <?= $form->field($model, 'id_product')->label('Product Category')->input('text', ['placeholder' => "Select category", 'class' => 'productInput form-control', 'readOnly' => true])?>
+    <?= $form->field($model, 'product')->label('Product Category')->input('text', ['placeholder' => "Select category", 'class' => 'productInput form-control', 'readOnly' => true])?>
 
     <?= Html::checkbox('category', false, ['label' => 'No category', 'class' => 'checkbox']); ?>
 

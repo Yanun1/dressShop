@@ -134,7 +134,7 @@ class ProductController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $modelImages = ImagesProduct::find()->where("id_product=$model->id")->all();
+        $modelImages = ImagesProduct::find()->where("product='$model->product'")->all();
         $modelProductsImage = new imagesForm();
 
         if ($this->request->isPost) {
@@ -181,7 +181,7 @@ class ProductController extends Controller
                 foreach ($modelProductsImage->image as $image) {
                     $ImagesProduct = new ImagesProduct();
                     $ImagesProduct->image = $image->baseName.$extraName.'.'.$image->extension;
-                    $ImagesProduct->id_product = $model->id;
+                    $ImagesProduct->product = $model->product;
                     $ImagesProduct->save();
                 }
                 \Yii::$app->session->setFlash('successAdd', 'Added');

@@ -57,8 +57,17 @@ input[type="color"] {
       display: flex;
       align-items: center;
       gap: 15px;
+      justify-content: center;
+      margin-top: 30px;
+      flex-wrap: wrap;
   }
 
 .form-control {
     width: auto !important;
+}
+
+.cycle-charts {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
