@@ -553,6 +553,17 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'scotthuangzl/yii2-google-chart' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => '6bd68466030af8a931b34d2ceacf0a498da5b9a0',
+            'type' => 'yii2-extension',
+            'install_path' => __DIR__ . '/../scotthuangzl/yii2-google-chart',
+            'aliases' => array(
+                0 => '9999999-dev',
+            ),
+            'dev_requirement' => false,
+        ),
         'sebastian/cli-parser' => array(
             'pretty_version' => '1.0.1',
             'version' => '1.0.1.0',

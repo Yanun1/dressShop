@@ -120,7 +120,7 @@ return array (
     array (
       '@yii/jui' => $vendorDir . '/yiisoft/yii2-jui',
     ),
-    ),
+  ),
   'ejfrias/yii2-xdan-datetimepicker' => 
   array (
     'name' => 'ejfrias/yii2-xdan-datetimepicker',
@@ -128,6 +128,15 @@ return array (
     'alias' => 
     array (
       '@ejfrias/yii2_xdan_datetimepicker' => $vendorDir . '/ejfrias/yii2-xdan-datetimepicker',
+    ),
+  ),
+  'scotthuangzl/yii2-google-chart' => 
+  array (
+    'name' => 'scotthuangzl/yii2-google-chart',
+    'version' => 'dev-master',
+    'alias' => 
+    array (
+      '@scotthuangzl/googlechart' => $vendorDir . '/scotthuangzl/yii2-google-chart',
     ),
   ),
 );
