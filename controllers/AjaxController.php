@@ -48,12 +48,8 @@ class AjaxController extends Controller
                     return json_encode(self::$base);
                 }
             } elseif ($_POST['orderProduct'] == 0) {
-                if (isset(self::$baseProduct))
-                    return json_encode(self::$baseProduct);
-                else {
-                    self::$baseProduct = Orders::find()->with('images')->indexBy('id')->asArray()->all();
-                    return json_encode(self::$baseProduct);
-                }
+                self::$baseProduct = Orders::find()->with('images')->indexBy('id')->asArray()->all();
+                return json_encode(self::$baseProduct);
             }
         }
     }

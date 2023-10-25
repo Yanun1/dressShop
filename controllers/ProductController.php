@@ -82,6 +82,14 @@ class ProductController extends Controller
                     $model->id_product = 0;
                 }
 
+                if (!empty(Products::find()->where("product='$model[product]'")->one())) {
+                    \Yii::$app->session->setFlash('errorOrder', 'А product with the same name already exists');
+                    return $this->render('create', [
+                        'model' => $model,
+                        'modelImages' => $modelImages
+                    ]);
+                }
+
                 $extraName = time();
 
                 $model->image = UploadedFile::getInstance($model, 'image');
@@ -100,7 +108,7 @@ class ProductController extends Controller
                 foreach ($modelImages->image as $image) {
                     $ImagesProduct = new ImagesProduct();
                     $ImagesProduct->image = $image->baseName.$extraName.'.'.$image->extension;
-                    $ImagesProduct->id_product = $model->id;
+                    $ImagesProduct->product = $model->product;
                     $ImagesProduct->save();
                 }
                 \Yii::$app->session->setFlash('successAdd', 'Added');

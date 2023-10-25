@@ -149,12 +149,52 @@ class OrderController extends Controller
         $model = $this->findModel($id);
 
         if (Yii::$app->request->isPost) {
+            $oldModel = clone $model;
 
             $model->load(Yii::$app->request->post());
 
             $model->save();
 
+            if($oldModel['price'] != $model['price'] or $oldModel['count'] != $model['count'] or $oldModel['product'] != $model['product'] or $oldModel['status'] != $model['status']) {
+                $check = OrderCheck::find()->where("id=$model[id_check]")->one();
+                $check['price'] += $model['price']*$model['count'] - $oldModel['price']*$oldModel['count'];
+                $check['count'] += $model['count'] - $oldModel['count'];
 
+                $orders = Orders::find()->where("id_check=$check[id]")->asArray()->all();
+
+                $waiting = 0;
+                $on_the_way = 0;
+                $delivered = 0;
+                $received = 0;
+
+                foreach ($orders as $order) {
+                    switch($order['status']) {
+                        case "waiting":
+                            $waiting++;
+                            break;
+                        case "on the way":
+                            $on_the_way++;
+                            break;
+                        case "delivered":
+                            $delivered++;
+                            break;
+                        case "received":
+                            $received++;
+                            break;
+                    }
+                }
+
+                if($waiting != 0) {
+                    $check['status'] = 'waiting';
+                }elseif($on_the_way != 0)  {
+                    $check['status'] = 'on the way';
+                }elseif ($delivered != 0) {
+                    $check['status'] = 'delivered';
+                }else
+                    $check['status'] = 'received';
+
+                $check->save();
+            }
 
             return $this->redirect(['index', 'id' => $model->id]);
         }
@@ -174,8 +214,51 @@ class OrderController extends Controller
     public function actionDelete($id)
     {
         $row =  $this->findModel($id);
-        if ($row['status'] == 'waiting') {
+
+        $role = Yii::$app->authManager->getRolesByUser(Yii::$app->user->id);
+
+        if ($row['status'] == 'waiting' or isset($role['admin'])) {
+            $check = OrderCheck::find()->where("id=$row[id_check]")->one();
+            $check['price'] -= $row['price']*$row['count'];
+            $check['count'] -= $row['count'];
+
             $row->delete();
+
+            $orders = Orders::find()->where("id_check=$check[id]")->asArray()->all();
+
+            $waiting = 0;
+            $on_the_way = 0;
+            $delivered = 0;
+            $received = 0;
+
+            foreach ($orders as $order) {
+                switch($order['status']) {
+                    case "waiting":
+                        $waiting++;
+                        break;
+                    case "on the way":
+                        $on_the_way++;
+                        break;
+                    case "delivered":
+                        $delivered++;
+                        break;
+                    case "received":
+                        $received++;
+                        break;
+                }
+            }
+
+            if($waiting != 0) {
+                $check['status'] = 'waiting';
+            }elseif($on_the_way != 0)  {
+                $check['status'] = 'on the way';
+            }elseif ($delivered != 0) {
+                $check['status'] = 'delivered';
+            }else
+                $check['status'] = 'received';
+
+            $check->save();
+
             Yii::$app->getSession()->setFlash('success deleting',"The order has been deleted successfully.");
         }
         else

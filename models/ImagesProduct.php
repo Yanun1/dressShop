@@ -29,24 +29,18 @@ class ImagesProduct extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_product'], 'required'],
-            [['id_product'], 'integer'],
+            [['product'], 'required'],
+            [['product'], 'string'],
             ['image', 'file', 'maxSize' => 1024 * 1024 * 20, 'extensions' => 'png, jpg', 'maxFiles' => 5,  'tooBig' => 'The file is too large. Maximum size 20 MB.'],
             [['image'], 'string', 'max' => 100],
-            [['id_product'], 'exist', 'skipOnError' => true, 'targetClass' => Products::class, 'targetAttribute' => ['id_product' => 'id']],
+            [['product'], 'exist', 'skipOnError' => true, 'targetClass' => Products::class, 'targetAttribute' => ['product' => 'product']],
         ];
     }
 
     public function upload($name)
     {
-        if (true) {
-            foreach ($this->image as $file) {
-                $file->saveAs('images/' . $file->baseName .$name. '.' . $file->extension);
-            }
-            return true;
-        } else {
-            var_dump('didn\'t pass validate');die;
-            return false;
+        foreach ($this->image as $file) {
+            $file->saveAs('images/' . $file->baseName .$name. '.' . $file->extension);
         }
     }
 
@@ -58,7 +52,7 @@ class ImagesProduct extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'image' => 'Image',
-            'id_product' => 'Id Product',
+            'product' => 'Product',
         ];
     }
 
@@ -69,6 +63,6 @@ class ImagesProduct extends \yii\db\ActiveRecord
      */
     public function getProduct()
     {
-        return $this->hasOne(Products::class, ['id' => 'id_product']);
+        return $this->hasOne(Products::class, ['product' => 'product']);
     }
 }
