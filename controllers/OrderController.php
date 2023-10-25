@@ -149,33 +149,20 @@ class OrderController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $orderProduct = OrderProduct::find()->where("id={$model['id_product']}")->one();
 
         if (Yii::$app->request->isPost) {
 
-            $order = Yii::$app->request->post()['OrdersSearch'];
-            $orderProductPost = Yii::$app->request->post()['OrderProduct'];
-
-            $model['status'] = $order['status'];
+            $model->load(Yii::$app->request->post());
 
             $model->save();
 
-            $product = Products::find()->where("id={$orderProductPost['id_product']}")->with('user')->one();
 
-            $orderProduct['id_product'] = $orderProductPost['id_product'];
-            $orderProduct['price'] = $product['price'];
-            $orderProduct['product'] = $product['product'];
-            $orderProduct['employee'] = $product['user']['login'];
-            $orderProduct['image'] = $product['image'];
-            $orderProduct['count'] = $orderProductPost['count'];
-
-            $orderProduct->save();
 
             return $this->redirect(['index', 'id' => $model->id]);
         }
 
         return $this->render('update', [
-            'model' => $model, 'orderProduct' => $orderProduct
+            'model' => $model
         ]);
     }
 
@@ -207,7 +194,7 @@ class OrderController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = OrdersSearch::findOne(['id' => $id])) !== null) {
+        if (($model = Orders::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

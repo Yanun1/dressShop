@@ -11,10 +11,10 @@ $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="orders-update">
 
-    <h1><?= Html::encode($this->title) ?> (<?= $orderProduct['product'] ?>)</h1>
+    <h1><?= Html::encode($this->title) ?> (<?= $model['product'] ?>)</h1>
 
     <?= $this->render('_form', [
-        'model' => $model, 'orderProduct' => $orderProduct
+        'model' => $model
     ]) ?>
 
 </div>

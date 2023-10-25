@@ -15,6 +15,7 @@ use app\components\ProductWidget;
 
     <?= $form->field($model, 'product')->label('Products')->input('text', ['placeholder' => "Select product", 'class' => 'productInput form-control', 'readOnly' => true]) ?>
 
+    <?= $form->field($model, 'price')->textInput() ?>
     <?= $form->field($model, 'count')->textInput() ?>
 
     <?= $form->field($model, 'status')->dropDownList(
@@ -27,7 +28,7 @@ use app\components\ProductWidget;
 
     <?php ActiveForm::end(); ?>
 
-<!--    --><?php //= //ProductWidget::widget()  ;?>
+    <?=  ProductWidget::widget()?>
 </div>
 
 <style>

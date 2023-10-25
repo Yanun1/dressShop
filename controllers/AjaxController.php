@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 use app\models\OrderProduct;
+use app\models\Orders;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use app\models\Products;
@@ -47,12 +48,10 @@ class AjaxController extends Controller
                     return json_encode(self::$base);
                 }
             } elseif ($_POST['orderProduct'] == 0) {
-                //return json_encode('false');
                 if (isset(self::$baseProduct))
                     return json_encode(self::$baseProduct);
                 else {
-                    // self::$base = OrderProduct::find()->with('images')->indexBy('id')->asArray()->all();
-                    self::$baseProduct = OrderProduct::find()->with('images')->indexBy('id')->asArray()->all();
+                    self::$baseProduct = Orders::find()->with('images')->indexBy('id')->asArray()->all();
                     return json_encode(self::$baseProduct);
                 }
             }
