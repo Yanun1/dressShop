@@ -112,6 +112,7 @@ input[type='Number'] {
 }
 .productInput {
     cursor: pointer;
+    min-width: 100%;
 }
 .micro-image img {
     width: 100%;

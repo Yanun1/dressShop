@@ -2,7 +2,7 @@ $(document).ready(function() {
     let productId;
     let productInput;
     let productImage;
-
+    let productName;
 
     $('.productInput').click(function () {
         $('.select-product-widget').css('display', 'flex');
@@ -20,19 +20,15 @@ $(document).ready(function() {
     $('.choose-window').click(function () {
         productInput.attr('data-image', productImage);
         $('.select-product-widget').css('display', 'none');
+        //productInput.attr('value', productId).val(productName).trigger("change");
         productInput.val(productId).trigger("change");
     });
 
-    // $('.catalog a').click(function () {
-    //     productId = $(this).parent().val();
-    //     productImage = $(this).parent().attr('src');
-    //     $('.owl-item img').attr('src', "http://dress-shop/images/" + $(this).parent().attr('src'));
-    // });
 
     $('.pull-right').click(function () {
-        // $(this).parent().find('.active').trigger('click');
         productId = $(this).parent().val();
         productImage = $(this).parent().attr('src');
+        productName = $(this).parent().find('.item').text();
         $('.owl-item img').attr('src', "http://dress-shop/images/" + $(this).parent().attr('src'));
     });
 

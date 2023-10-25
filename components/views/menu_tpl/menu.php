@@ -1,7 +1,14 @@
 
 <div class="category-products">
     <li value="<?= $category['id']?>" src="<?= $category['image']?>" >
-        <a href="#" class="item"> <?= $category['product'] ?></a>
+        <a href="#" class="item">
+            <?= $category['product'] ?>
+            <?php if(isset($category['childs'])):?>
+                <?= " (Category)" ?>
+            <?php else: ?>
+                <?= " (Product)" ?>
+            <?php endif ?>
+        </a>
         <div class = "badge pull-right"><input type="radio" name="chosed" class="checked-product"></div>
        <?php if(isset($category['childs'])):?>
         <ul class="child-ul">

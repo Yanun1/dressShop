@@ -40,8 +40,8 @@ class Products extends \yii\db\ActiveRecord
             ['product', 'match', 'pattern' => '/^[a-zA-Z0-9\-\s]+$/', 'message' => 'Please enter only letters and numbers.'],
             ['image', 'file', 'maxSize' => 1024 * 1024 * 20, 'extensions' => 'png, jpg', 'tooBig' => 'The file is too large. Maximum size 20 MB.'],
             [['price'], 'double'],
-            [['count', 'id_product', 'id_user'], 'integer'],
-            [['count', 'id_product', 'id_user', 'price'], 'match', 'pattern' => '/^[0-9\s]+$/', 'message' => 'The value must be a positive number.'],
+            [['count', 'id_user'], 'integer'],
+            [['count', 'id_user', 'price'], 'match', 'pattern' => '/^[0-9\s]+$/', 'message' => 'The value must be a positive number.'],
             [['product'], 'string', 'min' => 3, 'max' => 45],
             [['id_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['id_user' => 'id']],
         ];

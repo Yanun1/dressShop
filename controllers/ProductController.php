@@ -157,6 +157,8 @@ class ProductController extends Controller
                     $model->image = $model->image[0]->baseName . $extraName . '.' . $model->image[0]->extension;
                 }
 
+//                echo '<pre>';
+//                var_dump($model->validate());die;
 
                 if (!$model->save()) {
                     \Yii::$app->session->setFlash('errorOrder', 'Something gone wrong');
@@ -164,7 +166,7 @@ class ProductController extends Controller
                 }
 
 
-                if(count($modelProductsImage->remaining) != count($modelImages)) {
+                if(isset($modelProductsImage->remaining) && count($modelProductsImage->remaining) != count($modelImages)) {
                     foreach ($modelImages as $item) {
                         if(!in_array($item['image'], $modelProductsImage->remaining)) {
                             $item->delete();

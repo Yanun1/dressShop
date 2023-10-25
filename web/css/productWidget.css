@@ -35,6 +35,16 @@
     display: none;
 }
 
+.owl-carousel .owl-stage {
+    max-height: 300px;
+}
+
+.owl-carousel.owl-drag .owl-item {
+    display: flex;
+    max-height: 300px;
+    align-items: center;
+}
+
 .owl-carousel .owl-stage:after {
     content: '' !important;
 }
@@ -59,7 +69,6 @@
 .window-product {
     display: flex;
     flex-direction: column;
-    gap: 15px;
 }
 
 .product-info {
@@ -70,6 +79,8 @@
     align-items: center;
     justify-content: center;
     max-height: 300px;
+    width: 50%;
+    margin: 0 auto;
 }
 
 .slider-buttons {
@@ -83,6 +94,7 @@
 .no-js .owl-carousel, .owl-carousel.owl-loaded {
     display: flex;
     align-items: center;
+    max-height: 300px;
 }
 
 .slider-buttons img {
@@ -105,6 +117,7 @@
 
 .owl-carousel .owl-stage-outer {
     border-radius: 6px;
+    max-height: 300px;
 }
 
 .catalog {

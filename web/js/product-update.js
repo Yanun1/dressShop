@@ -7,6 +7,11 @@
 //     }
 // });
 
+
+// $('.productInput').on('change', function () {
+//     console.log($(this).val());
+// });
+
 $('.checkbox').on('click', function () {
     let checkbox = $('.checkbox')[0];
     if(checkbox.checked)
@@ -41,4 +46,10 @@ $('.push-update').on('click', function (event) {
     if($('.images-error').css('display') == 'none') {
         $(this).submit();
     }
+});
+
+$('.form-group > button').on('click', function (event) {
+    event.preventDefault();
+    $('.productInput').val($('.productInput').attr('value'));
+    $(this).submit();
 });

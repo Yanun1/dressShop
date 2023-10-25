@@ -204,7 +204,7 @@ foreach ($orders as $order) {
         "11" => "November",
         "12" => "December"
     ]) ?>
-    <?= Html::input('text', 'id_product', $_GET['id_product'], ['placeholder' => 'Select product', 'class' => 'productInput form-control', 'readonly' => true]) ?>
+    <?= Html::input('text', 'id_product', $_GET['id_product'] ?? '', ['placeholder' => 'Select product', 'class' => 'productInput form-control', 'readonly' => true]) ?>
     <button class="btn btn-primary">Show</button>
     <div class="color-bars">
         <button class="btn btn-dark">Change chart colors</button>
