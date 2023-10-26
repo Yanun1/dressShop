@@ -40,6 +40,7 @@ if(isset($_GET['id_product']) && $_GET['id_product'] != '') {
         ->all();
 }
 
+
 $data = [];
 
 $xAxis = [];
@@ -61,6 +62,7 @@ foreach($orders as $order) {
     $data[$date]['count'] += $count;
 
 }
+
 $priceData = [];
 $countData = [];
 foreach ($data as $value) {
@@ -354,6 +356,52 @@ echo ProductWidget::widget();
 ?>
 <div id="plotly" style="height: 600px; width: 600px;"></div>
 
+
+<?php
+$employersReport = Orders::find()
+    ->asArray()
+    ->select('employee, SUM(Orders.price*Orders.count) AS total, DATE(date)')
+    ->joinWith('check')
+    ->groupBy(['employee','DATE(date)'])
+    ->all();
+
+
+$tempData = [];
+foreach ($employersReport as $item) {
+    $tempData[$item['employee']] = [];
+    $tempData[$item['employee']]['price'] = [];
+    $tempData[$item['employee']]['date'] = [];
+//    echo '<pre>';
+//    var_dump($tempData[$item['employee']]['price']); die;
+
+    $tempData[$item['employee']]['price'][] = $item['price'];
+    $tempData[$item['employee']]['date'][] = $item['date'];
+}
+
+echo '<pre>';
+var_dump($tempData); die;
+
+$data3D = [];
+$j = 0;
+$x = 2;
+foreach ($employersReport as $item) {
+    $data3D[$j] = [];
+    for ($i = 1; $i < date('d', strtotime($last_day)); $i++) {
+        $data3D[$j]['x'][] = [$x, $x+1];
+        $data3D[$j]['y'][] = [$i,$i];
+        $data3D[$j]['z'][] = [$i*600, $i*600];
+        $data3D[$j]['name'] = $item['employee'];
+        $data3D[$j]['showscale'] = false;
+        $data3D[$j]['type'] = 'surface';
+    }
+    $j++;
+    $x+=2;
+}
+
+echo '<pre>';
+var_dump($employersReport); die;
+?>
+
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         d3.json('https://raw.githubusercontent.com/plotly/datasets/master/3d-ribbon.json', function(figure){
@@ -406,6 +454,10 @@ echo ProductWidget::widget();
 
             var data = [trace1, trace2, trace3, trace4, trace5, trace6, trace7];
 
+            let data3D = <?= json_encode($data3D) ?>;
+
+            console.log(data3D);
+            console.log(data);
             var layout = {
                 title: 'Chart for employers',
                 showlegend: false,
@@ -418,7 +470,7 @@ echo ProductWidget::widget();
                     zaxis: {title: 'Sold Outs'}
                 }
             };
-            Plotly.newPlot('plotly', data, layout);
+            Plotly.newPlot('plotly', data3D, layout);
         });
     });
 
