@@ -77,3 +77,11 @@ input[type="color"] {
     flex-wrap: wrap;
     justify-content: center;
 }
+
+.gtitle {
+    font-size: 27px;
+}
+
+#plotly {
+    margin: 0 auto;
+}

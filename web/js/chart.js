@@ -92,4 +92,8 @@ chart.options.axisY[1].titleFontColor = selectedTextColor;
 chart.render();
 });
 chart.render();
+
+$('.gtitle').css('font-size', '27px !important');
+$('.gtitle').attr('y', '100 !important');
+
 }
