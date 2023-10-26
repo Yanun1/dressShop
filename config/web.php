@@ -48,7 +48,7 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                'ajax/base' => 'ajax/base'
+                'ajax/base' => 'ajax/base',
             ],
         ],
         'authManager' => [

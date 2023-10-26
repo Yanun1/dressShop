@@ -59,6 +59,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= Html::label('Total cost', 'TotalCostLabel') ?>
                 <?= Html::input('Number','totalCost', 0, ['class' => 'form-control field-ordersform-count', 'readOnly' => true])?>
             </div>
+            <?php
+            $role = Yii::$app->authManager->getRolesByUser(Yii::$app->user->id);
+            if(isset($role['admin'])):  ?>
+                <div class="form-group field-orders-id_product noneInput">
+                    <?= Html::label('User Login') ?>
+                    <?= Html::input('text','userInput', null, ['class' => 'form-control'])?>
+                </div>
+            <?php endif; ?>
         </div>
     <?php ActiveForm::end() ?>
 </div>

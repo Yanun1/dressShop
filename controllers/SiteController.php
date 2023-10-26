@@ -67,7 +67,7 @@ class SiteController extends Controller
         if(Yii::$app->authManager->getRole('admin') == null) {
             RolesController::defaultRoles();
         }
-        return $this->render('index');
+        return $this->render('chart');
     }
 
     public function actionContact()
