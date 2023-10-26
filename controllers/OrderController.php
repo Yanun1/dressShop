@@ -88,16 +88,36 @@ class OrderController extends Controller
      */
     public function actionCreate(){
         $model = new Orders();
+        $error = '';
 
         if(Yii::$app->request->isPost) {
             $postValues = Yii::$app->request->post()['Orders'];
 
             $checkNubmers = time();
 
+
+
             $check = new OrderCheck();
             $check['id_order'] = $checkNubmers;
-            $userId = Yii::$app->user->getId();
-            $check['customer'] = User::find()->where("id=$userId")->asArray()->one()['login'];
+
+
+            if(isset(Yii::$app->request->post()['userInput']) && Yii::$app->request->post()['userInput'] != null) {
+                $userChose = Yii::$app->request->post()['userInput'];
+
+                if(!empty(User::find()->where("login='$userChose'")->one())) {
+                    $check['customer'] = $userChose;
+                }
+                else {
+                    $error = "The user with this login does not exist!";
+                    return $this->render('create',compact('model', 'error'));
+                }
+            }
+            else {
+                $userId = Yii::$app->user->getId();
+                $check['customer'] = User::find()->where("id=$userId")->asArray()->one()['login'];
+            }
+
+
             $check['price'] = \Yii::$app->request->post('totalCost');
 
             $countAll = 0;
@@ -134,7 +154,7 @@ class OrderController extends Controller
             return $this->refresh();
         }
 
-        return $this->render('create',compact('model'));
+        return $this->render('create',compact('model', 'error'));
     }
 
     /**

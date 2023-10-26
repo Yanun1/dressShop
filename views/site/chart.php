@@ -80,7 +80,7 @@ foreach ($xAxis as $index => $xValue) {
 if(!\Yii::$app->user->isGuest) {
     $id = \Yii::$app->user->getId();
     $model = ChartSettings::find()->with('user')->where("user_id=$id")->one();
-}//stugum a te ova mutq gorcel
+}
 
 if($_SERVER['REQUEST_METHOD'] === 'GET' && !\Yii::$app->user->isGuest){
     if (isset($_GET['selectTheme'])) {
@@ -96,8 +96,11 @@ if($_SERVER['REQUEST_METHOD'] === 'GET' && !\Yii::$app->user->isGuest){
         $model->count_color	 = $_GET['selectCount'];
     }
 }
-if(!\Yii::$app->user->isGuest && $model->user_id == null)
+if(!\Yii::$app->user->isGuest && !isset($model)) {
+    $model = new ChartSettings();
     $model->user_id = \Yii::$app->user->getId();
+}
+
 if (isset($model->theme)){
     $selectTheme = $model->theme;
     $selectTotal = $model->total_color;
@@ -134,11 +137,16 @@ foreach ($orders as $order) {
     $i++;
 }
 
-for ($i = 6; $i <= count($newData); $i++) {
-    $newData[5][0] = 'others';
-    $newData[5][1] += $newData[$i][1];
-    unset($newData[$i]);
+
+
+if(count($newData) > 6){
+    for ($i = 6; $i <= count($newData); $i++) {
+        $newData[5][0] = 'others';
+        $newData[5][1] += $newData[$i][1];
+        unset($newData[$i]);
+    }
 }
+
 ?>
 
 
@@ -150,6 +158,14 @@ $newPriceData[] = ['Product', 'Price'];
 
 foreach ($orders as $order) {
     $newPriceData[] = [$order[0], (int)$order[1]];
+}
+
+if(count($newPriceData) > 6){
+    for ($i = 6; $i <= count($newPriceData); $i++) {
+        $newPriceData[5][0] = 'others';
+        $newPriceData[5][1] += $newPriceData[$i][1];
+        unset($newPriceData[$i]);
+    }
 }
 
 ?>

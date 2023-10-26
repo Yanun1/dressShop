@@ -18,6 +18,8 @@ $this->registerMetaTag(['name' => 'viewport', 'content' => 'width=device-width, 
 $this->registerMetaTag(['name' => 'description', 'content' => $this->params['meta_description'] ?? '']);
 $this->registerMetaTag(['name' => 'keywords', 'content' => $this->params['meta_keywords'] ?? '']);
 $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii::getAlias('@web/favicon.ico')]);
+
+$role = Yii::$app->authManager->getRolesByUser(Yii::$app->user->id);
 ?>
 
 <?php $this->beginPage() ?>
@@ -40,10 +42,10 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav'],
         'items' => [
-            //['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'Product', 'url' => ['/product/index']],
             ['label' => 'Orders', 'url' => ['/order/index']],
             ['label' => 'Chart', 'url' => ['/site/chart']],
+            isset($role['admin']) ? ['label' => 'Users', 'url' => ['/user/index']] : '',
             Yii::$app->user->isGuest
                 ? ['label' => 'Login', 'url' => ['/site/login']]
                 : '<li class="nav-item">'

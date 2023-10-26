@@ -60,11 +60,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= Html::input('Number','totalCost', 0, ['class' => 'form-control field-ordersform-count', 'readOnly' => true])?>
             </div>
             <?php
-            $role = Yii::$app->authManager->getRolesByUser(Yii::$app->user->id);
+            $userInputError = empty($error) ? '' : $error;
             if(isset($role['admin'])):  ?>
                 <div class="form-group field-orders-id_product noneInput">
                     <?= Html::label('User Login') ?>
-                    <?= Html::input('text','userInput', null, ['class' => 'form-control'])?>
+                    <?= Html::input('text','userInput', null, ['class' => 'form-control userInput'])?>
+                    <?= Html::label($userInputError, null, ['class' => 'userInput-error']) ?>
                 </div>
             <?php endif; ?>
         </div>
@@ -72,6 +73,19 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 <?= ProductWidget::widget()  ;?>
 <style>
+
+    .field-ordersform-count {
+        min-width: 100%;
+    }
+
+.userInput {
+    margin-bottom: 0 !important;
+}
+
+.userInput-error {
+    color: red;
+}
+
 .newForm {
     margin-top: 50px;
 }
