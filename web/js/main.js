@@ -129,6 +129,15 @@ $(document).ready(function() {
         XLSX.writeFile(workbook, 'orders.xlsx');
     });
 
+    if($('.userInput-error').text() != '') {
+        $('.userInput').css('border-color', 'red');
+    }
+    
+    $('.userInput').on('input', function () {
+        $('.userInput-error').text('');
+        $('.userInput').css('border-color', '#dee2e6');
+    });
+
 
     $(".add-row").click(duplicateForm);
     $(".remove-row").click(removeForm);
