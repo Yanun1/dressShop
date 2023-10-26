@@ -139,4 +139,13 @@ return array (
       '@scotthuangzl/googlechart' => $vendorDir . '/scotthuangzl/yii2-google-chart',
     ),
   ),
+  'blacksmoke26/yii2cdn' => 
+  array (
+    'name' => 'blacksmoke26/yii2cdn',
+    'version' => '1.0.1.0',
+    'alias' => 
+    array (
+      '@yii2cdn' => $vendorDir . '/blacksmoke26/yii2cdn/src',
+    ),
+  ),
 );

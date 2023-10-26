@@ -37,6 +37,15 @@
             'aliases' => array(),
             'dev_requirement' => true,
         ),
+        'blacksmoke26/yii2cdn' => array(
+            'pretty_version' => '1.0.1',
+            'version' => '1.0.1.0',
+            'reference' => '4be554459e962e53db6ed72cf33e3a1f65902f16',
+            'type' => 'yii2-extension',
+            'install_path' => __DIR__ . '/../blacksmoke26/yii2cdn',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'bower-asset/bootstrap' => array(
             'pretty_version' => 'v5.3.2',
             'version' => '5.3.2.0',
@@ -877,9 +886,9 @@
             'dev_requirement' => true,
         ),
         'symfony/var-dumper' => array(
-            'pretty_version' => 'v6.3.5',
-            'version' => '6.3.5.0',
-            'reference' => '3d9999376be5fea8de47752837a3e1d1c5f69ef5',
+            'pretty_version' => 'v6.3.6',
+            'version' => '6.3.6.0',
+            'reference' => '999ede244507c32b8e43aebaa10e9fce20de7c97',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/var-dumper',
             'aliases' => array(),

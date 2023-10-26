@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "07c467bb7ac1807bebe861bdd4cb2b89",
+    "content-hash": "8ca8073ce18e4eaba6f03afe3effc1e0",
     "packages": [
         {
             "name": "2amigos/yii2-chartjs-widget",
@@ -139,6 +139,58 @@
             },
             "abandoned": true,
             "time": "2017-07-05T14:59:26+00:00"
+        },
+        {
+            "name": "blacksmoke26/yii2cdn",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/blacksmoke26/yii2cdn.git",
+                "reference": "4be554459e962e53db6ed72cf33e3a1f65902f16"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/blacksmoke26/yii2cdn/zipball/4be554459e962e53db6ed72cf33e3a1f65902f16",
+                "reference": "4be554459e962e53db6ed72cf33e3a1f65902f16",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.0",
+                "yiisoft/yii2": "^2.0.12"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "yii2cdn\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Junaid Atari",
+                    "email": "mj.atari@gmail.com",
+                    "homepage": "http://junaidatari.com",
+                    "role": "Author"
+                }
+            ],
+            "description": "A Yii Framework 2 component for using assets in different environments (Local/CDNs)",
+            "homepage": "https://github.com/blacksmoke26/yii2cdn",
+            "keywords": [
+                "assets",
+                "cdn",
+                "extension",
+                "yii2"
+            ],
+            "support": {
+                "email": "mj.atari@gmail.com",
+                "issues": "https://github.com/blacksmoke26/yii2cdn/issues",
+                "source": "https://github.com/blacksmoke26/yii2cdn/tree/1.0.1",
+                "wiki": "https://github.com/blacksmoke26/yii2cdn/wiki"
+            },
+            "time": "2020-12-05T11:06:41+00:00"
         },
         {
             "name": "bower-asset/bootstrap",
@@ -5866,16 +5918,16 @@
         },
         {
             "name": "symfony/var-dumper",
-            "version": "v6.3.5",
+            "version": "v6.3.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "3d9999376be5fea8de47752837a3e1d1c5f69ef5"
+                "reference": "999ede244507c32b8e43aebaa10e9fce20de7c97"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/3d9999376be5fea8de47752837a3e1d1c5f69ef5",
-                "reference": "3d9999376be5fea8de47752837a3e1d1c5f69ef5",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/999ede244507c32b8e43aebaa10e9fce20de7c97",
+                "reference": "999ede244507c32b8e43aebaa10e9fce20de7c97",
                 "shasum": ""
             },
             "require": {
@@ -5930,7 +5982,7 @@
                 "dump"
             ],
             "support": {
-                "source": "https://github.com/symfony/var-dumper/tree/v6.3.5"
+                "source": "https://github.com/symfony/var-dumper/tree/v6.3.6"
             },
             "funding": [
                 {
@@ -5946,7 +5998,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-09-12T10:11:35+00:00"
+            "time": "2023-10-12T18:45:56+00:00"
         },
         {
             "name": "symfony/yaml",

@@ -14,6 +14,10 @@ class ChartAsset extends AssetBundle
     ];
     public $js = [
         "js/canvasjs.min.js",
+        "js/d3.v7.min.js",
+        "js/plotly-latest.min.js",
+        "js/d3.v6.min.js",
+        "js/d3.min.js"
     ];
     public $depends = [
         'yii\web\YiiAsset',

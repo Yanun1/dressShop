@@ -6,6 +6,7 @@ use yii\helpers\Html;
 use app\assets\ChartAsset;
 use app\components\ProductWidget;
 
+$this->registerJsFile('https://d3js.org/d3.v6.min.js');
 ChartAsset::register($this);//css js kpcnelu hamar
 
 if (isset($_GET['year']) && isset($_GET['month'])) {
@@ -40,6 +41,7 @@ if(isset($_GET['id_product']) && $_GET['id_product'] != '') {
 }
 
 $data = [];
+
 $xAxis = [];
 $currentDate = strtotime($first_day);
 
@@ -47,6 +49,7 @@ $endDate = strtotime($last_day);
 while ($currentDate <= $endDate) {
     $date = date('Y-m-d', $currentDate);
     $xAxis[] = date('d', $currentDate);
+
     $data[$date] = ['price' => 0, 'count' => 0];
     $currentDate = strtotime('+1 day', $currentDate);
 }
@@ -56,6 +59,7 @@ foreach($orders as $order) {
     $count = (int)$order['count'];
     $data[$date]['price'] += $price;
     $data[$date]['count'] += $count;
+
 }
 $priceData = [];
 $countData = [];
@@ -66,10 +70,12 @@ foreach ($data as $value) {
 $chartData = [];
 foreach ($xAxis as $index => $xValue) {
     $chartData[] = ['x' => (int)$xValue, 'y' => $priceData[$index]];
+
 }
 $countChartData = [];
 foreach ($xAxis as $index => $xValue) {
     $countChartData[] = ['x' => (int)$xValue, 'y' => $countData[$index]];
+
 }
 if(!\Yii::$app->user->isGuest) {
     $id = \Yii::$app->user->getId();
@@ -330,8 +336,77 @@ foreach ($orders as $order) {
 <?php
 echo ProductWidget::widget();
 ?>
+<div id="plotly" style="height: 600px; width: 600px;"></div>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        d3.json('https://raw.githubusercontent.com/plotly/datasets/master/3d-ribbon.json', function(figure){
+             // console.log(figure.data);
+            var trace1 = {
+                x: <?php echo json_encode($chartData); ?>.x, y: <?php echo json_encode($chartData[0]); ?>.y, z: figure.data[0].z,
+                name: '',
+                colorscale: figure.data[0].colorscale,
+                type: 'surface',
+                showscale: false
+            }
+            var trace2 = {
+                x: figure.data[1].x, y: figure.data[1].y, z: figure.data[1].z,
+                name: '',
+                colorscale: figure.data[1].colorscale,
+                type: 'surface',
+                showscale: false
+            }
+            var trace3 = {
+                x: figure.data[2].x, y: figure.data[2].y, z: figure.data[2].z,
+                colorscale: figure.data[2].colorscale,
+                type: 'surface',
+                showscale: false
+            }
+            var trace4 = {
+                x: figure.data[3].x, y: figure.data[3].y, z: figure.data[3].z,
+                colorscale: figure.data[3].colorscale,
+                type: 'surface',
+                showscale: false
+            }
+            var trace5 = {
+                x: figure.data[4].x, y: figure.data[4].y, z: figure.data[4].z,
+                colorscale: figure.data[4].colorscale,
+                type: 'surface',
+                showscale: false
+            }
+            var trace6 = {
+                x: figure.data[5].x, y: figure.data[5].y, z: figure.data[5].z,
+                colorscale: figure.data[5].colorscale,
+                type: 'surface',
+                showscale: false
+            }
+            var trace7 = {
+                x: figure.data[6].x, y: figure.data[6].y, z: figure.data[6].z,
+                name: '',
+                colorscale: figure.data[6].colorscale,
+                type: 'surface',
+                showscale: false
+            }
 
+            var data = [trace1, trace2, trace3, trace4, trace5, trace6, trace7];
+
+            var layout = {
+                title: 'Chart for employers',
+                showlegend: false,
+                autosize: true,
+                width: 600,
+                height: 600,
+                scene: {
+                    xaxis: {title: 'Employers'},
+                    yaxis: {title: 'Days'},
+                    zaxis: {title: 'Sold Outs'}
+                }
+            };
+            Plotly.newPlot('plotly', data, layout);
+        });
+    });
+
+</script>
 
 
 
