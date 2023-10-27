@@ -11,6 +11,9 @@ $this->registerJsFile('@web/js/main.js', ['position'=>\yii\web\View::POS_END, 'd
 $this->title = 'Create Orders';
 $this->params['breadcrumbs'][] = ['label' => 'Orders', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+
+$role = Yii::$app->authManager->getRolesByUser(Yii::$app->user->id);
+
   ?>
 <h1>Orders</h1>
 <div class="newForm">

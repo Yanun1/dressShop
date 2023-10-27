@@ -32,6 +32,15 @@ $(document).ready(function() {
         $('.owl-item img').attr('src', "http://dress-shop/images/" + $(this).parent().attr('src'));
     });
 
+    $('.catalog a').click(function () {
+        productId = $(this).parent().val();
+        productImage = $(this).parent().attr('src');
+        productName = $(this).parent().find('.item').text();
+        $('.owl-item img').attr('src', "http://dress-shop/images/" + $(this).parent().attr('src'));
+        $('.checked-product').prop('checked', false);
+        $(this).parent().find(' > .pull-right .checked-product').prop('checked', true);
+    });
+
     $('.catalog').dcAccordion();
 
     $('.owl-carousel').owlCarousel({

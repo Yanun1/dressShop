@@ -79,6 +79,8 @@ class OrdersSearch extends Orders
 //        $query->where("orderProduct.user='$name[login]'");
 
 //        $query->joinWith(['check']);
+
+
         $query->andFilterWhere([
             'count' => $this->count,
             'image' => $this->image,

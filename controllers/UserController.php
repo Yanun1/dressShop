@@ -82,7 +82,6 @@ class UserController extends Controller
     {
         $model = new User();
         $modelRole = new AuthAssignment();
-
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $modelRole->load($this->request->post())) {
 

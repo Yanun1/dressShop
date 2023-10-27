@@ -25,6 +25,11 @@ use yii\helpers\Url;
  */
 class OrderController extends Controller
 {
+    public function beforeAction($action)
+    {
+        $this->enableCsrfValidation = false;
+        return parent::beforeAction($action);
+    }
 
     public function behaviors()
     {
@@ -74,6 +79,31 @@ class OrderController extends Controller
     {
         $searchModel = new CheckSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        if ($this->request->isPost) {
+            $newName = \Yii::$app->request->post('orderEmployee');
+            $checkID = \Yii::$app->request->post('order-check');
+
+            if (empty(User::find()->where("login='$newName'")->one())) {
+                \Yii::$app->session->setFlash('errorUser', 'Аn account with that login is does\'t exists');
+                return $this->render('checks', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+                ]);
+            }
+
+            $check = CheckSearch::find()->where("id_order=$checkID")->one();
+            $check->customer = $newName;
+
+            if(!$check->save()) {
+                \Yii::$app->session->setFlash('errorUser', 'Something gone wrong!');
+                return $this->render('checks', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+                ]);
+            }
+            \Yii::$app->session->setFlash('successAdd', 'Added');
+        }
 
         return $this->render('checks', [
             'searchModel' => $searchModel,

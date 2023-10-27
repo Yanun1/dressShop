@@ -141,10 +141,10 @@ foreach ($orders as $order) {
 
 
 
-if(count($newData) > 6){
-    for ($i = 6; $i <= count($newData); $i++) {
-        $newData[5][0] = 'others';
-        $newData[5][1] += $newData[$i][1];
+if(count($newData) > 5){
+    for ($i = 7; $i <= count($newData); $i++) {
+        $newData[6][0] = 'others';
+        $newData[6][1] += $newData[$i][1];
         unset($newData[$i]);
     }
 }
@@ -162,13 +162,14 @@ foreach ($orders as $order) {
     $newPriceData[] = [$order[0], (int)$order[1]];
 }
 
-if(count($newPriceData) > 6){
-    for ($i = 6; $i <= count($newPriceData); $i++) {
-        $newPriceData[5][0] = 'others';
-        $newPriceData[5][1] += $newPriceData[$i][1];
+if(count($newPriceData) > 5){
+    for ($i = 7; $i <= count($newPriceData); $i++) {
+        $newPriceData[6][0] = 'others';
+        $newPriceData[6][1] += $newPriceData[$i][1];
         unset($newPriceData[$i]);
     }
 }
+
 
 ?>
 
@@ -247,6 +248,7 @@ if(count($newPriceData) > 6){
         </div>
     </div>
 </form>
+
 <script>
     window.onload = function () {
         var chart = new CanvasJS.Chart("chartContainer", {
@@ -409,7 +411,6 @@ foreach ($tempData as $item) {
     $x+=2;
 }
 ?>
-
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         d3.json('https://raw.githubusercontent.com/plotly/datasets/master/3d-ribbon.json', function(figure){

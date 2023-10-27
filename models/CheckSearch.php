@@ -64,6 +64,11 @@ class CheckSearch extends OrderCheck
             return $dataProvider;
         }
 
+        if(!isset(\Yii::$app->authManager->getRolesByUser(\Yii::$app->user->id)['admin']) )
+        {
+            $query->andFilterWhere(['customer' => \Yii::$app->user->identity->login]);
+        }
+
         $query->andFilterWhere(['LIKE', 'id_order', $this->id_order]);
         $query->andFilterWhere(['LIKE', 'status', $this->status]);
         $query->andFilterWhere(['LIKE', 'date', $this->date]);

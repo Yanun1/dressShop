@@ -72,6 +72,11 @@ class ProductsSearch extends Products
 
         $query->joinWith(['user']);
 
+        if(!isset(\Yii::$app->authManager->getRolesByUser(\Yii::$app->user->id)['admin']) )
+        {
+            $query->andFilterWhere([ 'id_user' => \Yii::$app->user->id ]);
+        }
+
         // grid filtering conditions
         $query->andFilterWhere([
             'price' => $this->price,
